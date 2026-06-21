@@ -1,5 +1,7 @@
 # Global Workflow Command
 
+> **DEPRECATED (v1.1.0):** Use `/gw-triage`, `/gw-riskcheck`, `/gw-handoff`, `/gw-review` instead. Not installed to `~/.cursor/commands/`.
+
 This command provides four workflow sub-commands for structured development tasks.
 
 ## Usage

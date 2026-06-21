@@ -1,0 +1,16 @@
+---
+description: Triage module destination before planning or implementing features
+alwaysApply: true
+---
+
+# Module Creation Gate
+
+Before planning or implementing, decide:
+
+1. **Existing module** (`Modules/<Name>/`) — extend when continuation of same capability
+2. **`app/` kernel** — cross-cutting middleware, shared contracts only
+3. **New module** — distinct tenant-facing surface with independent domain behavior
+
+Do not run module generators without passing this gate.
+
+Reference your project's DEC for module boundaries after copy (e.g. DEC-0003).

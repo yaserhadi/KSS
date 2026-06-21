@@ -1,0 +1,23 @@
+---
+description: Mandatory pre-execution gate for sensitive phases
+globs: .cursor/plans/*.plan.md
+alwaysApply: true
+---
+
+# Pre-Execution Gate (Sensitive Phases)
+
+**DO NOT EXECUTE any Todo** before passing ALL checks.
+
+## Scope
+
+- Applies to: `.cursor/plans/*.plan.md`
+- Excludes: `.cursor/plans/archive/*`
+
+## Checks
+
+1. **Branch:** Not on `main`/`master` for implementation work
+2. **STATE:** Execution authorized if project uses execution gates
+3. **Module destination:** Existing module vs `app/` kernel vs new module (if product work)
+4. **References:** Plan has Lock + Verification + Evidence references per project convention
+
+Customize lock IDs and verification paths for your project after copy.

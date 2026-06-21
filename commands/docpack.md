@@ -8,7 +8,7 @@ description: Update documentation after work is done. Follows Detect-Propose-App
 Update documentation after work is done using a safe, confirmable workflow.
 
 ## Purpose
-Capture session changes in documentation (.cursor/memory/ and docs/).
+Capture session changes in `.cursor/memory/`, `.cursor/reports/`, and conventions — not legacy `docs/` as execution SSOT.
 
 ## Workflow: Detect → Propose → Apply (NOT automatic)
 
@@ -17,8 +17,8 @@ This command follows a three-phase workflow to ensure safe, confirmable document
 ## Workflow
 
 ### 1. Read Paths
-Read `.cursor/DOC_POLICY.yaml` for paths only (memory, reports, user_docs, architecture).
-- If missing: use defaults (.cursor/memory/, docs/, docs/architecture/). Proceed with workflow.
+Read `.cursor/DOC_POLICY.yaml` for paths only (memory, reports, decisions, conventions).
+- If missing: use defaults (`.cursor/memory/`, `.cursor/reports/`, `.cursor/memory/decisions/`). Proceed with workflow.
 
 ### 2. Detect
 Extract signals from the session:
@@ -36,7 +36,7 @@ Extract signals from the session:
 | RBAC, permissions, roles | `.cursor/memory/conventions/rbac-conventions.md` |
 | Test helpers, test patterns | `tests/README.md` |
 
-### 2.5 ADR Completeness Check (Advisory)
+### 2.5 DEC Completeness Check (Advisory)
 
 Scan session context for decision indicators:
 
@@ -48,19 +48,19 @@ Scan session context for decision indicators:
 - Language in commits/discussion: "decided", "chose", "alternative", "trade-off", "breaking change"
 
 **Check:**
-- If triggers detected AND no new/updated ADR found in session:
-  - Output **ADR Missing Warning** (advisory, not blocking)
+- If triggers detected AND no new/updated DEC found in session:
+  - Output **DEC Missing Warning** (advisory, not blocking)
 
 **Output Format:**
 ```
-**ADR Completeness Check (Advisory)**:
+**DEC Completeness Check (Advisory)**:
 - Decision indicators detected: [list what triggered]
-- ADR coverage found: [ADR-XXXX] / None
+- DEC coverage found: [DEC-NNNN] / None
 - Status: OK / Warning
 
 **If Warning**:
-> Recommended: Run `/adr` to capture the decision context.
-> If ADR not needed, document rationale: "ADR Not Needed: <reason>"
+> Recommended: Run `/adr` to capture the decision as a DEC digest.
+> If DEC not needed, document rationale: "DEC Not Needed: <reason>"
 ```
 
 **Important:** This check is advisory only. It does not block docpack execution.

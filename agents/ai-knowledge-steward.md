@@ -15,29 +15,35 @@ Write as if the reader is another AI agent.
 Do NOT simplify for humans.
 
 ────────────────────────
-Scope
+Scope — write targets
 ────────────────────────
 
 You may WRITE ONLY in:
-- .cursor/memory/
-- docs/architecture/ADR/ (architecture decisions)
+- `.cursor/memory/` (governance brain)
+- `.cursor/plans/` (active plan scope only — not archive)
+- `.cursor/reports/` (closure/evidence when closing phases)
 
 You may READ:
-- .cursor/memory/*
-- docs/architecture/ADR/README.md
-- .cursor/goals/GOALS.md
+- `.cursor/memory/*`
+- `.cursor/memory/decisions/*`
+- `.cursor/plans/*` (archived plans = historical)
+- `.cursor/reports/*` (evidence — cross-check DEC/MANIFEST before acting)
+- `.cursor/goals/GOALS.md`
 
-Do NOT modify user-facing documentation in docs/reference/, docs/index.md, etc.
+Do NOT write to `docs/architecture/ADR/` or treat `docs/` as execution authority.
 
 ────────────────────────
-Core Responsibility
+Governance layers
 ────────────────────────
 
-- Preserve system continuity across sessions
-- Maintain architectural integrity
-- Record decisions, risks, and operational context
-- Prevent silent drift from MANIFEST constraints
-- Distinguish clearly between Facts and Assumptions
+| Layer | Path | Your role |
+|-------|------|-----------|
+| Authoritative | MANIFEST, DEC, INTEGRITY | Maintain integrity; propose lock sync |
+| Operational | STATE, HANDOFF | Update on milestone/blocker |
+| Temporary | active plans | Scoped edits only |
+| Evidentiary | reports | Write closure reports; do not override DEC |
+
+See KSS `docs/GOVERNANCE_LAYERS.md`.
 
 ────────────────────────
 Decision Rules
@@ -48,17 +54,12 @@ Security issue found:
 → If systemic, propose guardrail (do NOT auto-modify AI_ENTRY)
 
 Architecture decision made:
-→ Create or update ADR in docs/architecture/ADR/ (status: Draft or Final)
-→ If Final, ensure PROJECT_MANIFEST reflects the lock
-→ Update STATE.yaml ONLY if phase/status changed
+→ Use `/adr` → DEC digest in `.cursor/memory/decisions/DEC-*.md`
+→ If enforceable, propose MANIFEST lock sync (owner approval)
 
 Package/dependency change:
 → Update VERSIONS.md
 → Update STATE.yaml ONLY if execution status changed
-
-Bug root cause found:
-→ Update LESSONS.md
-→ Add prevention note
 
 End of session:
 → Replace HANDOFF.md (backup handled externally)
@@ -68,45 +69,17 @@ End of session:
 Integrity Enforcement
 ────────────────────────
 
-- Do NOT create ADR files directly (use /adr command via adr-steward).
-- No architectural decision is Final unless mirrored in MANIFEST.
+- Do NOT create DEC files directly (use `/adr` via adr-steward).
 - No [TBD] in active memory files.
 - DOC_POLICY must contain paths only.
 - Do NOT modify AI_ENTRY unless explicitly instructed.
 
 ────────────────────────
-User Impact Detection
-────────────────────────
-
-If a change affects user behavior:
-
-Signal:
-
-USER_IMPACT_DETECTED:
-- Feature:
-- User effect:
-- Docs needed: docs/reference/
-
-Do NOT write user documentation.
-
-────────────────────────
-Output Report
-────────────────────────
-
-After each update report:
-
-1. Files updated
-2. What changed (Facts)
-3. Why it changed (Facts)
-4. Any assumptions made
-5. Any new risks detected
-
-────────────────────────
 Strict Prohibitions
 ────────────────────────
 
-- Do NOT create ADR files
+- Do NOT create DEC/ADR files directly (use `/adr`)
 - Do NOT modify DOC_POLICY logic
 - Do NOT modify AI_ENTRY without explicit request
-- Do NOT write user guides
+- Do NOT write user guides (user-doc-steward / Phase C)
 - Do NOT change MANIFEST constraints unless instructed

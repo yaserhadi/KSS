@@ -32,13 +32,15 @@ Reports include, but are not limited to:
 ```
 project-root/
 ├── .cursor/
-│   ├── plans/          # Future work plans
-│   ├── reports/        # ✅ Status reports (this rule)
-│   └── rules/          # Project-specific rules
-├── docs/               # Permanent technical documentation
-├── memory/             # Knowledge base
-└── README.md           # Project overview
+│   ├── memory/         # Governance brain (MANIFEST, DEC, INTEGRITY, STATE, HANDOFF)
+│   ├── plans/          # Temporary execution authority
+│   ├── reports/        # Evidence ledger (this rule)
+│   ├── rules/          # Project-specific policy gates
+│   └── goals/          # Strategic intent
+└── README.md
 ```
+
+Layer 2 runtime (commands, skills, agents) installs to `~/.cursor/` from KSS — not duplicated per project.
 
 ## Why This Rule Exists
 
@@ -66,14 +68,12 @@ if not exists .cursor/reports/README.md
 ## Exclusions
 
 **Not considered "reports"** (different storage rules):
-- Technical documentation → `docs/`
-- Architecture decisions → project ADR path (per DOC_POLICY, e.g., `docs/architecture/ADR/`)
-- API documentation → `docs/api/`
-- README files → Project root
+- Decision digests → `.cursor/memory/decisions/DEC-*.md`
+- Engineering conventions → `.cursor/memory/conventions/`
+- README files → Project root or `.cursor/`
 - CHANGELOG → Project root
-- Contributing guidelines → `CONTRIBUTING.md`
 
-**Note:** Do not hardcode ADR paths in global rules; use the project ADR path defined in DOC_POLICY.
+Human-facing documentation (Phase C) is non-SSOT — never execution authority.
 
 ## Project-Specific Overrides
 

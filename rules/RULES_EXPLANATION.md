@@ -1,13 +1,23 @@
 # Rules — Copy Instructions
 
-**Destination:** `~/.cursor/rules/`
+**Destination:** `~/.cursor/rules/` (portable global rules only)
 
-| File | Purpose |
-|------|---------|
-| plans-location.mdc | Plans stored in project `.cursor/plans/` only |
-| reports-location-global.md | Reports stored in `.cursor/reports/` |
-| git-main-merge-only.mdc | Do not edit or stage on `main`/`master`; branch first |
+| File | Class | Purpose |
+|------|-------|---------|
+| plans-location.mdc | Portable global | Plans in project `.cursor/plans/` only |
+| reports-location-global.md | Portable global | Reports in `.cursor/reports/` |
+| git-main-merge-only.mdc | Portable global | Branch before edits on main |
 
-**Not installed:** Project-specific gates (module boundaries, plan preflight, etc.) live in each project's `.cursor/rules/`.
+## Rule taxonomy
 
-**Response language:** use `/en`, `/ar`, `/aren` commands — see [COMMANDS_EXPLANATION.md](../commands/COMMANDS_EXPLANATION.md).
+| Class | Installed to | Examples |
+|-------|--------------|----------|
+| Portable global | `~/.cursor/rules/` | Files above |
+| Project optional | `<project>/.cursor/rules/` | plan-preflight, plan-completion, module-creation-gate |
+| Project-only | Never KSS install | Local git preferences, project checklists |
+
+Project optional templates: `templates/project-rules/`
+
+See [docs/GOVERNANCE_LAYERS.md](../docs/GOVERNANCE_LAYERS.md).
+
+**Response language:** `/en`, `/ar`, `/aren` commands — see [COMMANDS_EXPLANATION.md](../commands/COMMANDS_EXPLANATION.md).

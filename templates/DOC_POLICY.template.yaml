@@ -6,7 +6,17 @@ paths:
   memory: .cursor/memory
   rules: .cursor/rules
   reports: .cursor/reports
+  plans: .cursor/plans
+  goals: .cursor/goals
   conventions: .cursor/memory/conventions
-  user_docs: docs
-  architecture: docs/architecture
-  adr: docs/architecture/ADR
+  decisions: .cursor/memory/decisions
+  cursor_runtime: .cursor/CURSOR_RUNTIME.md
+  # architecture decisions live in memory/decisions/ (DEC digests)
+  architecture: .cursor/memory/decisions
+  adr: .cursor/memory/decisions
+  kss_framework: <path_to_kss_repo>
+  kss_global_install: ~/.cursor
+  global_commands: ~/.cursor/commands
+  global_skills: ~/.cursor/skills
+  global_agents: ~/.cursor/agents
+  global_rules: ~/.cursor/rules

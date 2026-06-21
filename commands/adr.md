@@ -1,49 +1,29 @@
-# /adr — Architectural Decision Record (Human Deliberation)
+# /adr — Decision Digest (DEC) from source text
 
 ## Input (required)
-Paste the source text (ChatGPT discussion, Cursor chat, meeting notes, etc.).
+Paste the source text (discussion, Cursor chat, meeting notes, etc.).
 Optional: title/slug suggestion, owner override.
 
-Owner:
-- Defaults to "KSS Steward - John"
-- May be overridden explicitly by user
-- Must never default to an AI agent name
-
-ADR ownership represents human accountability. AI tools may generate content but do not own decisions.
-
 ## Purpose
-Generate a Human ADR in:
-- docs/architecture/ADR/
+Generate a **DEC digest** in:
+- `.cursor/memory/decisions/DEC-NNNN-slug.md`
 
-ADR is human-facing deliberation and is **non-authoritative** for execution.
+DEC is the agent-facing decision record. Legacy human ADR folders under `docs/` are not execution authority.
 
 This command MUST NOT:
 - Modify PROJECT_MANIFEST.md
 - Modify INTEGRITY_RULES.md
 - Modify STATE.yaml
 - Modify VERSIONS.md
-- Create shadow memory folders
-- Change any execution logic
+- Write to `docs/architecture/ADR/`
+- Change any execution logic without owner approval
 
-## Workflow (text extraction)
+## Workflow
 1) Ask the user to paste the source text (if not provided).
-2) Invoke the ADR extraction agent (adr-steward) with the pasted text.
-3) adr-steward extracts:
-   - Context
-   - Options considered
-   - Decision (if present)
-   - Consequences
-   - Risks & Controls
-   - Status (Draft | Final)
-   - Owner (default: KSS Steward - John; override if user provides). If Owner not provided → set Owner: KSS Steward - John
-   - Enforcement Impact (what must be mirrored in enforcement layers)
-4) Create or update:
-   docs/architecture/ADR/ADR-XXXX-slug.md
-   - sequential numbering (use next available number)
-5) If Status = Final:
-   - Produce an "Enforcement Sync Proposal" text block
-   - DO NOT apply it automatically
-   - Wait for explicit approval before any enforcement update
+2) Invoke adr-steward with the pasted text.
+3) adr-steward produces DEC content per `memory/decisions/README.md`.
+4) Create or update `.cursor/memory/decisions/DEC-XXXX-slug.md`.
+5) If Status = Active: output Enforcement Sync Proposal (not applied automatically).
 
 ## Output
-- ADR file only + (optional) enforcement sync proposal (not applied).
+- DEC file only + optional enforcement sync proposal (not applied).

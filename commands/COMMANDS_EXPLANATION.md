@@ -17,7 +17,18 @@
 | en.md | English-only reply | Override response language for this session |
 | ar.md | Arabic-only reply | Override response language for this session |
 | aren.md | Dual language (Arabic + English) | Override response language for this session |
-| adr.md | Create ADR from text | Architecture decisions |
+| adr.md | Create DEC digest from text | Architecture decisions → `.cursor/memory/decisions/` |
+
+## Command taxonomy
+
+| Category | Commands |
+|----------|----------|
+| Runtime | boot, session-end, en, ar, aren |
+| Governance | gw-triage, gw-riskcheck, gw-review, gw-handoff |
+| Operational | git-prepare, git-save, git-finalize |
+| Documentation | docpack, adr |
+
+See [docs/GOVERNANCE_LAYERS.md](../docs/GOVERNANCE_LAYERS.md).
 
 ## Language overrides
 

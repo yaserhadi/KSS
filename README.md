@@ -16,7 +16,9 @@ KSS provides structure for AI agent governance:
 - **Agents** for specialized tasks
 - **Skills** for reusable capabilities
 
-**Framework = structure. Project = content.**
+**Framework = structure (~47 files). Project = content (~200+ files at maturity).**
+
+See [philosophy.md](philosophy.md) for three-layer SSOT architecture and [docs/KSS_EVOLUTION.md](docs/KSS_EVOLUTION.md) for version history.
 
 ---
 

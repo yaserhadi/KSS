@@ -1,0 +1,20 @@
+---
+description: Mandatory protocol for plan completion
+globs: .cursor/plans/*.plan.md
+alwaysApply: true
+---
+
+# Plan Completion Gate (Protocol)
+
+## Scope
+
+- Applies to: `.cursor/plans/*.plan.md`
+- Excludes: `.cursor/plans/archive/*`
+
+When ALL todos are `completed`, the agent MUST:
+
+1. Update `.cursor/plans/ACTIVE.plan.md` (current → last completed)
+2. Update plan `last_updated` (ISO 8601 with seconds)
+3. Link evidence report if created
+
+See project ACTIVE.plan template for format.
