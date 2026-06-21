@@ -1,7 +1,41 @@
 # Governance Layers
 
 **Audience:** KSS adopters, AI agents, architects  
-**See also:** [philosophy.md](../philosophy.md), [handbook.md](handbook.md)
+**See also:** [philosophy.md](../philosophy.md), [handbook.md](handbook.md), [KSS_EVOLUTION.md](KSS_EVOLUTION.md) (EVOL-005)
+
+---
+
+## KSS_Doctrine_001 — Extraction Direction
+
+```yaml
+KSS_Doctrine_001:
+  name: Extraction Direction
+  rule: Jabal → Review → Generalize → KSS → Optional Runtime Install
+  forbids: KSS → ~/.cursor without owner-approved runtime_install_gate
+```
+
+**Wrong:** bulk `Copy-Item KSS → ~/.cursor` before review.  
+**Right:** reference project `.cursor/` → classify → generalize → KSS draft → owner-approved install last.
+
+---
+
+## Layer dependency (Jabal lesson)
+
+```text
+Layer 3 (Project SSOT)  — teaches patterns
+      ↓ derives
+Layer 2 (Runtime/KSS)   — distributes portable patterns
+      ↓ consumes
+Layer 1 (Authority)     — governs both
+```
+
+Plain language: **Layer 1 governs · Layer 3 teaches · Layer 2 distributes**
+
+| Layer | Location | Role |
+|-------|----------|------|
+| L1 | `.cursor/memory/` | MANIFEST, DEC, INTEGRITY |
+| L2 | KSS → `~/.cursor/` | Portable runtime |
+| L3 | `<project>/.cursor/` | Project gates, plans, reports |
 
 ---
 

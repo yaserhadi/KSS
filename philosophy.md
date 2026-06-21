@@ -18,13 +18,19 @@ The project provides locks, DEC digests, STATE, evidence, and product constraint
 
 | Layer | Path | Role |
 |-------|------|------|
-| **1. KSS Framework** | `<kss_repo>/` | Distributable product (~47 files) |
-| **2. User install** | `~/.cursor/` | Runtime: commands, rules, skills, agents |
-| **3. Project SSOT** | `<project>/.cursor/` | Content SSOT (~200+ files at maturity) |
+| **1. Authority** | `<project>/.cursor/memory/` | MANIFEST, DEC, INTEGRITY — governs both |
+| **2. Runtime** | `~/.cursor/` from KSS | Commands, rules, skills, agents — distributes patterns |
+| **3. Project SSOT** | `<project>/.cursor/` | Gates, plans, reports — teaches patterns (reference) |
+
+**Dependency direction:** Layer 3 derives patterns → Layer 2 consumes → Layer 1 constrains both.
+
+Plain language: **Layer 1 governs · Layer 3 teaches · Layer 2 distributes**
 
 ```text
-Jabal (reference) → generalize patterns → KSS → ~/.cursor → adopters
+Jabal (reference) → Review → Generalize → KSS → Optional ~/.cursor install (LAST)
 ```
+
+See [KSS_Doctrine_001](docs/KSS_EVOLUTION.md#evol-005--extraction-direction-kss_doctrine_001) in `docs/KSS_EVOLUTION.md`.
 
 **Framework vs project size:** KSS stays small and portable; project `.cursor/` holds the real governance content.
 

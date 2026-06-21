@@ -71,3 +71,26 @@ breaking_change: true
 migration_required: migrations/MIGRATION_v1.0.0_to_v1.1.0.md
 kss_version: v1.1.0
 ```
+
+---
+
+## EVOL-005 — Extraction Direction (KSS_Doctrine_001)
+
+```yaml
+id: EVOL-005
+doctrine_id: KSS_Doctrine_001
+name: Extraction Direction
+lesson: "Jabal → Review → Generalize → KSS → Optional Runtime Install; never KSS → ~/.cursor before review"
+origin: Jabal KSS extraction correction 2026-06-21
+rule: Jabal .cursor (reference) → classify → generalize → KSS draft → owner-approved runtime install last
+forbids: Copy-Item KSS → ~/.cursor without runtime_install_gate all true
+generalized_to:
+  - philosophy.md
+  - docs/GOVERNANCE_LAYERS.md
+  - docs/handbook.md
+  - commands/docpack.md
+layer_dependency: "Layer 1 governs · Layer 3 teaches · Layer 2 distributes"
+breaking_change: false
+kss_version: v1.1.0-draft
+evidence: Jabal/.cursor/reports/KSS_EXTRACTION_CORRECTION_AUDIT.md
+```
