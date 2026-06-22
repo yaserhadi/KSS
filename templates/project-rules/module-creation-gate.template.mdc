@@ -1,16 +1,50 @@
 ---
-description: Triage module destination before planning or implementing features
+description: MODULE-CREATION-GATE — decide existing module vs app kernel vs new package
 alwaysApply: true
 ---
 
 # Module Creation Gate
 
-Before planning or implementing, decide:
+```yaml
+Pattern:
+  portable_structure: true
+  project_content: replace_required
+```
 
-1. **Existing module** (`Modules/<Name>/`) — extend when continuation of same capability
-2. **`app/` kernel** — cross-cutting middleware, shared contracts only
-3. **New module** — distinct tenant-facing surface with independent domain behavior
+**KSS_Doctrine_003:** Export structure and decision patterns only. Replace module paths, DEC references, and project conventions after copy.
 
-Do not run module generators without passing this gate.
+## Rule
 
-Reference your project's DEC for module boundaries after copy (e.g. DEC-0003).
+Before **planning** or **implementing**, decide whether work belongs to:
+
+1. **Existing bounded area** (module, package, or domain folder) — extend when continuation of same capability
+2. **Shared kernel** (`app/`, `src/core/`, or equivalent) — cross-cutting infrastructure only
+3. **New bounded package** — distinct user-facing surface with independent domain behavior
+
+**Triaged first, confirmed at plan start:** Re-check when scope grows from a small tweak into routes + services + UI + permissions.
+
+## When a new package/module is appropriate
+
+Favor **extending existing** unless **one or more** apply:
+
+- New user/tenant-facing surface (routes, API, pages/UI)
+- Independent domain behavior (models, CRUD, lifecycle, validation, permissions)
+- Standalone capability name (not a tiny sub-fork)
+- Multi-layer delivery block (routes, services, UI, tests)
+
+## When not appropriate
+
+- Edits inside area that already owns the capability
+- Narrow sub-page extension
+- Shared helpers → kernel, not new package
+
+Do **not** run generators or scatter files without passing this gate and (if needed) `/gw-triage`.
+
+Reference your project's DEC for boundaries (e.g. `.cursor/memory/decisions/` module-boundary decision).
+
+## Plan preflight (confirm at plan start)
+
+| Question | Action |
+|----------|--------|
+| Where does this work land? | **Existing** / **kernel** / **new package** |
+| Did scope grow since first triage? | Re-run `/gw-triage` and this gate |

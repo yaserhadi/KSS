@@ -1,0 +1,41 @@
+---
+description: Require feature branches before repo modifications; main is merge-only
+alwaysApply: true
+---
+
+# Git branch workflow (no direct work on main)
+
+`main` and `master` are **merge-only**: they must not accumulate local implementation work.
+
+## Before modifying the repository
+
+**Run** `git branch --show-current` **before** the first substantive change.
+
+| Current branch | Action |
+|----------------|--------|
+| **`main` or `master`** | **Stop.** Switch to `feature/<descriptive-name>` or an existing feature branch, then proceed. |
+| **Feature / topic branch** | Proceed. Keep commits scoped and descriptive. |
+
+## What counts as direct work on main
+
+Prohibited on `main` / `master`: edits, staging, commits, generators writing into the repo.
+
+Allowed on `main`: read-only Git inspection (`git status`, `git log`, `git diff`).
+
+## Recovering from mistakes
+
+If changes were made on `main` but not yet committed:
+
+```bash
+git branch --show-current
+git switch -c feature/<descriptive-name>
+```
+
+Staged and unstaged changes move with the branch switch.
+
+## Relationship to other rules
+
+- Extends "no commits on main" to **all local implementation work** while on `main`.
+- **Plan preflight** (`.cursor/rules/plan-preflight-gate.mdc`): sensitive plans also require branch check before todos.
+
+Customize merge/push workflow for your org after copy (PR vs local merge).

@@ -58,13 +58,18 @@ If status is Pending: run before merge. If FAIL: do not merge.
 **Evidence Referenced**:
 - [files/commands/tests that support the conclusions]
 
-**ADR Status**:
-- ADR Needed? [Yes / No]
+**DEC Status**:
+- DEC Needed? [Yes / No]
 - Decision Indicators: [list what triggered / N/A]
-- ADR Coverage: [ADR-XXXX / None / N/A]
+- DEC Coverage: [DEC-NNNN / None / N/A]
 
-> If ADR Needed = Yes and Coverage = None:
+> If DEC Needed = Yes and Coverage = None:
 > Recommend running `/adr` before completing handoff (advisory).
+
+**Gate awareness (advisory)** — read `.cursor/memory/STATE.yaml` when present:
+- `runtime_install_gate`: any false → do **not** recommend Copy-Item to `~/.cursor`
+- `docpack_gate.extraction_close_allowed`: false → closure still pending
+- `kss_to_global_sync.performed`: false → live runtime may be stale vs draft
 ```
 
 ---

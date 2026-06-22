@@ -5,6 +5,36 @@
 
 ---
 
+## KSS Governance Core (executive reference)
+
+The three doctrines form the **KSS Governance Framework** nucleus. Read together before extraction, export, or runtime install.
+
+```yaml
+KSS_Governance_Core:
+  Doctrine_001:
+    name: Extraction Direction
+    governs: extraction_flow
+    doc: GOVERNANCE_LAYERS.md#kss_doctrine_001--extraction-direction
+    rule: Jabal → Review → Generalize → KSS → Optional ~/.cursor install (LAST)
+
+  Doctrine_002:
+    name: Layer Responsibility Principle
+    governs: authority_and_layer_responsibilities
+    doc: KSS_Doctrine_002.md
+    rule: Layer 1 governs · Layer 3 teaches · Layer 2 distributes
+    enforcement: LAYER_VIOLATION_CHECKLIST.md (gw-* commands)
+
+  Doctrine_003:
+    name: Portable Structure vs Project Content
+    governs: export_content_boundaries
+    doc: KSS_Doctrine_003.md
+    rule: Export structure and decision patterns only; replace project content after copy
+```
+
+**Apply order:** 001 (flow) → 003 (what to export) → 002 (layer authority during review and install).
+
+---
+
 ## KSS_Doctrine_001 — Extraction Direction
 
 ```yaml
@@ -16,6 +46,28 @@ KSS_Doctrine_001:
 
 **Wrong:** bulk `Copy-Item KSS → ~/.cursor` before review.  
 **Right:** reference project `.cursor/` → classify → generalize → KSS draft → owner-approved install last.
+
+---
+
+## KSS_Doctrine_002 — Layer Responsibility
+
+See [KSS_Doctrine_002.md](KSS_Doctrine_002.md). Summary:
+
+- **L1** governs (MANIFEST, DEC, INTEGRITY)
+- **L2** distributes portable patterns (KSS → `~/.cursor/`)
+- **L3** teaches reference implementation (project `.cursor/`)
+
+Enforcement aid: [LAYER_VIOLATION_CHECKLIST.md](LAYER_VIOLATION_CHECKLIST.md) — used by `/gw-*` commands.
+
+---
+
+## KSS_Doctrine_003 — Portable Structure vs Project Content
+
+See [KSS_Doctrine_003.md](KSS_Doctrine_003.md). Summary:
+
+- Export **structure** (gates, decision tables, reading chains)
+- Replace **content** (DEC paths, module names, project workflows) per adopting repo
+- `templates/project-rules/` are patterns, not copy-paste project rules
 
 ---
 

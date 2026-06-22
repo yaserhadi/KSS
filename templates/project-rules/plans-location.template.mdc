@@ -1,0 +1,38 @@
+---
+description: Plans for this project go in .cursor/plans/ (workspace)
+alwaysApply: true
+---
+
+# Plans Location (This Project)
+
+All plan files for this project MUST be saved in this project's `.cursor/plans/` directory (workspace-relative).
+
+If a plan was created in the global directory (`~/.cursor/plans/`), move it to this project's `.cursor/plans/` using the global rule `plans-location`.
+
+---
+
+## Plan Naming Convention
+
+Plan filenames MUST include timestamp:
+
+```
+<descriptive_name>_<YYYY-MM-DD-HHmm>_<hash>.plan.md
+```
+
+---
+
+## Plan Metadata (Frontmatter)
+
+Each plan MUST include `last_updated` in frontmatter with full timestamp (seconds precision, ISO 8601).
+
+---
+
+## References Requirement
+
+All **active** plans MUST include a `## References` section linking Lock, Verification, and Evidence per project convention.
+
+**Agent reading chain:** HANDOFF → STATE → AGENT_CONSTITUTION → PROJECT_MANIFEST → DEC → INTEGRITY_RULES → ACTIVE.plan → code. Do not use legacy `docs/` or chat history as execution authority.
+
+Plans without References section are considered **draft** and cannot be executed for sensitive phases.
+
+Execution is subject to `STATE.yaml` governance when the project uses execution gates.
