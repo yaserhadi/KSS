@@ -94,3 +94,29 @@ breaking_change: false
 kss_version: v1.1.0-draft
 evidence: Jabal/.cursor/reports/KSS_EXTRACTION_CORRECTION_AUDIT.md
 ```
+
+---
+
+## EVOL-006 — Governance Lab sync (patch)
+
+```yaml
+id: EVOL-006
+version: v1.1.2
+commit: efdf993
+source: Governance Lab (~/.cursor) after Jabal dist-kss-sync
+lesson: "Validated live runtime lessons sync back to KSS as patch releases; conflict-governance always applies"
+changes:
+  - rules/conflict-governance.mdc (new)
+  - INSTALL.md, rules/RULES_EXPLANATION.md
+  - commands/docpack.md, gw-review.md, gw-riskcheck.md, gw-triage.md
+  - docs/KSS_Doctrine_002.md
+  - templates/project-rules/*.template.mdc (5)
+breaking_change: false
+semver: patch
+prior_release: v1.1.1@9d65027
+publication:
+  local_only: true
+  push_deferred: true
+  tag_type: annotated
+evidence: Jabal/.cursor/reports/KSS_SYNC_FROM_JABAL.md
+```
