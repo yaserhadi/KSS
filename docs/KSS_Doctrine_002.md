@@ -39,6 +39,14 @@ KSS_Doctrine_002:
 
 Layer 2 must not define authoritative locks. Layer 3 must not override Layer 1.
 
-## Reference origin
+## Export targets (when KSS repo available)
 
-Generalized from Jabal governance correction (2026-06-21). See [GOVERNANCE_LAYERS.md](GOVERNANCE_LAYERS.md) and [KSS_EVOLUTION.md](KSS_EVOLUTION.md) (EVOL-005).
+- `KSS/philosophy.md`
+- `KSS/docs/GOVERNANCE_LAYERS.md`
+- `KSS/docs/handbook.md`
+- `KSS/docs/CURSOR_ARCHITECTURE.md`
+
+## Jabal attestation
+
+- [`.cursor/CURSOR_RUNTIME.md`](../../CURSOR_RUNTIME.md)
+- [`.cursor/reports/JABAL_GOVERNANCE_LESSONS.md`](../JABAL_GOVERNANCE_LESSONS.md)

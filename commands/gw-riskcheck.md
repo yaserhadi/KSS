@@ -29,7 +29,8 @@
    - Does it affect security boundaries or data access rules?
    - Is there an Existing DEC that covers this decision?
 7. **Doctrine_002 / Layer Responsibility Check** (mandatory):
-   - Governing rule: `docs/KSS_Doctrine_002.md`; aid: `docs/LAYER_VIOLATION_CHECKLIST.md`
+   - Governing rule: [`KSS_Doctrine_002.md`](../docs/KSS_Doctrine_002.md); aid: [`LAYER_VIOLATION_CHECKLIST.md`](../docs/LAYER_VIOLATION_CHECKLIST.md)
+   - Adopting project: `.cursor/CURSOR_RUNTIME.md` when present (project SSOT wins)
    - Any **Fail** → minimum **High** risk; flag for `/gw-review` before implementation
 
 **Risk Triggers Requiring CAB Review**:

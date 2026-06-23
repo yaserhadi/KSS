@@ -7,7 +7,7 @@ alwaysApply: true
 
 All plan files for this project MUST be saved in this project's `.cursor/plans/` directory (workspace-relative).
 
-If a plan was created in the global directory (`~/.cursor/plans/`), move it to this project's `.cursor/plans/` using the global rule `plans-location`.
+If a plan was created in the global directory (`~/.cursor/plans/`), move it to this project's `.cursor/plans/` using the commands in the global rule `plans-location`.
 
 ---
 
@@ -19,20 +19,51 @@ Plan filenames MUST include timestamp:
 <descriptive_name>_<YYYY-MM-DD-HHmm>_<hash>.plan.md
 ```
 
+Example: `phase_2_tenancy_2026-02-28-0200_5412733d.plan.md`
+
 ---
 
 ## Plan Metadata (Frontmatter)
 
-Each plan MUST include `last_updated` in frontmatter with full timestamp (seconds precision, ISO 8601).
+Each plan MUST include `last_updated` in frontmatter with full timestamp (seconds precision, ISO 8601):
+
+```yaml
+---
+name: Plan Name
+overview: Description
+last_updated: "2026-02-28T02:15:30Z"
+todos:
+  - id: task1
+    content: Task description
+    status: pending
+isProject: false
+---
+```
+
+The `last_updated` field MUST be updated on every plan modification.
 
 ---
 
 ## References Requirement
 
-All **active** plans MUST include a `## References` section linking Lock, Verification, and Evidence per project convention.
+All **active** plans in `.cursor/plans/` MUST include a `## References` section that:
 
-**Agent reading chain:** HANDOFF → STATE → AGENT_CONSTITUTION → PROJECT_MANIFEST → DEC → INTEGRITY_RULES → ACTIVE.plan → code. Do not use legacy `docs/` or chat history as execution authority.
+1. Links to the governing Lock in `PROJECT_MANIFEST.md` or relevant `DEC-*` in `.cursor/memory/decisions/`
+2. Links to verification commands in `INTEGRITY_RULES.md`
+3. Links to evidence/report (when complete) in `.cursor/reports/`
+
+**Agent reading chain:** HANDOFF → STATE → AGENT_CONSTITUTION → PROJECT_MANIFEST → DEC → INTEGRITY_RULES → ACTIVE.plan → code. Do not use legacy `docs/` or SpecStory for execution authority.
+
+**Template:**
+
+```markdown
+## References
+
+- Lock: `.cursor/memory/PROJECT_MANIFEST.md` → <LOCK_ID>
+- Verification: `.cursor/memory/INTEGRITY_RULES.md` → <SECTION_NAME>
+- Evidence/Report (when complete): `.cursor/reports/<REPORT_NAME>.md`
+```
 
 Plans without References section are considered **draft** and cannot be executed for sensitive phases.
 
-Execution is subject to `STATE.yaml` governance when the project uses execution gates.
+Execution is subject to `STATE.yaml` governance. If `manual-oversight` is enabled, any deviation requires explicit owner approval.

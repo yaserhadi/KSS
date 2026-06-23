@@ -1,0 +1,44 @@
+---
+description: Silent conflict prohibition — stop and report when governance sources disagree
+alwaysApply: true
+---
+
+# Conflict Governance (Silent Conflict Prohibition)
+
+When an agent detects a **conflict** between project artifacts, runtime artifacts, governance files, plans, reports, decisions, or configuration sources:
+
+1. **Stop** the affected execution immediately.
+2. **Do not** silently pick a winner or proceed with a best guess.
+3. **Prepare** a short impact report with:
+   - conflicting sources (paths)
+   - what diverges
+   - options (with risk)
+   - recommended resolution
+4. **Wait** for owner decision before continuing the blocked work.
+
+## Examples of conflicts
+
+- HANDOFF resume point disagrees with ACTIVE.plan.md
+- STATE gate flags contradict command recommendations (e.g. install while `runtime_install_gate.owner_approved: false`)
+- DEC vs MANIFEST lock contradiction
+- Live `~/.cursor` command text vs approved adoption package staging
+- Report claiming closure while STATE shows blockers
+
+## Non-conflicts (do not stop)
+
+- Reports as evidence only (L1 DEC/MANIFEST/STATE win)
+- Deferred owner actions clearly labeled in STATE
+- Advisory checks marked non-blocking in command workflows
+
+## Output format (when stopping)
+
+```text
+## Governance Conflict — Execution Stopped
+
+**Conflict**: [one sentence]
+**Sources**: [path A] vs [path B]
+**Impact**: [what cannot proceed safely]
+**Options**: [1–3 options]
+**Recommendation**: [single option + rationale]
+**Awaiting**: owner decision
+```

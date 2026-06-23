@@ -7,8 +7,6 @@ description: Update documentation after work is done. Detect → Classify → DE
 
 Capture session changes in `.cursor/memory/`, `.cursor/reports/`, and project conventions — **not** legacy `docs/` as execution SSOT.
 
-**Doctrine:** [KSS_Doctrine_001](../docs/GOVERNANCE_LAYERS.md), [KSS_Doctrine_002](../docs/KSS_Doctrine_002.md), [KSS_Doctrine_003](../docs/KSS_Doctrine_003.md)
-
 ## Workflow
 
 ```text

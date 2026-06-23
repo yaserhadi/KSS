@@ -1,50 +1,61 @@
 ---
-description: MODULE-CREATION-GATE — decide existing module vs app kernel vs new package
+description: MODULE-CREATION-GATE — decide existing module vs app kernel vs new module before planning or implementation
 alwaysApply: true
 ---
 
-# Module Creation Gate
+# MODULE-CREATION-GATE (Module Creation Gate)
+
+**Related:** DEC-0003 (`.cursor/memory/decisions/DEC-0003-module-boundaries.md`), `MODULE-BOUNDARY` (enforcement sync, when active).
+
+**Scope:** Portable pattern template for KSS `templates/project-rules/`. Adapt DEC and boundary references per project.
 
 ```yaml
 Pattern:
-  portable_structure: true
-  project_content: replace_required
+  portable_structure: true       # gate logic, triage flow, decision table
+  project_content: replace_required   # DEC refs, module paths, project conventions
 ```
 
-**KSS_Doctrine_003:** Export structure and decision patterns only. Replace module paths, DEC references, and project conventions after copy.
+**Related:** DEC-0003 (`.cursor/memory/decisions/DEC-0003-module-boundaries.md` in reference projects), `MODULE-BOUNDARY` (enforcement sync, when active).
 
 ## Rule
 
-Before **planning** or **implementing**, decide whether work belongs to:
+Before **planning** or **implementing** a feature, decide whether the work belongs to:
 
-1. **Existing bounded area** (module, package, or domain folder) — extend when continuation of same capability
-2. **Shared kernel** (`app/`, `src/core/`, or equivalent) — cross-cutting infrastructure only
-3. **New bounded package** — distinct user-facing surface with independent domain behavior
+1. **An existing module** (`Modules/<Name>/`) — extend when the work is a direct continuation of that module’s capability.
+2. **The shared kernel** (`app/`) — only for cross-cutting infrastructure: middleware, shared contracts, base classes, framework glue, bootstrap.
+3. **A new module** — only when the change introduces a **distinct** tenant-facing capability or bounded feature surface that warrants its own delivery block.
 
-**Triaged first, confirmed at plan start:** Re-check when scope grows from a small tweak into routes + services + UI + permissions.
+**Triaged first, confirmed at plan start:** Re-check when a plan is opened or when scope grows from a “small tweak” into routes + controllers + requests + services + pages + RBAC.
 
-## When a new package/module is appropriate
+## When a new module is appropriate
 
-Favor **extending existing** unless **one or more** apply:
+Favor **extending an existing module** unless **one or more** of the following apply:
 
-- New user/tenant-facing surface (routes, API, pages/UI)
-- Independent domain behavior (models, CRUD, lifecycle, validation, permissions)
-- Standalone capability name (not a tiny sub-fork)
-- Multi-layer delivery block (routes, services, UI, tests)
+- The feature adds a **new tenant-facing surface** (routes, controllers, API, pages/UI), not merely a helper or shared service.
+- The feature has **independent domain behavior** (new model/aggregate, CRUD, lifecycle, validation, audit hooks, RBAC permissions tied to the feature).
+- The feature can be named as a **standalone capability** (e.g. Workspaces, Tenant Settings, Billing) rather than a tiny sub-fork of an existing one.
+- The work spans **multiple cohesive layers** (routes, requests, services, controllers, UI, tests) as a single delivery block.
 
-## When not appropriate
+## When a new module is not appropriate
 
-- Edits inside area that already owns the capability
-- Narrow sub-page extension
-- Shared helpers → kernel, not new package
+- Edits **inside** a module that already owns the capability.
+- A **sub-page** or narrow extension of the same capability in the same module.
+- **Shared helpers**, contracts, middleware, providers, or kernel integration → stay in **`app/`** (or shared support), not a new module.
+- **Small extensions** of an existing aggregate within the **same** module.
 
-Do **not** run generators or scatter files without passing this gate and (if needed) `/gw-triage`.
+**Examples (no new module):** New permission for Workspaces → Workspaces or shared RBAC provisioner; new FormRequest in Tenant Settings → Settings module; change to `ValidateTenantToken` → `app/` middleware, not a module.
 
-Reference your project's DEC for boundaries (e.g. `.cursor/memory/decisions/` module-boundary decision).
+## Before `module:make` or scattered files
+
+Do **not** run Laravel/nWidart module generators or spread feature code across `app/` and `Modules/` without passing this gate and (if needed) `/gw-triage`.
 
 ## Plan preflight (confirm at plan start)
 
+For plans that add or change **product behavior** (not docs-only), confirm **before executing todos**:
+
 | Question | Action |
 |----------|--------|
-| Where does this work land? | **Existing** / **kernel** / **new package** |
-| Did scope grow since first triage? | Re-run `/gw-triage` and this gate |
+| Where does this work land? | **Existing module** (which?) / **`app/` kernel** / **New module** |
+| Did scope grow since first triage? | If a “small change” became routes + controllers + services + UI + RBAC, **re-run `/gw-triage`** and **MODULE-CREATION-GATE** |
+
+**Triaged first, confirmed at plan start.** See also [DEC-0003](../memory/decisions/DEC-0003-module-boundaries.md).

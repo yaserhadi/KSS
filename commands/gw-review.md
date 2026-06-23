@@ -28,8 +28,9 @@
    - Does it affect security boundaries or data access rules?
    - Is there an Existing DEC that covers this decision?
 6. **Doctrine_002 / Layer Responsibility Check** (mandatory):
-   - Governing rule: `docs/KSS_Doctrine_002.md` (`classification: governance_rule`)
-   - Implementation aid: `docs/LAYER_VIOLATION_CHECKLIST.md`
+   - Governing rule: [`KSS_Doctrine_002.md`](../docs/KSS_Doctrine_002.md) (`classification: governance_rule`)
+   - Implementation aid: [`LAYER_VIOLATION_CHECKLIST.md`](../docs/LAYER_VIOLATION_CHECKLIST.md)
+   - Adopting project: `.cursor/CURSOR_RUNTIME.md` when present (project SSOT wins)
    - Any checklist **Fail** → add to **Critical** findings (block merge)
 
 **Output Format**:

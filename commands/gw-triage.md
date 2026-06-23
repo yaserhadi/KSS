@@ -28,7 +28,8 @@
    - Does it affect security boundaries or data access rules?
    - Is there an Existing DEC that covers this decision?
 7. **Doctrine_002 / Layer Responsibility Check** (when proposing destination):
-   - Governing rule: `docs/KSS_Doctrine_002.md`; aid: `docs/LAYER_VIOLATION_CHECKLIST.md`
+   - Governing rule: [`KSS_Doctrine_002.md`](../docs/KSS_Doctrine_002.md); aid: [`LAYER_VIOLATION_CHECKLIST.md`](../docs/LAYER_VIOLATION_CHECKLIST.md)
+   - Adopting project: `.cursor/CURSOR_RUNTIME.md` when present (project SSOT wins)
    - Cite in triage output when placement touches L1/L2/L3 boundaries
 
 **Output Format**:
