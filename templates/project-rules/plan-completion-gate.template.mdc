@@ -1,0 +1,50 @@
+---
+description: Mandatory protocol for plan completion
+globs: .cursor/plans/*.plan.md
+alwaysApply: true
+---
+
+# Plan Completion Gate (Protocol)
+
+## Scope
+
+- Applies to: `.cursor/plans/*.plan.md`
+- Excludes: `.cursor/plans/archive/*` (archived plans are read-only history)
+
+When ALL todos in a plan are marked `completed`, the agent MUST:
+
+## Required Actions (Same Commit)
+
+1. **Update `.cursor/plans/ACTIVE.plan.md`:**
+   - Set "Current active plan" to "None (awaiting next phase)"
+   - Move completed plan to "Last completed plan" with status COMPLETE and date
+   - Include link to report and branch
+   - Keep the References section unchanged
+
+2. **Update plan's `last_updated` field:**
+   - Set to current timestamp with seconds precision (ISO 8601)
+   - Example: `last_updated: "2026-02-28T03:45:30Z"`
+
+3. **Include in final commit:**
+   - All plan changes
+   - ACTIVE.plan.md update
+   - Report file (if created)
+
+## Governance closure plans (exception)
+
+For plans tagged `governance`, `kss-extraction`, or `cab-fix` in frontmatter, name, or initiative field:
+
+- Agent **may** update relevant `STATE.yaml` gate flags **only with explicit owner approval**
+- Document which flags changed and link evidence report
+- **Default for all other plans:** ACTIVE.plan.md + `last_updated` only — do **not** flip install/closure gates
+
+## Verification
+
+Before completing the commit, confirm:
+- [ ] ACTIVE.plan.md updated
+- [ ] Last completed plan section populated
+- [ ] Report linked (if applicable)
+- [ ] Plan's `last_updated` field updated
+- [ ] If governance plan: owner approved any STATE gate changes
+
+**This is a PROTOCOL, not automation. Agent MUST perform these steps.**

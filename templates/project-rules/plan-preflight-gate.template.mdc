@@ -1,0 +1,121 @@
+---
+description: Mandatory pre-execution gate for sensitive phases
+globs: .cursor/plans/*.plan.md
+alwaysApply: true
+---
+
+# Pre-Execution Gate (Sensitive Phases)
+
+**DO NOT EXECUTE any Todo** before passing ALL checks below.
+
+## Scope
+
+- Applies to: `.cursor/plans/*.plan.md`
+- Excludes: `.cursor/plans/archive/*` (archived plans are read-only history)
+
+## Module destination (preflight — feature work)
+
+For plans that add or change **product behavior** (not docs-only), confirm **before executing todos**:
+
+| Question | Action |
+|----------|--------|
+| Where does this work land? | **Existing module** (which?) / **`app/` kernel** / **New module** |
+| Did scope grow since first triage? | If a “small change” became routes + controllers + services + UI + RBAC, **re-run `/gw-triage`** and `MODULE-CREATION-GATE` |
+
+See `.cursor/rules/module-creation-gate.mdc` and [DEC-0003](../memory/decisions/DEC-0003-module-boundaries.md). **Triaged first, confirmed at plan start.**
+
+---
+
+## Gate Trigger
+
+This gate applies when plan involves:
+- `tenancy`, `tenant`, `multi-tenant`
+- `database`, `migration`, `schema`, `connection`
+- `security`, `auth`, `permission`, `rbac`, `token`
+- `isolation`, `scoping`, `BelongsToTenant`
+
+## Validation Checklist
+
+### 0. Branch Check (Before Any Code Changes)
+
+Run `git branch --show-current`.
+
+| Current branch | Action |
+|----------------|--------|
+| **Not main** and suitable for the work | Proceed to next check |
+| **main** | Do NOT implement. Run `git branch -a`. Switch to suitable branch or create one: `git checkout -b feature/<descriptive-name>`. Then proceed. |
+
+**Suitable** = branch name/purpose aligns with task (e.g. `feature/phase-3a-workspaces` for Phase 3A). **“Implement” includes any change to the working tree or index** (edits, new files, `git add`, generators), not only commits. Do not do that work on `main` or `master`. See also `.cursor/rules/git-branch-workflow.mdc` (always-on).
+
+### 1. Check STATE.yaml First
+
+```bash
+rg "status:" .cursor/memory/STATE.yaml
+```
+
+| STATE Status | Action |
+|--------------|--------|
+| `manual-oversight` | STOP. Owner approval required before any execution. |
+| `blocked` | STOP. Do NOT execute. |
+| `active` or `completed` | Proceed to next checks. |
+
+### 2. Lock Exists in MANIFEST
+
+- Review `.cursor/memory/PROJECT_MANIFEST.md`
+- Confirm an appropriate Lock exists for this phase
+
+| Lock Status | Action |
+|-------------|--------|
+| Exists + Active | Proceed |
+| Missing + STATE is `manual-oversight` | STOP. Request owner to create Lock. |
+| Missing + STATE is `active` | Create **Draft Lock** → STOP for owner approval before activation |
+
+**Draft Lock allowed. Activation requires owner.**
+
+#### Draft vs Active Lock Definition
+
+| Lock State | Definition | Agent Can Execute? |
+|------------|------------|-------------------|
+| **Draft** | Added to MANIFEST but marked `Status: Draft` or missing `Status: Active` | NO |
+| **Active** | Has `Status: Active` + `Applies: Phase X+` in MANIFEST | YES |
+
+A Lock becomes Active only when:
+1. Owner explicitly sets `Status: Active`
+2. Lock includes `Applies:` scope (e.g., `Applies: Phase 2+`)
+
+### 3. Verification Section Exists
+
+- Review `.cursor/memory/INTEGRITY_RULES.md`
+- Confirm a Verification section exists for this Lock
+
+| Verification Status | Action |
+|---------------------|--------|
+| Exists | Proceed |
+| Missing | Create Verification section (allowed—this is "HOW", not architectural decision) |
+
+### 4. Plan Has References
+
+- Confirm the plan file contains a `## References` section
+- References MUST use this exact format:
+
+```markdown
+## References
+
+- Lock: `.cursor/memory/PROJECT_MANIFEST.md` → <LOCK_ID>
+- Verification: `.cursor/memory/INTEGRITY_RULES.md` → <SECTION_NAME>
+- Evidence/Report (when complete): `.cursor/reports/<REPORT_NAME>.md`
+```
+
+| References Status | Action |
+|-------------------|--------|
+| Exists with correct format | Proceed |
+| Missing or incomplete | Add References section (allowed) |
+
+## Execution Decision
+
+| All Checks Pass? | Action |
+|------------------|--------|
+| Yes | Execute plan todos |
+| No | STOP. Fix missing items first. |
+
+**This is a GATE. No Todo execution until ALL checks pass.**

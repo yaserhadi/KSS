@@ -26,7 +26,12 @@
    - Does it establish a new pattern, API contract, or module boundary?
    - Does it have long-term architectural implications?
    - Does it affect security boundaries or data access rules?
-   - Is there an existing ADR that covers this decision?
+   - Is there an Existing DEC that covers this decision?
+6. **Doctrine_002 / Layer Responsibility Check** (mandatory):
+   - Governing rule: [`KSS_Doctrine_002.md`](../docs/KSS_Doctrine_002.md) (`classification: governance_rule`)
+   - Implementation aid: [`LAYER_VIOLATION_CHECKLIST.md`](../docs/LAYER_VIOLATION_CHECKLIST.md)
+   - Adopting project: `.cursor/CURSOR_RUNTIME.md` when present (project SSOT wins)
+   - Any checklist **Fail** → add to **Critical** findings (block merge)
 
 **Output Format**:
 ```
@@ -71,15 +76,25 @@
 **Architectural Decision Check**:
 - [ ] Involves architectural choice: Yes / No
 - [ ] Decision type: [DB/API/Security/Module/Integration/None]
-- [ ] Existing ADR covers this: [ADR-XXXX] / None found / N/A
-- [ ] ADR recommended: Yes / No
+- [ ] Existing DEC covers this: [DEC-NNNN] / None found / N/A
+- [ ] DEC recommended: Yes / No
 
-**If ADR Recommended**:
-> Run `/adr` before proceeding. Paste the discussion context.
+**If DEC recommended**:
+> Run `/adr` (DEC digest) before proceeding. Paste the discussion context.
 > Decision indicators detected: [list what triggered this]
+
+**Doctrine_002 / Layer Responsibility Check** (mandatory):
+- Governing rule: [`KSS_Doctrine_002.md`](../docs/KSS_Doctrine_002.md)
+- Checklist: [`LAYER_VIOLATION_CHECKLIST.md`](../docs/LAYER_VIOLATION_CHECKLIST.md)
+- [ ] L2 defines authority: Pass / Fail / N/A
+- [ ] L3 overrides L1: Pass / Fail / N/A
+- [ ] docs/ as execution SSOT: Pass / Fail / N/A
+- [ ] Reports over DEC: Pass / Fail / N/A
+- [ ] Ungated runtime install: Pass / Fail / N/A
+- **Any Fail** → Verdict must be **Block** or **Request Changes**
 ```
 
-**Decision Indicators** (triggers ADR recommendation):
+**Decision Indicators** (triggers DEC recommendation):
 - Trade-off language: "chose X over Y", "decided to", "alternative considered"
 - New patterns: database schema, API endpoint design, authentication flow
 - Breaking changes: contract modifications, interface changes

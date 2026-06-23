@@ -1,156 +1,119 @@
 ---
 name: docpack
-description: Update documentation after work is done. Follows Detect-Propose-Apply workflow.
+description: Update documentation after work is done. Detect → Classify → DEC check → Propose → Apply → Evidence.
 ---
 
-# Docpack - Documentation Packaging
+# Docpack — Documentation Packaging
 
-Update documentation after work is done using a safe, confirmable workflow.
-
-## Purpose
-Capture session changes in documentation (.cursor/memory/ and docs/).
-
-## Workflow: Detect → Propose → Apply (NOT automatic)
-
-This command follows a three-phase workflow to ensure safe, confirmable documentation updates.
+Capture session changes in `.cursor/memory/`, `.cursor/reports/`, and project conventions — **not** legacy `docs/` as execution SSOT.
 
 ## Workflow
 
-### 1. Read Paths
-Read `.cursor/DOC_POLICY.yaml` for paths only (memory, reports, user_docs, architecture).
-- If missing: use defaults (.cursor/memory/, docs/, docs/architecture/). Proceed with workflow.
+```text
+Detect → Classify Artifacts → DEC Completeness Check → Proposal → Apply → Evidence
+```
+
+### 1. Read paths
+
+Read `.cursor/DOC_POLICY.yaml` for paths only.
+Defaults: `.cursor/memory/`, `.cursor/reports/`, `.cursor/memory/decisions/`, `.cursor/plans/`.
 
 ### 2. Detect
-Extract signals from the session:
-- What files were modified?
-- What decisions were made?
-- Was there user impact?
-- Were there lessons learned?
 
-**Documentation gap check** (when relevant change types detected):
+- Files modified, decisions made, user impact, lessons learned.
 
-| Change type | Check for stale or missing docs |
-|-------------|---------------------------------|
-| DB schema, migrations, migration layout | `.cursor/memory/conventions/database-conventions.md` |
-| API, routes, auth flow | `.cursor/memory/conventions/api-conventions.md` |
-| RBAC, permissions, roles | `.cursor/memory/conventions/rbac-conventions.md` |
-| Test helpers, test patterns | `tests/README.md` |
+**Gap check** (when relevant):
 
-### 2.5 ADR Completeness Check (Advisory)
+| Change type | Check |
+|-------------|-------|
+| DB / migrations | `.cursor/memory/conventions/database-conventions.md` |
+| API / auth | `.cursor/memory/conventions/api-conventions.md` |
+| RBAC | `.cursor/memory/conventions/rbac-conventions.md` |
+| Tests | `tests/README.md` |
 
-Scan session context for decision indicators:
+### 2.5 DEC Completeness Check (Advisory)
 
-**Triggers** (any of these suggests an architectural decision):
-- Module boundary created or changed
-- API contract modified (routes, DTOs, auth flow, versioning)
-- Tenancy / DB schema / migrations changed
-- Security model / RBAC / permissions changed
-- Language in commits/discussion: "decided", "chose", "alternative", "trade-off", "breaking change"
+Triggers: module boundaries, API contracts, tenancy/schema, security/RBAC, decision language in commits.
 
-**Check:**
-- If triggers detected AND no new/updated ADR found in session:
-  - Output **ADR Missing Warning** (advisory, not blocking)
+If triggers and no DEC in session → **DEC Missing Warning** (advisory, non-blocking). Recommend `/adr` (DEC digest output).
 
-**Output Format:**
-```
-**ADR Completeness Check (Advisory)**:
-- Decision indicators detected: [list what triggered]
-- ADR coverage found: [ADR-XXXX] / None
-- Status: OK / Warning
+### DEC_POLICY
 
-**If Warning**:
-> Recommended: Run `/adr` to capture the decision context.
-> If ADR not needed, document rationale: "ADR Not Needed: <reason>"
-```
-
-**Important:** This check is advisory only. It does not block docpack execution.
+| Trigger class | Policy |
+|---------------|--------|
+| Module boundary, tenancy/schema, security/RBAC, API contract | **Mandatory recommend** `/adr` (DEC digest) |
+| Minor ops, typo, test-only | **Advisory skip** with documented reason |
+| Ambiguous | **Advisory warning** in proposal |
 
 ### 3. Propose
-Present update plan:
 
 ```
 DOCPACK PROPOSAL
 
-**ADR Completeness Check**: [OK / Warning - see above]
+**DEC Completeness Check**: [OK / Warning]
 
-AI Track Updates (.cursor/memory/):
-- [ ] HANDOFF.md - Session summary [required]
-- [ ] STATE.yaml - [specific field changes]
-- [ ] LESSONS.md - [if applicable]
-- [ ] VERSIONS.md - [if breaking change]
+Authoritative track (.cursor/memory/):
+- [ ] HANDOFF.md
+- [ ] STATE.yaml
+- [ ] LESSONS.md
+- [ ] VERSIONS.md (if breaking)
 
 Conventions (.cursor/memory/conventions/):
-- [ ] database-conventions.md - [if schema, migrations, or migration layout changed]
-- [ ] api-conventions.md - [if API contract or auth flow changed]
-- [ ] rbac-conventions.md - [if RBAC, permissions, or roles changed]
-
-Project Docs:
-- [ ] tests/README.md - [if test helpers or test patterns changed]
+- [ ] [convention files as needed]
 
 Architecture:
-- [ ] docs/architecture/ADR/ - [if architecture decision, run /adr]
+- [ ] DEC via `/adr` → `.cursor/memory/decisions/DEC-NNNN-slug.md`
 
-User Track Updates (docs/):
-- [ ] docs/reference/[name].md - [if user impact detected]
+Evidentiary (.cursor/reports/):
+- [ ] Closure / evidence report if phase complete
 
-Confirm? [Y/n] or specify which to apply
+Phase C (human docs — optional, never execution SSOT):
+- [ ] User Documentation Steward only if Phase C gate active per DOC_POLICY
+
+Confirm? [Y/n]
 ```
 
 ### 4. Apply
-Only after confirmation:
-- Invoke AI Knowledge Steward for .cursor/memory/ updates
-- If user impact confirmed, invoke User Documentation Steward for docs/ updates
-- Output summary of what was updated
 
-## Enforcement Defaults
+After confirmation:
+- **AI Knowledge Steward** → `.cursor/memory/` updates
+- **User Documentation Steward** → Phase C human docs only (if gate enabled)
+- Summary of updates + evidence paths
+
+## Layered sources
+
+| Class | Examples |
+|-------|----------|
+| Authoritative | PROJECT_MANIFEST, DEC-*, INTEGRITY_RULES |
+| Operational | STATE.yaml, HANDOFF.md, ACTIVE.plan.md |
+| Evidentiary | `.cursor/reports/*` |
+| Informational | README, GOALS, ROADMAP |
+| Phase C | Human docs — optional |
+
+## Enforcement defaults
 
 | Target | When |
 |--------|------|
 | HANDOFF | Required |
 | STATE | When meaningful |
 | LESSONS | Encouraged |
-| Conventions | Schema, API, or RBAC changes |
-| Project docs (tests/README) | Test helpers or patterns changed |
-| ADR | Major architecture decisions |
-| User docs | When features change |
+| DEC via `/adr` | Major architecture decisions |
+| Phase C docs | User impact + gate enabled |
 
-## Safe Defaults (auto-apply without confirmation)
+## Safe defaults (auto-apply)
 
 - HANDOFF.md update
-- STATE.yaml last_updated field
+- STATE.yaml `last_updated`
 
-## Require Confirmation
+## Require confirmation
 
-- LESSONS.md changes
-- Conventions updates (.cursor/memory/conventions/)
-- Project docs updates (tests/README.md)
-- Updates to docs/architecture/ADR/
-- User documentation updates (docs/)
-- VERSIONS.md changes
+- LESSONS.md, conventions, VERSIONS.md
+- DEC file creation
+- Phase C user documentation
 
-## Example Usage
+## Integration
 
-```
-/docpack
-```
+- **AI Knowledge Steward** — `.cursor/memory/`
+- **User Documentation Steward** — Phase C only
 
-The command will analyze the session, detect changes, propose updates, and apply only after confirmation.
-
-## When to Use
-
-Use `/docpack` at the end of any meaningful work session:
-- After completing a feature
-- After fixing a bug with lessons learned
-- After making architectural decisions
-- After resolving operational issues
-- Before ending a development session
-
-## Integration with Stewards
-
-This command orchestrates the two stewards:
-- **AI Knowledge Steward** - Updates .cursor/memory/ (technical, operational)
-- **User Documentation Steward** - Updates docs/ (simple, end-user focused)
-
-Each steward writes only to their assigned track.
-
-**Fallback:** If stewards cannot be invoked (missing or misconfigured), apply updates directly to the proposed targets and report what was updated. Do not fail silently.
+Do **not** write to `docs/architecture/ADR/` or treat `docs/` as execution authority.

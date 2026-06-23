@@ -4,6 +4,17 @@
 
 **Knowledge Stewardship System (KSS)** is a lightweight governance framework for AI-assisted development. It gives AI agents persistent memory across sessions and humans governance without heavy process.
 
+### KSS_Doctrine_001 — Extraction Direction
+
+```yaml
+KSS_Doctrine_001:
+  name: Extraction Direction
+  rule: Jabal → Review → Generalize → KSS → Optional Runtime Install
+  forbids: KSS → ~/.cursor without owner-approved runtime_install_gate
+```
+
+When adopting or updating KSS from a reference project (e.g. Jabal): review and classify first, generalize patterns into KSS, then install to `~/.cursor` only with explicit owner approval. See [GOVERNANCE_LAYERS.md](GOVERNANCE_LAYERS.md) and [KSS_EVOLUTION.md](KSS_EVOLUTION.md) (EVOL-005).
+
 ### What KSS Provides
 
 - **Session continuity** — HANDOFF captures what happened and what to do next

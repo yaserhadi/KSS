@@ -1,0 +1,96 @@
+---
+description: Require feature branches before any repo modifications; main is merge-only
+alwaysApply: true
+---
+
+# Git branch workflow (no direct work on main)
+
+`main` and `master` are **merge-only**: they must not accumulate local implementation work.
+
+## Before modifying the repository
+
+**Run** `git branch --show-current` **before** the first substantive change in a task (edits, new files, deletes, `git add`, `git rm`, or running generators that write into the repo).
+
+| Current branch | Action |
+|----------------|--------|
+| **`main` or `master`** | **Stop.** Do not modify files or the index on this branch. Run `git branch -a`, then `git checkout -b feature/<descriptive-name>` (or switch to an existing feature branch), **then** apply changes. |
+| **Feature / topic branch** | Proceed. Keep commits scoped and descriptive. |
+
+## What counts as “direct work on main”
+
+Prohibited while checked out on `main` / `master`:
+
+- Editing, creating, or deleting project files (application code, `config/`, `docker/`, `resources/`, etc.)
+- Staging (`git add`) or unstaging changes
+- Commits
+
+Allowed on `main` without branching:
+
+- Read-only inspection (`git log`, `git diff`, `git show`, `git status`)
+- Checking out another branch
+
+## Relationship to other rules
+
+- **User / org policy**: Commits on `main` are prohibited; this rule extends that to **all modifications** while `main` is checked out, so work never starts on the wrong branch.
+- **Plan preflight** (`.cursor/rules/plan-preflight-gate.mdc`): Sensitive plans also require a branch check before todos; this rule applies to **all** coding tasks, not only gated plans.
+
+## Recovering from mistakes
+
+If changes were made on `main` but not yet committed:
+
+```bash
+git branch --show-current   # confirm
+git switch -c feature/<descriptive-name>
+```
+
+Then commit on the new branch. Staged and unstaged changes move with the branch switch.
+
+## Integrating to `main` (local merge + push)
+
+**Owner workflow:** Feature branches integrate into `main` **locally**, then `main` is pushed to origin. Do **not** rely on GitHub PR merge as the default path.
+
+### When feature work is complete
+
+1. Tests green on the feature branch (`php artisan test` or plan-specific gate).
+2. Merge locally into `main` (never commit implementation directly on `main`).
+
+```powershell
+git branch --show-current          # must NOT be main while implementing
+git checkout main
+git pull origin main
+git merge feature/<descriptive-name>
+php artisan test                   # regression on main before push
+git push origin main
+```
+
+3. Verify merge landed:
+
+```powershell
+git log main -3 --oneline
+git merge-base --is-ancestor <feature-tip> main   # exit 0 = success
+```
+
+4. Delete feature branch **only after** step 3 succeeds:
+
+```powershell
+git branch -d feature/<descriptive-name>
+git push origin --delete feature/<descriptive-name>
+```
+
+### Merge options
+
+| Situation | Command |
+|-----------|---------|
+| Linear history (default) | `git merge feature/<name>` |
+| Preserve branch topology | `git merge --no-ff feature/<name>` |
+| Single commit on main | `git merge --squash feature/<name>` then commit |
+
+### Agents
+
+- **Do not** instruct `gh pr create` or GitHub UI merge unless the owner explicitly requests a hosted PR for review.
+- **Do** document merge commit / feature tip in `.cursor/memory/HANDOFF.md` and evidence reports when closing a phase.
+- If `git push origin main` is rejected (remote ahead), `git pull --rebase origin main` on `main`, re-run tests, then push again.
+
+### Rollback
+
+See phase runbooks (e.g. `.cursor/reports/STAGE5_RUNBOOKS.md` §7). Typical code rollback: `git revert` merge commit or feature commits on `main`, then `git push origin main`.
