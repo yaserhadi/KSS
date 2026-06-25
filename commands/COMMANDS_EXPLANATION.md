@@ -5,6 +5,7 @@
 | File | Purpose | When to Use |
 |------|---------|-------------|
 | boot.md | Load project context | Start of every session |
+| doplan.md | Governed planning gateway — CAP binding, gates; English brief for Plan mode | Before creating a new plan (does not write plan files) |
 | session-end.md | Save handoff to HANDOFF.md | Before closing chat |
 | docpack.md | Update docs after work | End of session, after changes |
 | gw-triage.md | Triage unclear request; apply project `.cursor/rules/` boundary rules if present; detect architectural decisions | Request is ambiguous, may involve ADR, or needs placement triage |
@@ -24,6 +25,7 @@
 | Category | Commands |
 |----------|----------|
 | Runtime | boot, session-end, en, ar, aren |
+| Planning | doplan (first line `/en` — English brief → Plan mode) |
 | Governance | gw-triage, gw-riskcheck, gw-review, gw-handoff |
 | Operational | git-prepare, git-save, git-finalize |
 | Documentation | docpack, adr |

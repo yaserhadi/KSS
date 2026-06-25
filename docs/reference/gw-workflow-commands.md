@@ -14,6 +14,7 @@ Use this table to pick a command. **Details for each command are below.**
 
 | Situation | Command |
 |-----------|---------|
+| “New execution plan — which CAP? gates? scaffold?” | `/doplan` then Plan mode |
 | “What should we do? Where should this code live?” | `/gw-triage` |
 | “Is this safe to proceed? Need CAB approval?” | `/gw-riskcheck` |
 | “Is this diff ready to merge?” | `/gw-review` |
@@ -23,21 +24,53 @@ Use this table to pick a command. **Details for each command are below.**
 
 ---
 
+## Planning gateway (`/doplan`)
+
+**In plain terms:** “What CAP does this plan belong to? What gates apply? What should the plan file look like?” — **before** Plan mode writes the plan.
+
+**Use when:**
+
+- Creating a new `.cursor/plans/*.plan.md` execution plan
+- You need CAP/backlog binding (when project has `memory/roadmap/BACKLOG.md`)
+- You want scaffold hints: filename, `capability_id`, References, required gates
+
+**Does not:**
+
+- Write the plan file (Plan mode does that using the brief)
+- Execute plan todos
+- Edit BACKLOG unless owner explicitly asks
+
+**Chain:**
+
+```text
+/doplan  →  DoPlan Governance Brief (English)  →  Plan mode  →  plan file
+```
+
+`/boot` loads session context separately — it does not start execution from a plan.
+
+**Full spec:** [`commands/doplan.md`](../../commands/doplan.md)
+
+---
+
 ## Typical order (feature work)
 
 Not every task needs all four commands. For non-trivial product or infrastructure work, this order is a safe default:
 
 ```text
-/gw-triage  →  /gw-riskcheck  →  (implement)  →  /gw-review  →  /gw-handoff
+/doplan  →  Plan mode (plan file)  →  /gw-triage  →  /gw-riskcheck  →  (implement)  →  /gw-review  →  /gw-handoff
 ```
+
+For plans that need CAP binding, run `/doplan` first. Skip `/doplan` for trivial docs-only edits with no new plan file.
 
 | Step | Command | Role |
 |------|---------|------|
-| 1 | `/gw-triage` | Clarify scope, propose safest plan, module destination, ADR needed? |
-| 2 | `/gw-riskcheck` | Assess security, data, production impact; CAB and rollback |
-| 3 | *(work)* | Implement on a feature branch |
-| 4 | `/gw-review` | Review diff before merge — safety, security, boundaries |
-| 5 | `/gw-handoff` | Session summary — files, tests, next steps |
+| 0 | `/doplan` | CAP binding, gates advisory, scaffold hints for Plan mode |
+| 1 | **Plan mode** | Write `.cursor/plans/*.plan.md` from the brief |
+| 2 | `/gw-triage` | Clarify scope, propose safest plan, module destination, ADR needed? |
+| 3 | `/gw-riskcheck` | Assess security, data, production impact; CAB and rollback |
+| 4 | *(work)* | Implement on a feature branch |
+| 5 | `/gw-review` | Review diff before merge — safety, security, boundaries |
+| 6 | `/gw-handoff` | Session summary — files, tests, next steps |
 
 **Skip or shorten when:**
 
@@ -113,6 +146,7 @@ Not every task needs all four commands. For non-trivial product or infrastructur
 | Phase | Commands |
 |-------|----------|
 | Session start | `/boot` |
+| New execution plan | `/doplan` → Plan mode |
 | Governance | `/gw-triage`, `/gw-riskcheck`, `/gw-review`, `/gw-handoff` |
 | Git | `/git-prepare` → `/git-save` → `/git-finalize` |
 | Persist handoff / docs | `/session-end`, `/docpack` |
@@ -139,6 +173,7 @@ See also: [KSS Handbook](../handbook.md) — Commands and Ready-to-Use Prompts.
 
 | Scenario | Prompt |
 |----------|--------|
+| New plan with CAP binding | `/doplan` then describe intent; use brief in Plan mode |
 | Triage unclear request | `/gw-triage` then describe the request |
 | Assess risk before change | `/gw-riskcheck` then describe the change |
 | Review before merge | `/gw-review` then paste diff or describe changes |

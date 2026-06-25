@@ -5,7 +5,7 @@ description: Start AI session with correct context loading (paths-only policy). 
 
 # /boot — AI Session Startup (KSS)
 
-**Related Commands**: `/session-end`, `/docpack`, `/gw-triage`
+**Related Commands**: `/session-end`, `/docpack`, `/gw-triage`, `/doplan`
 
 ## Purpose
 
@@ -21,7 +21,7 @@ Read any file under `.cursor/` with explicit paths via the Read tool. Do not ski
 
 Read `.cursor/DOC_POLICY.yaml` for paths only. Defaults if missing:
 - memory: `.cursor/memory/`
-- goals: `.cursor/goals/`
+- roadmap: `.cursor/memory/roadmap/` (if present)
 - plans: `.cursor/plans/`
 - reports: `.cursor/reports/`
 
@@ -33,7 +33,7 @@ Do **not** default to `docs/` as execution SSOT.
 2. `.cursor/memory/PROJECT_MANIFEST.md`
 3. `.cursor/memory/STATE.yaml`
 4. `.cursor/memory/HANDOFF.md`
-5. `.cursor/goals/GOALS.md` (**mandatory** — boot fails if unreadable)
+5. `.cursor/memory/GOALS.md` (**mandatory** — boot fails if unreadable)
 
 **Gate status (advisory):** After reading STATE.yaml, note `runtime_install_gate` and `docpack_gate` flags. Do not suggest Copy-Item to `~/.cursor` if install gates are closed.
 
@@ -61,3 +61,5 @@ If architectural decisions arise:
 ### Module boundary pointer
 
 Use `/gw-triage` for new tenant-facing capability; apply `.cursor/rules/` boundary gates when present.
+
+Use `/doplan` before Plan mode when creating a new execution plan (planning gateway — does not write plan files).

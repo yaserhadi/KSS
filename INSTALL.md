@@ -36,6 +36,7 @@ Copy command files to your global Cursor commands folder:
 ```
 ~/.cursor/commands/
 ├── boot.md
+├── doplan.md
 ├── session-end.md
 ├── docpack.md
 ├── adr.md
@@ -51,7 +52,7 @@ Copy command files to your global Cursor commands folder:
 └── git-finalize.md
 ```
 
-See [Governance workflow commands](docs/reference/gw-workflow-commands.md) for when to use each `/gw` command.
+See [Governance workflow commands](docs/reference/gw-workflow-commands.md) for when to use each `/gw` command. Use `/doplan` before Plan mode when creating a new execution plan.
 
 **Language overrides:** `/en` (English only), `/ar` (Arabic only), `/aren` (dual language). See [COMMANDS_EXPLANATION.md](commands/COMMANDS_EXPLANATION.md).
 
