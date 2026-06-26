@@ -25,7 +25,7 @@ Read `.cursor/DOC_POLICY.yaml` for paths only. Defaults if missing:
 - plans: `.cursor/plans/`
 - reports: `.cursor/reports/`
 
-Do **not** default to `docs/` as execution SSOT.
+Do **not** default to `docs/` as execution SSOT. Project execution paths = `.cursor/` per DOC_POLICY.
 
 ### 2) Load core files (must)
 

@@ -20,7 +20,7 @@ Backup prior handoff to `.cursor/reports/HANDOFF_BACKUP_YYYY-MM.md`, then replac
 
 ### 4. Optional stewards
 
-- `/docpack` for full documentation update
+- `/docpack` for full **governance packaging** (HANDOFF + STATE + conventions + reports — superset of this command)
 - Architecture decisions → `/adr` (DEC digest in `.cursor/memory/decisions/`)
 
 ### 5. Confirm completion

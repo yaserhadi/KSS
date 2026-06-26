@@ -92,7 +92,7 @@
 - Checklist: [`LAYER_VIOLATION_CHECKLIST.md`](../docs/LAYER_VIOLATION_CHECKLIST.md)
 - [ ] L2 defines authority: Pass / Fail / N/A
 - [ ] L3 overrides L1: Pass / Fail / N/A
-- [ ] docs/ as execution SSOT: Pass / Fail / N/A
+- [ ] Project `docs/` not used as execution SSOT: Pass / Fail / N/A
 - [ ] Reports over DEC: Pass / Fail / N/A
 - [ ] Ungated runtime install: Pass / Fail / N/A
 - **Any Fail** → Risk level minimum **High**; CAB likely required

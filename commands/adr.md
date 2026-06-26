@@ -8,7 +8,7 @@ Optional: title/slug suggestion, owner override.
 Generate a **DEC digest** in:
 - `.cursor/memory/decisions/DEC-NNNN-slug.md`
 
-DEC is the agent-facing decision record. Legacy human ADR folders under `docs/` are not execution authority.
+DEC is the agent-facing decision record. Legacy human ADR folders under `docs/` are not execution authority. Project execution SSOT = `.cursor/` per DOC_POLICY.
 
 This command MUST NOT:
 - Modify PROJECT_MANIFEST.md

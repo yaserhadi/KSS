@@ -80,7 +80,7 @@ This writes `.cursor/memory/HANDOFF.md` before you close the chat. **Run this in
 | VERSIONS.md | Version facts | `.cursor/memory/VERSIONS.md` |
 | LESSONS.md | Mistakes to avoid (optional) | `.cursor/memory/LESSONS.md` |
 | conventions/ | Engineering standards (optional) | `.cursor/memory/conventions/` |
-| GOALS.md | Strategic goals only | `.cursor/goals/GOALS.md` |
+| GOALS.md | Strategic goals only | `.cursor/memory/GOALS.md` |
 
 ### Global Commands (User-Level)
 
@@ -90,7 +90,7 @@ Copy to `~/.cursor/commands/`.
 |---------|---------|
 | boot | Load project context at session start |
 | session-end | Persist handoff to HANDOFF.md |
-| docpack | Detect → Propose → Apply doc updates |
+| docpack | Package `.cursor/` governance (Detect → Propose → Apply) |
 | gw-triage | Triage request, propose safest plan; detect architectural decisions |
 | gw-riskcheck | Risk assessment, CAB review flag; includes ADR check |
 | gw-review | Review diff for safety/compliance; catch unrecorded decisions |
@@ -120,7 +120,7 @@ Copy to `~/.cursor/agents/`.
 |-------|---------|
 | adr-steward | Extract and author ADRs from pasted text (via /adr) |
 | ai-knowledge-steward | Maintain .cursor/memory/ (via /docpack) |
-| user-doc-steward | Maintain user docs in docs/ (via /docpack) |
+| user-doc-steward | Human docs at DOC_POLICY `human_docs` only (via /docpack; skip if undefined) |
 
 > Subagents are execution tools. They never own authority. All decisions remain with human governance.
 
@@ -171,7 +171,7 @@ Copy to `~/.cursor/rules/`:
 |---------|-------------|
 | `/boot` | Start of every session; loads project context |
 | `/session-end` | Before closing chat; writes HANDOFF (use Agent mode) |
-| `/docpack` | End of session; updates docs via Detect → Propose → Apply |
+| `/docpack` | End of session; packages `.cursor/` governance via Detect → Propose → Apply |
 
 ### Workflow Commands
 
@@ -212,9 +212,9 @@ Governance workflow (`/gw-*`): see **[Governance workflow commands](reference/gw
 
 | Agent | Invoked By | Purpose |
 |-------|------------|---------|
-| **adr-steward** | `/adr` command | Extract context, options, decision from pasted text; write ADR to `docs/architecture/ADR/` |
-| **ai-knowledge-steward** | `/docpack` | Update `.cursor/memory/` (HANDOFF, STATE, LESSONS, VERSIONS) |
-| **user-doc-steward** | `/docpack` | Update `docs/` (user-facing guides) when user impact detected |
+| **adr-steward** | `/adr` command | Extract context, options, decision; write DEC digest to `.cursor/memory/decisions/` |
+| **ai-knowledge-steward** | `/docpack` | Update `.cursor/memory/` and `.cursor/reports/` (HANDOFF, STATE, LESSONS, closure) |
+| **user-doc-steward** | `/docpack` | Update human docs at DOC_POLICY `human_docs` only — skip if path undefined |
 
 ---
 
@@ -244,10 +244,12 @@ When information conflicts, resolve in this order:
 1. DOC_POLICY (paths)
 2. PROJECT_MANIFEST (constraints)
 3. INTEGRITY_RULES (guardrails)
-4. docs/architecture/ADR (human deliberation; non-authoritative)
+4. DEC digests in `.cursor/memory/decisions/` (agent-facing; authoritative with MANIFEST)
 5. STATE (execution)
 6. HANDOFF (continuity)
 7. GOALS (strategic)
+
+Legacy project `docs/` is not execution authority. KSS `docs/` is framework reference only.
 
 ---
 
@@ -261,7 +263,7 @@ When information conflicts, resolve in this order:
 | Assess risk before change | `/gw-riskcheck` then describe the change |
 | Review changes before merge | `/gw-review` then paste diff or describe changes |
 | Triage unclear request | `/gw-triage` then describe the request |
-| Update docs after work | `/docpack` |
+| Package `.cursor/` governance after work | `/docpack` |
 | Start work on branch | `/git-prepare` |
 | Save progress | `/git-save` |
 | Close branch and merge | `/git-finalize` |

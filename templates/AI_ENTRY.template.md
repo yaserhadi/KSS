@@ -12,18 +12,19 @@ When starting a session, read these files in order:
 3. `.cursor/memory/PROJECT_MANIFEST.md` — Architectural locks
 4. `.cursor/memory/STATE.yaml` — Current execution status
 5. `.cursor/memory/HANDOFF.md` — Session continuity
-6. `.cursor/goals/GOALS.md` — Strategic objectives (if exists)
+6. `.cursor/memory/GOALS.md` — Strategic objectives (mandatory when present)
 
 ## Authority Model
 
 ```
-DOC_POLICY > PROJECT_MANIFEST > INTEGRITY_RULES > ADR > STATE > HANDOFF > GOALS
+DOC_POLICY > PROJECT_MANIFEST > INTEGRITY_RULES > DEC > STATE > HANDOFF > GOALS
 ```
 
 - DOC_POLICY contains paths only (no governance logic)
 - PROJECT_MANIFEST contains architectural locks
 - INTEGRITY_RULES contains verification gates
-- ADRs are non-authoritative human deliberation records
+- DEC digests in `.cursor/memory/decisions/` are agent-facing decision records
+- Legacy project `docs/` is not execution authority
 - STATE controls execution status
 - HANDOFF provides session continuity
 - GOALS provide strategic direction
@@ -46,6 +47,6 @@ Before executing any task:
 
 1. Do NOT create new memory locations or shadow folders (except those declared in DOC_POLICY)
 2. Do NOT modify enforcement layers without explicit approval
-3. Do NOT derive behavior from ADRs unless explicitly requested
+3. Do NOT derive behavior from deleted project `docs/` or legacy ADR trees unless explicitly requested
 4. ALWAYS check STATE before execution
 5. ALWAYS update HANDOFF at session end

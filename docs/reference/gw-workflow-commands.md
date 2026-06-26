@@ -149,7 +149,7 @@ For plans that need CAP binding, run `/doplan` first. Skip `/doplan` for trivial
 | New execution plan | `/doplan` → Plan mode |
 | Governance | `/gw-triage`, `/gw-riskcheck`, `/gw-review`, `/gw-handoff` |
 | Git | `/git-prepare` → `/git-save` → `/git-finalize` |
-| Persist handoff / docs | `/session-end`, `/docpack` |
+| Persist governance | `/session-end`, `/docpack` |
 | Architecture record | `/adr` |
 
 `/boot` may suggest `/gw-triage` when work touches database, tenancy, security, hosting, or might require a new module.

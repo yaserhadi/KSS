@@ -57,7 +57,7 @@ The first line of this command file is `/en`. The entire **DoPlan Governance Bri
 3. Read `.cursor/memory/STATE.yaml` and `.cursor/memory/HANDOFF.md` (advisory)
 4. Optionally read `.cursor/plans/ACTIVE.plan.md` — do not scan all plans
 
-Do **not** default to `docs/` as execution SSOT.
+Do **not** default to `docs/` as execution SSOT. Project execution paths = `.cursor/` per DOC_POLICY.
 
 ### Phase 2 — CAP / backlog (conditional)
 
