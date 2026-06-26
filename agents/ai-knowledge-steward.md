@@ -19,11 +19,12 @@ You may WRITE ONLY in:
 - `.cursor/reports/` (closure/evidence when closing phases)
 
 You may READ:
-- `.cursor/memory/*`, `.cursor/memory/decisions/*`
-- `.cursor/plans/*`, `.cursor/reports/*`, `.cursor/goals/GOALS.md`
+- `.cursor/memory/*`, `.cursor/memory/decisions/*`, `.cursor/memory/conventions/*`
+- `.cursor/memory/GOALS.md`, `.cursor/memory/roadmap/` (when present)
+- `.cursor/plans/*`, `.cursor/reports/*`
 - Project runtime map: `.cursor/CURSOR_RUNTIME.md` (when present)
 
-Do NOT write to `docs/architecture/ADR/` or treat `docs/` as execution authority.
+Do NOT write to project `docs/` or `docs/architecture/ADR/` as execution authority.
 
 ## Governance layers
 

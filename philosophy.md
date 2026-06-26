@@ -108,7 +108,7 @@ Enforcement happens in the project's:
 | Framework | Structure, templates, tooling | Real project data, locks, STATE |
 | Project | Locks, DEC, STATE, reports | Framework templates verbatim |
 
-Phase C human documentation (when enabled) is **never** execution SSOT.
+Phase C human documentation (when owner defines `human_docs` in DOC_POLICY) is **never** execution SSOT. Jabal has no active `human_docs` path — `/docpack` skips human-doc writes.
 
 ---
 
