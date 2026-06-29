@@ -155,7 +155,7 @@ Templates for project optional rules: `templates/project-rules/`
 | Runtime | `/boot`, `/session-end`, `/en`, `/ar`, `/aren` | `~/.cursor/commands/` |
 | Governance | `/gw-triage`, `/gw-riskcheck`, `/gw-review`, `/gw-handoff` | `~/.cursor/commands/` |
 | Operational | `/git-prepare`, `/git-save`, `/git-finalize` | `~/.cursor/commands/` |
-| Documentation | `/docpack`, `/adr` (→ DEC digest) | `~/.cursor/commands/` |
+| Documentation | `/docpack`, `/dec` (`/adr` deprecated alias) | `~/.cursor/commands/` |
 
 ---
 

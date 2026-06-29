@@ -7,7 +7,7 @@ description: Governed planning gateway — CAP/backlog binding, gates, scaffold 
 
 # /doplan — Governed Planning Gateway (KSS)
 
-**Related Commands**: `/en`, `/gw-triage`, `/gw-riskcheck`, `/boot`, `/adr`
+**Related Commands**: `/en`, `/gw-triage`, `/gw-riskcheck`, `/boot`, `/dec`
 
 ## Purpose
 
@@ -139,5 +139,5 @@ Use this brief in Plan mode to generate the plan file.
 ## Notes
 
 - User may describe intent in Arabic or any language; brief is always English (`/en`).
-- For architectural choices during planning, note if `/adr` → DEC digest may be needed later.
+- For architectural choices during planning, note if `/dec` → DEC digest may be needed later.
 - Conflict with existing CAP or governance: cite Rule 7 / conflict-governance if project has it; do not auto-resolve.

@@ -41,6 +41,6 @@ See adopting project's `.cursor/CURSOR_RUNTIME.md` and KSS `docs/GOVERNANCE_LAYE
 
 Security issue → LESSONS.md; propose guardrail (do not auto-modify AI_ENTRY).
 
-Architecture decision → `/adr` → DEC digest in `.cursor/memory/decisions/DEC-*.md`; propose MANIFEST lock sync (owner approval).
+Architecture decision → `/dec` → DEC digest in `.cursor/memory/decisions/DEC-*.md`; propose MANIFEST lock sync (owner approval).
 
 Package change → VERSIONS.md when breaking.

@@ -63,7 +63,7 @@
 - [ ] DEC recommended: Yes / No
 
 **If DEC recommended**:
-> Run `/adr` (DEC digest) before proceeding. Paste the discussion context.
+> Run `/dec` before proceeding. Paste the discussion context.
 > Decision indicators detected: [list what triggered this]
 
 **Doctrine_002 / Layer Responsibility Check**:

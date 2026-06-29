@@ -1,15 +1,16 @@
 # Commands — Copy Instructions
 
-**Destination:** `~/.cursor/commands/`
+**Destination:** `~/.cursor/commands/`  
+**Source of truth:** `KSS/commands/` (this repository)
 
 | File | Purpose | When to Use |
 |------|---------|-------------|
 | boot.md | Load project context | Start of every session |
-| doplan.md | Governed planning gateway — CAP binding, gates; English brief for Plan mode | Before creating a new plan (does not write plan files) |
+| doplan.md | Governed planning gateway — BK binding, gates; English brief for Plan mode | Before creating a new plan (does not write plan files) |
 | session-end.md | Save handoff to HANDOFF.md | Before closing chat |
 | docpack.md | Package `.cursor/` governance after work | End of session, after changes |
-| gw-triage.md | Triage unclear request; apply project `.cursor/rules/` boundary rules if present; detect architectural decisions | Request is ambiguous, may involve ADR, or needs placement triage |
-| gw-riskcheck.md | Assess risks, CAB flag; includes ADR check | Before production/security changes |
+| gw-triage.md | Triage unclear request; apply project `.cursor/rules/` boundary rules if present; detect architectural decisions | Request is ambiguous, may need DEC, or needs placement triage |
+| gw-riskcheck.md | Assess risks, CAB flag; includes DEC check | Before production/security changes |
 | gw-review.md | Review changes; catch unrecorded decisions | Before merge |
 | gw-handoff.md | Summarize for reviewer | In-session handoff |
 | git-prepare.md | Create branch from main | Start new work |
@@ -18,7 +19,8 @@
 | en.md | English-only reply | Override response language for this session |
 | ar.md | Arabic-only reply | Override response language for this session |
 | aren.md | Dual language (Arabic + English) | Override response language for this session |
-| adr.md | Create DEC digest from text | Architecture decisions → `.cursor/memory/decisions/` |
+| dec.md | Create DEC digest from text (primary) | Architecture decisions → `.cursor/memory/decisions/` |
+| adr.md | Deprecated alias → `/dec` | Backward compatibility only |
 
 ## Command taxonomy
 
@@ -28,7 +30,7 @@
 | Planning | doplan (first line `/en` — English brief → Plan mode) |
 | Governance | gw-triage, gw-riskcheck, gw-review, gw-handoff |
 | Operational | git-prepare, git-save, git-finalize |
-| Governance packaging | docpack, adr |
+| Governance packaging | docpack, dec (`/adr` deprecated alias) |
 
 See [docs/GOVERNANCE_LAYERS.md](../docs/GOVERNANCE_LAYERS.md).
 

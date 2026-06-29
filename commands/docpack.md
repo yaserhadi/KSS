@@ -18,7 +18,8 @@ Project execution SSOT = `.cursor/` per adopting project's `DOC_POLICY.yaml`.
 | `/session-end` | HANDOFF.md only (lighter close) |
 | `/docpack` | Superset: HANDOFF + STATE + conventions + reports + optional DEC |
 | `/gw-handoff` | In-chat summary only — does not persist |
-| `/adr` | DEC digest → `.cursor/memory/decisions/` |
+| `/dec` | DEC digest → `.cursor/memory/decisions/` |
+| `/adr` | Deprecated alias → `/dec` |
 
 ## Workflow
 
@@ -62,13 +63,13 @@ Do **not** assume project `docs/` exists. Do **not** create or resurrect project
 
 Triggers: module boundaries, API contracts, tenancy/schema, security/RBAC, decision language in commits.
 
-If triggers and no DEC in session → **DEC Missing Warning** (advisory, non-blocking). Recommend `/adr` (DEC digest output).
+If triggers and no DEC in session → **DEC Missing Warning** (advisory, non-blocking). Recommend `/dec`.
 
 ### DEC_POLICY
 
 | Trigger class | Policy |
 |---------------|--------|
-| Module boundary, tenancy/schema, security/RBAC, API contract | **Mandatory recommend** `/adr` (DEC digest) |
+| Module boundary, tenancy/schema, security/RBAC, API contract | **Mandatory recommend** `/dec` |
 | Minor ops, typo, test-only | **Advisory skip** with documented reason |
 | Ambiguous | **Advisory warning** in proposal |
 
@@ -89,7 +90,7 @@ Conventions (.cursor/memory/conventions/):
 - [ ] [convention files as needed]
 
 Architecture:
-- [ ] DEC via `/adr` → `.cursor/memory/decisions/DEC-NNNN-slug.md`
+- [ ] DEC via `/dec` → `.cursor/memory/decisions/DEC-NNNN-slug.md`
 
 Evidentiary (.cursor/reports/):
 - [ ] Closure / evidence report if phase or CAP complete
@@ -129,7 +130,7 @@ After confirmation:
 | HANDOFF | Required |
 | STATE | When meaningful |
 | LESSONS | Encouraged |
-| DEC via `/adr` | Major architecture decisions |
+| DEC via `/dec` | Major architecture decisions |
 | Human-facing docs | Only when `human_docs` path defined in DOC_POLICY |
 
 ## Safe defaults (auto-apply)

@@ -64,7 +64,7 @@ If status is Pending: run before merge. If FAIL: do not merge.
 - DEC Coverage: [DEC-NNNN / None / N/A]
 
 > If DEC Needed = Yes and Coverage = None:
-> Recommend running `/adr` before completing handoff (advisory).
+> Recommend running `/dec` before completing handoff (advisory).
 
 **Gate awareness (advisory)** — read `.cursor/memory/STATE.yaml` when present:
 - `runtime_install_gate`: any false → do **not** recommend Copy-Item to `~/.cursor`

@@ -1,29 +1,15 @@
-# /adr — Decision Digest (DEC) from source text
+# /adr — Deprecated alias
 
-## Input (required)
-Paste the source text (discussion, Cursor chat, meeting notes, etc.).
-Optional: title/slug suggestion, owner override.
+**Deprecated.** This command forwards to **`/dec`**.
 
-## Purpose
-Generate a **DEC digest** in:
-- `.cursor/memory/decisions/DEC-NNNN-slug.md`
+Use `/dec` for all new decision digests. ADR is retired from the execution model in DEC-adopting projects.
 
-DEC is the agent-facing decision record. Legacy human ADR folders under `docs/` are not execution authority. Project execution SSOT = `.cursor/` per DOC_POLICY.
+## Forwarding
 
-This command MUST NOT:
-- Modify PROJECT_MANIFEST.md
-- Modify INTEGRITY_RULES.md
-- Modify STATE.yaml
-- Modify VERSIONS.md
-- Write to `docs/architecture/ADR/`
-- Change any execution logic without owner approval
+When invoked, execute the `/dec` workflow exactly:
 
-## Workflow
-1) Ask the user to paste the source text (if not provided).
-2) Invoke adr-steward with the pasted text.
-3) adr-steward produces DEC content per `memory/decisions/README.md`.
-4) Create or update `.cursor/memory/decisions/DEC-XXXX-slug.md`.
-5) If Status = Active: output Enforcement Sync Proposal (not applied automatically).
+1. Read `~/.cursor/commands/dec.md` (installed from KSS `commands/dec.md`).
+2. Invoke **dec-steward** (not independent ADR logic).
+3. Write output to `.cursor/memory/decisions/DEC-NNNN-slug.md` only.
 
-## Output
-- DEC file only + optional enforcement sync proposal (not applied).
+Do not create ADR files. Do not write to `docs/architecture/ADR/`.
