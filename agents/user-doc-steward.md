@@ -35,6 +35,6 @@ End users and contributors who do not need backend internals.
 ## Strict prohibitions
 
 - Do NOT write to `.cursor/memory/` (ai-knowledge-steward)
-- Do NOT create DEC digests (use `/adr`)
+- Do NOT create DEC digests (use `/dec`)
 - Do NOT treat human docs as agent execution authority
 - Do NOT create or resurrect project `docs/` as SSOT

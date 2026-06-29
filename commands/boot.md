@@ -54,8 +54,8 @@ Include Session Loaded, STATE, HANDOFF, and:
 ### DEC Reminder (Advisory)
 
 If architectural decisions arise:
-- Capture via `/adr` → DEC digest in `.cursor/memory/decisions/DEC-NNNN-slug.md`
-- Legacy `docs/architecture/ADR/` is not execution authority
+- Capture via `/dec` → DEC digest in `.cursor/memory/decisions/DEC-NNNN-slug.md`
+- ADR is historical provenance only — not execution authority
 - Advisory only — boot does not block on missing DEC
 
 ### Module boundary pointer

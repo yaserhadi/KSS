@@ -21,7 +21,7 @@ Backup prior handoff to `.cursor/reports/HANDOFF_BACKUP_YYYY-MM.md`, then replac
 ### 4. Optional stewards
 
 - `/docpack` for full **governance packaging** (HANDOFF + STATE + conventions + reports — superset of this command)
-- Architecture decisions → `/adr` (DEC digest in `.cursor/memory/decisions/`)
+- Architecture decisions → `/dec` (DEC digest in `.cursor/memory/decisions/`)
 
 ### 5. Confirm completion
 
@@ -31,7 +31,7 @@ Display session ended summary; next session run `/boot`.
 
 - Decisions this session: [list / none]
 - DEC captured: [DEC-NNNN / None / Not yet]
-- If decisions exist without DEC: recommend `/adr` or document "DEC Not Needed: reason"
+- If decisions exist without DEC: recommend `/dec` or document "DEC Not Needed: reason"
 
 Non-blocking.
 
@@ -41,6 +41,6 @@ Read `.cursor/memory/STATE.yaml` when present:
 
 - `runtime_install_gate`: if any flag false → do **not** recommend Copy-Item to `~/.cursor`
 - `docpack_gate.extraction_close_allowed`: if false → governance closure still pending
-- `kss_to_global_sync.performed`: if false → live `~/.cursor` may be stale vs remediation draft
+- `kss_to_global_sync.performed`: if false → compare live `~/.cursor` with `KSS/commands/` before assuming sync
 
 Non-blocking.
