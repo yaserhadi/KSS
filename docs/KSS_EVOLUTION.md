@@ -128,6 +128,7 @@ evidence: Jabal/.cursor/reports/KSS_SYNC_FROM_JABAL.md
 ```yaml
 id: EVOL-007
 version: v1.1.3
+commit: fb712b9
 source: Jabal BK-029 + docpack SSOT alignment + /doplan gateway
 lesson: "/dec is primary decision command; ADR retired from execution model (deprecated alias only); docpack and doplan aligned to .cursor SSOT"
 changes:
