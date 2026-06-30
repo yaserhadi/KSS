@@ -120,3 +120,29 @@ publication:
   tag_type: annotated
 evidence: Jabal/.cursor/reports/KSS_SYNC_FROM_JABAL.md
 ```
+
+---
+
+## EVOL-007 — DEC execution authority + docpack/doplan sync (patch)
+
+```yaml
+id: EVOL-007
+version: v1.1.3
+source: Jabal BK-029 + docpack SSOT alignment + /doplan gateway
+lesson: "/dec is primary decision command; ADR retired from execution model (deprecated alias only); docpack and doplan aligned to .cursor SSOT"
+changes:
+  - commands/dec.md (new)
+  - agents/dec-steward.md (new)
+  - commands/adr.md, agents/adr-steward.md (deprecated aliases)
+  - commands/docpack.md, doplan.md (SSOT alignment)
+  - commands/boot.md, session-end.md, gw-* (→ /dec references)
+  - docs/GOVERNANCE_LAYERS.md, handbook.md, reference docs
+breaking_change: false
+semver: patch
+prior_release: v1.1.2@efdf993
+publication:
+  local_only: true
+  push_deferred: true
+  tag_type: annotated
+evidence: Jabal/.cursor/reports/BK_029_DEC_EXECUTION_AUTHORITY_CLOSURE.md
+```
