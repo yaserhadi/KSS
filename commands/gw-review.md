@@ -21,13 +21,20 @@
    - Follows modular boundaries
    - Least privilege applied
    - Audit trail maintained where required
-5. **Architectural Decision Check**:
+5. **Enforceable Convention Check** (when change touches API / migrations / RBAC catalog):
+   - Read adopting project `.cursor/memory/conventions/` if present
+   - API: `/api/v1`, standard envelope, `BaseApiController` helpers (if MANIFEST API lock active)
+   - DB: UUID PK, FK indexes, `tenant_id` index on tenant-scoped tables (**after** DEC-0011 ownership where applicable)
+   - RBAC: `domain.action` naming; catalog changes via `TenantRbacProvisioner` only (DEC-0002)
+   - Items tagged **Advisory** in conventions are guidance only; MANIFEST/DEC/INTEGRITY win on conflict
+   - Skip or mark N/A when diff is docs-only governance with no API/DB/RBAC product surface
+6. **Architectural Decision Check**:
    - Does this change involve a choice between alternatives?
    - Does it establish a new pattern, API contract, or module boundary?
    - Does it have long-term architectural implications?
    - Does it affect security boundaries or data access rules?
    - Is there an Existing DEC that covers this decision?
-6. **Doctrine_002 / Layer Responsibility Check** (mandatory):
+7. **Doctrine_002 / Layer Responsibility Check** (mandatory):
    - Governing rule: [`KSS_Doctrine_002.md`](../docs/KSS_Doctrine_002.md) (`classification: governance_rule`)
    - Implementation aid: [`LAYER_VIOLATION_CHECKLIST.md`](../docs/LAYER_VIOLATION_CHECKLIST.md)
    - Adopting project: `.cursor/CURSOR_RUNTIME.md` when present (project SSOT wins)
@@ -64,6 +71,12 @@
 - [ ] Follows module boundaries
 - [ ] Least privilege applied
 - [ ] Audit requirements met
+
+**Enforceable Convention Check** (when API / migrations / RBAC catalog touched):
+- [ ] API envelope and BaseApiController pattern (if applicable)
+- [ ] DB UUID / indexes / tenant_id shape (after ownership DEC where applicable)
+- [ ] RBAC naming and provisioner-only catalog changes (if applicable)
+- [ ] N/A — docs-only or out of scope
 
 **Verdict**: Approve / Request Changes / Block
 
