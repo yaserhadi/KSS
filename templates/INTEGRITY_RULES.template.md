@@ -63,12 +63,14 @@ Expected: matches found (pattern must exist)
 
 Engineering conventions live in `.cursor/memory/conventions/`.
 
+Adopting projects may tag convention sections with `authority: advisory | enforceable | already_covered` (see Jabal `conventions/README.md` — Option E hybrid model).
+
 **Authority Rules:**
 
 | Aspect | Rule |
 |--------|------|
 | Location | ONLY in `.cursor/memory/conventions/` |
-| Status | Advisory by default |
+| Status | Advisory by default; per-section **Enforceable** tags are review gates, not MANIFEST locks |
 | Override | Enforcement layers (MANIFEST, INTEGRITY_RULES, VERSIONS, STATE) always win |
 
 **Promotion to Enforcement:**
