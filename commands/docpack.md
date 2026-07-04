@@ -15,8 +15,8 @@ Project execution SSOT = `.cursor/` per adopting project's `DOC_POLICY.yaml`.
 
 | Command | Role |
 |---------|------|
-| `/session-end` | HANDOFF.md only (lighter close) |
-| `/docpack` | Superset: HANDOFF + STATE + conventions + reports + optional DEC |
+| `/session-end` | HANDOFF.md + conditional docpack (triggers when conventions/architecture changed) |
+| `/docpack` | Full governance packaging (standalone or triggered by `/session-end`) |
 | `/gw-handoff` | In-chat summary only — does not persist |
 | `/dec` | DEC digest → `.cursor/memory/decisions/` |
 | `/adr` | Deprecated alias → `/dec` |

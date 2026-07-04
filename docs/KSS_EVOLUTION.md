@@ -147,3 +147,26 @@ publication:
   tag_type: annotated
 evidence: Jabal/.cursor/reports/BK_029_DEC_EXECUTION_AUTHORITY_CLOSURE.md
 ```
+
+---
+
+## EVOL-008 — session-end embeds conditional docpack check (patch)
+
+```yaml
+id: EVOL-008
+version: v1.1.4
+commit: TBD
+source: Jabal BK-042 session workflow improvement
+lesson: "session-end should embed a conditional docpack trigger so agents never forget governance packaging when conventions change; docpack remains standalone for mid-session use"
+changes:
+  - commands/session-end.md (step 4 → conditional docpack check replaces optional steward mention)
+  - commands/docpack.md (related commands table updated)
+breaking_change: false
+semver: patch
+prior_release: v1.1.3@3b06515
+publication:
+  local_only: false
+  push_deferred: false
+  tag_type: annotated
+evidence: N/A (workflow improvement; no project closure)
+```

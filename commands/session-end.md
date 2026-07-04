@@ -18,12 +18,26 @@ Session summary, test status, files changed, decisions, open issues, next steps.
 
 Backup prior handoff to `.cursor/reports/HANDOFF_BACKUP_YYYY-MM.md`, then replace HANDOFF.md.
 
-### 4. Optional stewards
+### 4. Docpack conditional check
 
-- `/docpack` for full **governance packaging** (HANDOFF + STATE + conventions + reports — superset of this command)
+Evaluate whether `/docpack` is needed based on session changes:
+
+| Session changed... | Action |
+|--------------------|--------|
+| Conventions, patterns, or architecture rules | Run `/docpack` |
+| Architectural decisions (DEC-worthy) | Run `/docpack` (includes DEC check) |
+| Only product code following existing patterns | Skip — note "No convention changes" |
+| Only governance files (BACKLOG, ACTIVE.plan) | Skip — already covered by HANDOFF |
+
+**If docpack triggers:** run the full `/docpack` workflow (Detect → Classify → DEC check → Propose → Apply → Evidence). This replaces the separate post-session `/docpack` call.
+
+**If docpack skips:** report "Docpack: skipped — no convention/architecture changes this session."
+
+### 5. Optional stewards
+
 - Architecture decisions → `/dec` (DEC digest in `.cursor/memory/decisions/`)
 
-### 5. Confirm completion
+### 6. Confirm completion
 
 Display session ended summary; next session run `/boot`.
 
