@@ -119,3 +119,9 @@ A Lock becomes Active only when:
 | No | STOP. Fix missing items first. |
 
 **This is a GATE. No Todo execution until ALL checks pass.**
+
+---
+
+## Tenant storage mode (optional cross-reference)
+
+When this gate triggers on tenancy/database/security and the project ships `tenant-storage-mode-gate.mdc`, that gate also applies. Complete the plan's **Storage Mode Compatibility (PRV)** section before todos — or record `PRV: Not applicable` when trigger scope does not match.

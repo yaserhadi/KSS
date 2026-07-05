@@ -19,6 +19,7 @@ These are **project-layer** rules — not installed to `~/.cursor/rules/`.
 | `plan-preflight-gate.template.mdc` | Gate before sensitive plan todos |
 | `plan-completion-gate.template.mdc` | ACTIVE.plan update on completion |
 | `module-creation-gate.template.mdc` | Module vs kernel vs new module |
+| `tenant-storage-mode-gate.template.mdc` | PRV for tenant storage modes (shared / dedicated / schema) |
 
 Customize lock IDs, DEC references, and project names after copy.
 
