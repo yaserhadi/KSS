@@ -170,3 +170,27 @@ publication:
   tag_type: annotated
 evidence: N/A (workflow improvement; no project closure)
 ```
+
+---
+
+## EVOL-009 — Tenant storage mode compatibility gate (patch)
+
+```yaml
+id: EVOL-009
+version: v1.1.5
+source: Jabal BK-052 governance extraction (tenant-storage-mode-gate)
+lesson: "Multi-tenant projects need trigger-based PRV for shared_db / database_per_tenant / schema_per_tenant; two-tier auth vs domain model; INTEGRITY verification + preflight cross-ref"
+changes:
+  - templates/project-rules/tenant-storage-mode-gate.template.mdc (new)
+  - templates/project-rules/plan-preflight-gate.template.mdc (storage gate cross-ref)
+  - templates/project-rules/README.template.md
+  - templates/INTEGRITY_RULES.template.md (TENANT-STORAGE-MODE-COMPATIBILITY section)
+breaking_change: false
+semver: patch
+prior_release: v1.1.4
+publication:
+  local_only: true
+  push_deferred: false
+  tag_type: annotated
+evidence: Jabal/.cursor/reports/BK_052_TENANT_STORAGE_COMPATIBILITY.md
+```

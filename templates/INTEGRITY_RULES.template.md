@@ -59,6 +59,39 @@ Expected: matches found (pattern must exist)
 
 ---
 
+## TENANT-STORAGE-MODE-COMPATIBILITY (optional — multi-tenant projects)
+
+Add when project adopts `tenant-storage-mode-gate.mdc` (origin: storage mode audit / governance BK).
+
+**Verification commands:**
+
+```
+rg "DB::connection\('tenant'\)" Modules/*/app/Services
+```
+
+Expected: empty, or only allowlist rows documented in closure report with owner acceptance.
+
+```
+rg "ResolvesTenantStorageConnection|TenantStorageResolver" app/ Modules/
+```
+
+Expected: auth-tier models/services use resolver pattern.
+
+**Dedicated-mode test attestation (when applicable):**
+
+```
+php artisan test --filter=DedicatedStorage
+```
+
+Expected: pass or documented skip with corrective backlog evidence.
+
+**Stop conditions:**
+
+- PRV incomplete on triggered tenant-facing plan → STOP
+- New raw `DB::connection('tenant')` in services without allowlist row → STOP
+
+---
+
 ## Conventions Governance
 
 Engineering conventions live in `.cursor/memory/conventions/`.

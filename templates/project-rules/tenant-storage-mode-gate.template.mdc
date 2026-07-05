@@ -1,0 +1,98 @@
+---
+description: TENANT-STORAGE-MODE-GATE — PRV and storage mode compatibility for tenant-facing plans
+globs: .cursor/plans/*.plan.md
+alwaysApply: true
+---
+
+# TENANT-STORAGE-MODE-GATE (Tenant Storage Mode Compatibility Gate)
+
+**Related:** `<DEC-TENANCY>` (e.g. platform/tenant separation), tenant storage resolver contract, auth-model boundary report, INTEGRITY verification section.
+
+**Portable template** — replace project paths, DEC refs, model/trait names, and allowlist sources after copy to `<project>/.cursor/rules/`.
+
+```yaml
+tenant_storage_mode_gate:
+  Pattern_to_KSS_Template: approved
+  portable_structure: true
+  project_content: replace_required
+```
+
+## Step 0 — Trigger evaluation (required first)
+
+This rule is available for all plans, but **applies only when scope matches** the trigger below.
+
+**Trigger scope** — plan touches any of:
+
+- tenant-facing surfaces (routes, controllers, pages, API)
+- tenant-data models or migrations
+- tenant-auth, tenant-session, tenant-settings, tenant-security
+- tenant programmatic API / tokens
+
+**If trigger does NOT match:** record in the plan:
+
+```text
+## Storage Mode Compatibility (PRV)
+**Status:** Not applicable — plan scope does not touch tenant storage modes.
+```
+
+Then skip all requirements below. Do **not** burden unrelated plans.
+
+**If trigger matches:** complete the full PRV section before executing plan todos.
+
+---
+
+## Two-tier compatibility model
+
+| Tier | Artifacts | `shared_db` | `database_per_tenant` | `schema_per_tenant` |
+|------|-----------|-------------|----------------------|---------------------|
+| **Auth / Security / Session / API** | Tenant user, membership, MFA, RBAC, tokens, sessions, security policies | Required | Required | Statement: deferred / not touched |
+| **Domain operational** | Domain models intentionally on shared per auth-model boundary | Required | **Deferred** per project boundary doc | Statement required |
+
+Domain-tier artifacts without storage resolver trait are **not** automatic defects when documented as domain-on-shared.
+
+---
+
+## Mandatory plan section (when triggered)
+
+Every triggered plan MUST include:
+
+```markdown
+## Storage Mode Compatibility (PRV)
+
+| Check | shared_db | database_per_tenant | schema_per_tenant |
+|-------|-----------|---------------------|-------------------|
+| Tier (auth/security vs domain) | auth / domain | auth / domain | deferred / not touched |
+| Models: storage resolver trait | yes/no/na | yes/no/na | na |
+| BelongsToTenant when usesExplicitTenantIdColumn | yes/no/na | yes/no/na | na |
+| Tests attested (class names) | ... | ... | deferred |
+| Raw DB::connection('tenant') in services | none / allowlist ref | none / allowlist ref | n/a |
+| Central reads for tenant runtime data | none | none | n/a |
+| Hardcoded shared-tenant DB assumption | none | none | n/a |
+```
+
+**Stop condition:** PRV incomplete or unverifiable → **do NOT execute** plan todos.
+
+---
+
+## Rules (when triggered)
+
+| Rule | Requirement |
+|------|-------------|
+| Resolver | Use project tenant storage resolver + model connection trait; never assume a fixed shared physical DB name |
+| Services | No `DB::connection('tenant')` in module services except rows in INTEGRITY allowlist (owner-accepted, closure-report sourced) |
+| Central reads | No central DB reads for tenant runtime data (registry exceptions: tenant registry, domains, provisioning metadata) |
+| BelongsToTenant | Apply only when `usesExplicitTenantIdColumn()` is true for the tenant |
+| schema_per_tenant | Explicit row: `tested` / `deferred` / `not touched` |
+| Domain tier | Reference auth-model boundary doc when deferring dedicated storage |
+
+---
+
+## Allowlist discipline
+
+No vague “approved allowlist.” Each `DB::connection('tenant')` exception in INTEGRITY_RULES must trace to a closure-report row with: exact file/method, reason, tier, risk, expiry/follow-up backlog item, owner acceptance.
+
+---
+
+## Plan preflight cross-reference
+
+When `plan-preflight-gate` triggers on tenancy/database/security, this gate also applies. Complete PRV before todos.
