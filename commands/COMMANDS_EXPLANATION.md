@@ -7,15 +7,15 @@
 |------|---------|-------------|
 | boot.md | Load project context | Start of every session |
 | doplan.md | Governed planning gateway — BK binding, gates; English brief for Plan mode | Before creating a new plan (does not write plan files) |
-| session-end.md | Save handoff to HANDOFF.md | Before closing chat |
-| docpack.md | Package `.cursor/` governance after work | End of session, after changes |
+| session-end.md | Persist HANDOFF + closeout audit (finalize + docpack + **push**) | Before closing chat |
+| docpack.md | Package `.cursor/` governance (tool used by finalize / session-end) | Mid-session or embedded |
 | gw-triage.md | Triage unclear request; apply project `.cursor/rules/` boundary rules if present; detect architectural decisions | Request is ambiguous, may need DEC, or needs placement triage |
 | gw-riskcheck.md | Assess risks, CAB flag; includes DEC check | Before production/security changes |
 | gw-review.md | Review changes; catch unrecorded decisions | Before merge |
 | gw-handoff.md | Summarize for reviewer | In-session handoff |
 | git-prepare.md | Create branch from main | Start new work |
 | git-save.md | Commit progress | Safe checkpoint |
-| git-finalize.md | Merge and delete branch | After tests pass |
+| git-finalize.md | Local merge→main + merge packaging; then **require `/session-end`** | Close feature onto local main |
 | en.md | English-only reply | Override response language for this session |
 | ar.md | Arabic-only reply | Override response language for this session |
 | aren.md | Dual language (Arabic + English) | Override response language for this session |

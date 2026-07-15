@@ -22,11 +22,11 @@ Apply these in your Cursor command files (copy to `~/.cursor/commands/`):
 ## Files to update
 
 - **boot** (e.g. `boot.md`): Check policy at `.cursor/DOC_POLICY.yaml`; read `.cursor/memory/AI_ENTRY.md` (mandatory order: DOC_POLICY, then PROJECT_MANIFEST, STATE, HANDOFF, GOALS), then `.cursor/memory/PROJECT_MANIFEST.md`, `.cursor/memory/STATE.yaml`, `.cursor/memory/HANDOFF.md`, and **`.cursor/memory/GOALS.md` (mandatory — Read with explicit path; if read fails, STOP boot)**. On-demand: `.cursor/memory/decisions/`, `.cursor/memory/INTEGRITY_RULES.md`. Do **not** use project `docs/` as execution SSOT.
-- **docpack** (e.g. `docpack.md`): Governance packaging — read/write `.cursor/memory/`, `.cursor/reports/`, conventions per DOC_POLICY. Not project `docs/`.
-- **session-end** (e.g. `session-end.md`): Write handoff to `.cursor/memory/HANDOFF.md` only.
+- **docpack** (e.g. `docpack.md`): Governance packaging — read/write `.cursor/memory/`, `.cursor/reports/`, conventions, ACTIVE.plan, BACKLOG lifecycle text, closure SSOT per DOC_POLICY. Not project `docs/`.
+- **session-end** (e.g. `session-end.md`): Write HANDOFF, then run required lifecycle/`docpack` check (embedded mode when delivery/merge/Decision triggers match).
 
 ## Verification
 
-After updating commands, run `/session-end` and confirm that only `.cursor/memory/HANDOFF.md` is created or updated (not any file under root `memory/`).
+After updating commands, run `/session-end` and confirm writes stay under `.cursor/` (HANDOFF + any triggered lifecycle artefacts: STATE, ACTIVE.plan, BACKLOG, reports) — never under root `memory/`.
 
 **Single-memory-path fix:** Commands updated; content migrated to `.cursor/memory/`; root `memory/` deprecated (README only).
