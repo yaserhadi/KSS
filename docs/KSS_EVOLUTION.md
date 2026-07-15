@@ -173,11 +173,17 @@ evidence: N/A (workflow improvement; no project closure)
 
 ---
 
+## Release v1.1.5 (2026-07-15)
+
+Annotated tag on `main` covering **EVOL-009 … EVOL-012** (tenant storage gate templates + session closeout command hierarchy). Prior release: `v1.1.4`. Owner opened remote publication gate (Jabal Phase 15C deferred push).
+
+---
+
 ## EVOL-010 — session-end/docpack lifecycle packaging (patch)
 
 ```yaml
 id: EVOL-010
-version: unreleased_local
+version: v1.1.5
 source: Jabal Governance Lab — BK-064 post-merge session-end gap
 lesson: >
   HANDOFF alone is not session closure. /session-end must run docpack lifecycle packaging when
@@ -191,10 +197,11 @@ changes:
 breaking_change: false
 semver: patch
 prior_lesson: EVOL-008
+prior_release: v1.1.4
 publication:
-  local_only: true
-  push_deferred: true
-  tag_type: none
+  local_only: false
+  push_deferred: false
+  tag_type: annotated
 evidence: Jabal session after BK-064 Decision A merge — closure SSOT/BACKLOG/ACTIVE left pending-merge
 ```
 
@@ -204,7 +211,7 @@ evidence: Jabal session after BK-064 Decision A merge — closure SSOT/BACKLOG/A
 
 ```yaml
 id: EVOL-011
-version: unreleased_local
+version: v1.1.5
 source: Jabal Governance Lab — same BK-064 finalize gap
 lesson: >
   /git-finalize must not stop at merge+branch-delete. Step 5 requires /docpack lifecycle
@@ -216,10 +223,11 @@ changes:
 breaking_change: false
 semver: patch
 prior_lesson: EVOL-010
+prior_release: v1.1.4
 publication:
-  local_only: true
-  push_deferred: true
-  tag_type: none
+  local_only: false
+  push_deferred: false
+  tag_type: annotated
 evidence: Jabal retrospectively packed BK-064 after merge b15443d
 ```
 
@@ -229,7 +237,7 @@ evidence: Jabal retrospectively packed BK-064 after merge b15443d
 
 ```yaml
 id: EVOL-012
-version: unreleased_local
+version: v1.1.5
 source: Jabal Governance Lab — owner clarification on command hierarchy
 lesson: >
   /git-finalize is local merge + merge packaging only; it does not close the session.
@@ -244,10 +252,11 @@ changes:
 breaking_change: false
 semver: patch
 prior_lesson: EVOL-011
+prior_release: v1.1.4
 publication:
-  local_only: true
-  push_deferred: true
-  tag_type: none
+  local_only: false
+  push_deferred: false
+  tag_type: annotated
 evidence: owner feedback — still need docpack/session-end after finalize including push
 ```
 
@@ -269,7 +278,7 @@ breaking_change: false
 semver: patch
 prior_release: v1.1.4
 publication:
-  local_only: true
+  local_only: false
   push_deferred: false
   tag_type: annotated
 evidence: Jabal/.cursor/reports/BK_052_TENANT_STORAGE_COMPATIBILITY.md
