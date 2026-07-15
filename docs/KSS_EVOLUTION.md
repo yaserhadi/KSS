@@ -173,6 +173,86 @@ evidence: N/A (workflow improvement; no project closure)
 
 ---
 
+## EVOL-010 — session-end/docpack lifecycle packaging (patch)
+
+```yaml
+id: EVOL-010
+version: unreleased_local
+source: Jabal Governance Lab — BK-064 post-merge session-end gap
+lesson: >
+  HANDOFF alone is not session closure. /session-end must run docpack lifecycle packaging when
+  a BK/defect/delivery merges or Decisions complete; do not skip for "product-only" or
+  "governance-only" sessions. Docpack must auto-apply STATE/ACTIVE/BACKLOG/closure-report
+  consistency (strip false pending-merge wording) in session-end embedded mode.
+changes:
+  - commands/session-end.md (required lifecycle matrix; anti-skip rules; embedded docpack)
+  - commands/docpack.md (Detect git tip vs SSOT; lifecycle safe defaults; embedded mode)
+  - synced to ~/.cursor/commands (Governance Lab runtime)
+breaking_change: false
+semver: patch
+prior_lesson: EVOL-008
+publication:
+  local_only: true
+  push_deferred: true
+  tag_type: none
+evidence: Jabal session after BK-064 Decision A merge — closure SSOT/BACKLOG/ACTIVE left pending-merge
+```
+
+---
+
+## EVOL-011 — git-finalize requires post-merge lifecycle packaging (patch)
+
+```yaml
+id: EVOL-011
+version: unreleased_local
+source: Jabal Governance Lab — same BK-064 finalize gap
+lesson: >
+  /git-finalize must not stop at merge+branch-delete. Step 5 requires /docpack lifecycle
+  packaging so HANDOFF/STATE/ACTIVE/BACKLOG/closure SSOT match main HEAD. Soft Skip for
+  "conventions only" caused pending-merge drift after Decision A.
+changes:
+  - commands/git-finalize.md (step 5 post-merge packaging required; report artefacts)
+  - synced to ~/.cursor/commands
+breaking_change: false
+semver: patch
+prior_lesson: EVOL-010
+publication:
+  local_only: true
+  push_deferred: true
+  tag_type: none
+evidence: Jabal retrospectively packed BK-064 after merge b15443d
+```
+
+---
+
+## EVOL-012 — session-end is authoritative closeout (finalize + docpack + push) (patch)
+
+```yaml
+id: EVOL-012
+version: unreleased_local
+source: Jabal Governance Lab — owner clarification on command hierarchy
+lesson: >
+  /git-finalize is local merge + merge packaging only; it does not close the session.
+  /session-end is the authoritative closeout: verify finalize done, verify/repair docpack,
+  and push (or record owner waiver). Standalone /docpack after finalize is usually redundant;
+  prefer session-end.
+changes:
+  - commands/session-end.md (closeout audit: git/finalize, docpack, push)
+  - commands/git-finalize.md (explicit handoff to /session-end; no session-closed claim)
+  - commands/docpack.md (finalize vs session-end embedded modes; prefer session-end after finalize)
+  - synced to ~/.cursor/commands
+breaking_change: false
+semver: patch
+prior_lesson: EVOL-011
+publication:
+  local_only: true
+  push_deferred: true
+  tag_type: none
+evidence: owner feedback — still need docpack/session-end after finalize including push
+```
+
+---
+
 ## EVOL-009 — Tenant storage mode compatibility gate (patch)
 
 ```yaml
