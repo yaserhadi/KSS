@@ -6,7 +6,7 @@
 | File | Purpose | When to Use |
 |------|---------|-------------|
 | boot.md | Load project context | Start of every session |
-| doplan.md | Governed planning gateway — BK binding, gates; English brief for Plan mode | Before creating a new plan (does not write plan files) |
+| doplan.md | Governed planning gateway — CAP/BK binding, Active decision-registry candidates, gates; English brief for Plan mode | Before creating a new plan (does not write plan files; does not complete GAB) |
 | session-end.md | Persist HANDOFF + closeout audit (finalize + docpack + **push**) | Before closing chat |
 | docpack.md | Package `.cursor/` governance (tool used by finalize / session-end) | Mid-session or embedded |
 | gw-triage.md | Triage unclear request; apply project `.cursor/rules/` boundary rules if present; detect architectural decisions | Request is ambiguous, may need DEC, or needs placement triage |

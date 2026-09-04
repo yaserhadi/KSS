@@ -23,7 +23,9 @@ DOC_POLICY > PROJECT_MANIFEST > INTEGRITY_RULES > DEC > STATE > HANDOFF > GOALS
 - DOC_POLICY contains paths only (no governance logic)
 - PROJECT_MANIFEST contains architectural locks
 - INTEGRITY_RULES contains verification gates
-- DEC digests in `.cursor/memory/decisions/` are agent-facing decision records
+- DEC digests in `.cursor/memory/decisions/` are agent-facing decision records (when the project keeps a decision registry)
+- Decision-registry discovery for planning is via `/doplan` (Active-only candidates). `AI_ENTRY` may name the registry path/convention; it must not re-implement discovery
+- Whether Governance Applicability is mandatory is **project law**, not implied by KSS alone
 - Legacy project `docs/` is not execution authority
 - STATE controls execution status
 - HANDOFF provides session continuity
