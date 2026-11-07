@@ -10,25 +10,50 @@ alwaysApply: true
 
 - Applies to: `.cursor/plans/*.plan.md`
 - Excludes: `.cursor/plans/archive/*` (archived plans are read-only history)
+- Lifecycle source: `plan-execution-authority.mdc` (global rule), section C
 
-When ALL todos in a plan are marked `completed`, the agent MUST:
+## Trigger
 
-## Required Actions (Same Commit)
+Plan completion happens only when **both** are true:
+
+1. All todos are marked `completed`, **and**
+2. **Owner acceptance is recorded** (rule section C) — for example the Owner-controlled acceptance todo, or an explicit Owner acceptance statement for documentation/governance plans.
+
+Agent-only todo completion never triggers completion. Successful agent verification ends in a handoff for Owner testing or review.
+
+## Detect plan storage
+
+```bash
+git check-ignore -q .cursor/plans/ACTIVE.plan.md
+```
+
+- Exit 0 → **local-only** plans (`.cursor/plans/` ignored by Git).
+- Otherwise → **tracked** plans.
+
+## Required actions (same-target plans)
+
+These actions apply to plans whose execution target is the host workspace (no `execution_target` declared, or the declared target is the host). Foreign-target plans follow the next section instead.
 
 1. **Update `.cursor/plans/ACTIVE.plan.md`:**
-   - Set "Current active plan" to "None (awaiting next phase)"
-   - Move completed plan to "Last completed plan" with status COMPLETE and date
-   - Include link to report and branch
+   - Set "Current active plan" to the **next active plan**, or "None (awaiting next phase)" when there is none
+   - Record the completed plan under "Last completed plan" with status COMPLETE, date, branch, and **durable evidence** (commit SHAs and/or report path)
    - Keep the References section unchanged
 
-2. **Update plan's `last_updated` field:**
+2. **Update plan's `last_updated` field** in the `## Plan metadata` block (`plan-execution-authority` section D; not in Cursor-managed frontmatter):
    - Set to current timestamp with seconds precision (ISO 8601)
-   - Example: `last_updated: "2026-02-28T03:45:30Z"`
+   - Example: `last_updated: '2026-02-28T03:45:30Z'`
 
-3. **Include in final commit:**
-   - All plan changes
-   - ACTIVE.plan.md update
-   - Report file (if created)
+3. **Persist according to plan storage:**
+   - **Tracked plans — Same Commit:** include all plan changes, the ACTIVE.plan.md update, and the report file (if created) in the delivery's final commit.
+   - **Local-only plans:** update the plan and ACTIVE.plan.md locally in the same completion step. Tracked artefacts (STATE, HANDOFF, BACKLOG, reports) go in the delivery's final commit. Do **not** stage any plan file.
+
+4. **Archiving** follows the adopting project's policy (it may require a separate Owner decision). Do not archive automatically because the plan completed.
+
+## Foreign-target plans
+
+Plans whose declared `execution_target` differs from the host workspace (rule section D) are **not** packaged into the host's ACTIVE, STATE, BACKLOG, or HANDOFF as host delivery. Record completion in the plan file and its handoff/evidence report.
+
+Do not update the host's ACTIVE.plan.md, STATE, BACKLOG or HANDOFF for these plans. Owner acceptance, durable evidence and completion are recorded in the plan file and its handoff/evidence report.
 
 ## Governance closure plans (exception)
 
@@ -40,11 +65,13 @@ For plans tagged `governance`, `kss-extraction`, or `cab-fix` in frontmatter, na
 
 ## Verification
 
-Before completing the commit, confirm:
-- [ ] ACTIVE.plan.md updated
-- [ ] Last completed plan section populated
+Before completing:
+- [ ] Owner acceptance recorded
+- [ ] ACTIVE.plan.md updated (next active plan or None)
+- [ ] Last completed plan section populated with durable evidence
 - [ ] Report linked (if applicable)
 - [ ] Plan's `last_updated` field updated
+- [ ] Persisted per plan storage (tracked: same commit; local-only: no plan file staged)
 - [ ] If governance plan: owner approved any STATE gate changes
 
 **This is a PROTOCOL, not automation. Agent MUST perform these steps.**

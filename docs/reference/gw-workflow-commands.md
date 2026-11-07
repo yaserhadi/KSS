@@ -46,7 +46,7 @@ Use this table to pick a command. **Details for each command are below.**
 /doplan  →  DoPlan Governance Brief (English)  →  Plan mode  →  plan file
 ```
 
-`/boot` loads session context separately — it does not start execution from a plan.
+`/boot` loads session context separately — it does not start execution from a plan. Plan execution starts only by Owner Build (`plan-execution-authority`).
 
 **Full spec:** [`commands/doplan.md`](../../commands/doplan.md)
 

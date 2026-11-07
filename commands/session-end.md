@@ -45,6 +45,9 @@ If this session used `/git-finalize`: confirm its report (merge hash, branch del
 | Stale phrases | No false `pending merge` / `await merge` / Decision **open** after merge already happened | **Run `/docpack`** repair |
 | ACTIVE.plan / BACKLOG | Match delivery state (no PARTIAL / await-merge when delivered) | **Run `/docpack`** |
 | Closure / runbook | Merge commit recorded when this session closed a BK/UAT Decision | **Run `/docpack`** |
+| Plan location | `/docpack` §2.6 result is verified, recovered, or N/A | **Run `/docpack` §2.6**; if still unresolved, report BLOCKED |
+
+The session is not reported as closed cleanly while Plan location is BLOCKED or owner action required. This row authorizes no finalize, push, plan completion, or archiving.
 
 **Rule:** If `/git-finalize` step 5 already packaged correctly, docpack may be a **verify-only** pass (report “Docpack: verified — no further writes”). If anything drifts, **repair now** — do not tell the owner to “run docpack later.”
 
@@ -95,6 +98,7 @@ Docpack trigger reminders (non-exhaustive):
 SESSION CLOSEOUT
 Git / finalize:  PASS | FAIL | N/A
 Docpack:         verified | applied | skipped (<reason>)
+Plan location:   verified | recovered | owner action required | BLOCKED | N/A
 Push:            synced | pushed (<range>) | waived | N/A | BLOCKED
 Artefacts:       [list or none]
 HANDOFF:         updated

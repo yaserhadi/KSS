@@ -28,7 +28,7 @@ Produce the **DoPlan Governance Brief** required before plan generation.
 User intent  →  /doplan  →  Governance Planning Brief  →  Plan mode  →  Plan file
 ```
 
-`/boot` loads session context separately. It does **not** start execution from a plan. Agent mode may execute plan todos later, after gates pass.
+`/boot` loads session context separately. `/doplan` prepares the planning brief only; neither the brief nor the resulting plan authorizes implementation. Execution starts only by Owner Build (`plan-execution-authority`).
 
 ### `.cursor/` read authority
 
@@ -110,7 +110,8 @@ Suggest (do not create):
 - `capability_id` / `backlog_item_id` in frontmatter when CAP/BK is bound
 - `## References` template (Lock, Verification, Evidence paths per project rules)
 - `## Governance Applicability` skeleton **when the adopting project requires it** (domains, modules/planes, matched locks/Active decisions/verification-or-integrity/rules, N/A, conflict classification per project law, verification)
-- `last_updated` ISO 8601 in frontmatter
+- `## Plan metadata` fenced YAML block at the start of the plan body with `plan_host`, `last_updated` (ISO 8601 with seconds) and, when the work targets another repository, `execution_target` — frontmatter stays Cursor-managed (`plan-execution-authority` section D)
+- No execution triggers and no executable Git finalization or publication in the plan; list such steps under "Subsequent operational activities (outside Build scope)" if needed (`plan-execution-authority` section A4)
 
 ### Phase 4 — Gates (advisory)
 
@@ -164,6 +165,7 @@ Output **only** the DoPlan Governance Brief block below. **Do not** write plan f
 
 **Next Step**
 Use this brief in Plan mode to generate the plan file.
+Plan mode presents the plan for Owner review and stops.
 ```
 
 ---

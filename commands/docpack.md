@@ -97,6 +97,23 @@ If triggers and no DEC in session → **DEC Missing Warning** (advisory, non-blo
 | Defect fix under existing Active DEC / Lock | **DEC Not Needed** (document reason) |
 | Ambiguous | **Advisory warning** in proposal |
 
+### 2.6 Plan-location check (current session plans)
+
+Runs in **every mode**. In verify-only mode it only reports: it never creates, copies, modifies, or deletes files. Identity and location criteria: `plan-execution-authority.mdc` section E1; relocation fallback: global rule `plans-location`.
+
+1. **Scope** — only the current session's plans: the Current active plan in `{plans}/ACTIVE.plan.md`, any plan created, opened, or executed in this session, and plan paths named in HANDOFF this session. Never process the whole `~/.cursor/plans/` folder.
+2. **Plan in the host workspace** `{plans}/` → apply the E1 checks → `verified`.
+3. **Plan only in `~/.cursor/plans/`:**
+   - the current session's plan → `owner action required (Save to Workspace)`; copy nothing;
+   - not the current session's plan → report `recovery candidate (separate Owner authorization required)`. Recovery (copy unchanged, verify SHA-256, keep the original, record the workspace copy as authoritative) is performed only as a separately authorized operation per the global rule `plans-location`, never automatically by `/docpack`;
+   - otherwise → `BLOCKED (<reason>)`, nothing written.
+4. **Foreign-target plans** (`plan-execution-authority` section D) → location verified in the host; tip and Git checks against the declared execution target; nothing packaged into host ACTIVE / STATE / BACKLOG / HANDOFF as host delivery.
+5. **No plan in the session** → `N/A`.
+
+Result line: `Plan location: verified | owner action required | recovery candidate | recovered (<path>) | BLOCKED (<reason>) | N/A`
+
+`recovered (<path>)` is valid only when a separately authorized recovery happened in the session.
+
 ### 3. Propose
 
 ```
@@ -112,6 +129,7 @@ Governance track (.cursor/memory/):
 - [ ] VERSIONS.md (if breaking)
 
 Operational lifecycle:
+- [ ] Plan location (2.6): verified | owner action required | recovery candidate | recovered | BLOCKED | N/A
 - [ ] ACTIVE.plan.md (status / last completed / notes match tip)
 - [ ] BACKLOG.md (BK lifecycle row matches delivery state)
 - [ ] Closure / UAT / evidence report(s) (no stale pending-merge wording)
