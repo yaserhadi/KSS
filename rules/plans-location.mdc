@@ -14,25 +14,25 @@ All Cursor plans MUST be saved to the project-level `.cursor/plans/` directory, 
 - Plans must live in the workspace `.cursor/plans/` directory. Do not store plans in user-global directories (e.g., `<user-home>\.cursor\plans\`).
 
 ## Why
-- **Version control**: Project plans should be tracked with the project
 - **Context**: Plans provide valuable project history and decision context
-- **Team collaboration**: Other team members need access to project plans
 - **Organization**: Each project's plans stay with that project
+
+Storage location and Git tracking are separate concerns: each project declares whether `.cursor/plans/` is tracked or local-only.
 
 ## When Creating Plans
 - If the plan-creation tool or API accepts a path or base directory, pass the **workspace** `.cursor/plans/` path (e.g. `.cursor/plans/` relative to workspace root).
-- If a plan is created in the global directory, move it immediately to the open workspace's `.cursor/plans/` folder.
+- Cursor Plan mode may first store a plan in the global directory. That is its initial storage, not the authoritative destination.
 
-## Quick Reference
-```
-# Move a plan from global to project (replace <user-home> with your home directory)
+## Relocating a plan from the global directory
+1. **Preferred:** Cursor **Save to Workspace**. Then verify the resulting workspace copy (exists, matches the reviewed version, valid metadata) without assuming whether Cursor moved or copied the file. If a global copy remains, the workspace copy is authoritative; report any divergence.
+2. **Fallback — copy and verify** (only for a plan that is **not** the current session's plan **and** that the Owner has confirmed is no longer open in Plan mode):
+   - copy the file unchanged into `<workspace>/.cursor/plans/`;
+   - verify SHA-256 equality with the original; keep the original;
+   - record the workspace copy as authoritative.
+3. **STOP** when project ownership or plan version is uncertain, or a different version already exists in the workspace.
+4. **Never** overwrite, rename, merge, or delete plan files during relocation.
 
-# Windows (PowerShell)
-Move-Item -Path "<user-home>\.cursor\plans\[filename].plan.md" -Destination ".cursor\plans\[filename].plan.md"
-
-# Mac/Linux (bash)
-mv <user-home>/.cursor/plans/[filename].plan.md .cursor/plans/[filename].plan.md
-```
+Plan identity and location checks before implementation: `plan-execution-authority.mdc` section E1.
 
 ## Enforcement
 This is a non-negotiable organizational standard. All agents must follow this rule.

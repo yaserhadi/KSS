@@ -7,40 +7,58 @@ alwaysApply: true
 
 All plan files for this project MUST be saved in this project's `.cursor/plans/` directory (workspace-relative).
 
-If a plan was created in the global directory (`~/.cursor/plans/`), move it to this project's `.cursor/plans/` using the commands in the global rule `plans-location`.
+If a plan was created in the global directory (`~/.cursor/plans/`), relocate it to this project's `.cursor/plans/`. Preferred method: Cursor **Save to Workspace**; then verify the resulting workspace copy (`plan-execution-authority` section E1). Fallback per the global rule `plans-location`.
+
+**Storage location and Git tracking are separate.** This project declares `.cursor/plans/` as: **tracked** | **local-only** (choose one; local-only = listed in `.gitignore`).
+
+**Plan Host / Execution Target:** `plan_host` is declared in the `## Plan metadata` block of every new plan; `execution_target` (`repository`, `branch`) is added there when the plan is hosted here but implemented in another repository (`plan-execution-authority` section D).
 
 ---
 
 ## Plan Naming Convention
 
-Plan filenames MUST include timestamp:
+Two filename formats are valid (`plan-execution-authority` section E1):
 
 ```
-<descriptive_name>_<YYYY-MM-DD-HHmm>_<hash>.plan.md
+<descriptive_name>_<hash>.plan.md                     # Cursor-native — plans created by Plan mode
+<descriptive_name>_<YYYY-MM-DD-HHmm>_<hash>.plan.md   # timestamped — preferred for plans created by other means
 ```
 
-Example: `phase_2_tenancy_2026-02-28-0200_5412733d.plan.md`
+Examples: `kss_plan_execution_authority_a59677e9.plan.md` · `phase_2_tenancy_2026-02-28-0200_5412733d.plan.md`
+
+Live Cursor plans and historical plans are never renamed automatically.
 
 ---
 
-## Plan Metadata (Frontmatter)
+## Plan Metadata
 
-Each plan MUST include `last_updated` in frontmatter with full timestamp (seconds precision, ISO 8601):
+Frontmatter holds only the fields Cursor manages. Governance metadata lives in a canonical fenced YAML block under `## Plan metadata` at the **start of the plan body** (`plan-execution-authority` section D):
 
-```yaml
+````markdown
 ---
 name: Plan Name
 overview: Description
-last_updated: "2026-02-28T02:15:30Z"
 todos:
   - id: task1
     content: Task description
     status: pending
 isProject: false
 ---
-```
 
-The `last_updated` field MUST be updated on every plan modification.
+## Plan metadata
+
+```yaml
+plan_host: '<this workspace path>'
+last_updated: '2026-02-28T02:15:30Z'
+# execution_target:              # only when implemented in another repository
+#   repository: '<target repository path>'
+#   branch: <target branch>
+```
+````
+
+- `plan_host` and `last_updated` (ISO 8601, seconds precision) are mandatory for new plans.
+- `last_updated` MUST be updated in the metadata block on every plan modification.
+- Project-required fields (for example a backlog binding) follow this project's own rule.
 
 ---
 
