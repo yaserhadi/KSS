@@ -11,9 +11,10 @@
 ## Lifecycle
 
 ```text
-/boot  →  /doplan  →  Plan  →  Owner Build  →  /gw-review  →  /git-finalize  →  /session-end
+/boot  →  /doplan  →  Plan  →  Owner Build  →  /git-finalize (includes /gw-review)  →  /session-end
 ```
 
+- `/git-finalize` runs the `/gw-review` protocol before every merge. A standalone `/gw-review` is optional at any time (e.g. before Owner testing).
 - This is a **reference workflow**, not a requirement to run every command for every task. Small or docs-only work skips steps (see [Common workflows](#common-workflows)).
 - **Owner Build** is Cursor's native Build action on a plan. It is not an extra approval layer.
 
@@ -25,8 +26,8 @@
 | Planning | `/doplan` | A new plan is needed | Scope, destination, decisions, risk and backlog binding before Plan mode | Analyzes only (English brief) |
 | Plan | Cursor Plan mode | After `/doplan` | Writes the plan file for Owner review | Writes the plan file |
 | Execution | Owner Build | Plan accepted by the Owner | Executes the plan todos | Modifies files; may commit on a branch per plan |
-| Review | `/gw-review` | After implementation, before merge | Finds defects, scope drift, security and rule violations | Analyzes only |
-| Local merge | `/git-finalize` | Branch ready (tests green, review done when applicable) | Merges into local `main`, deletes local branch, packages lifecycle artefacts | Commits, merges, modifies `.cursor/` artefacts — **no push** |
+| Review | `/gw-review` | Automatic inside `/git-finalize`; standalone optional | Finds defects, scope drift, security and rule violations | Analyzes only |
+| Local merge | `/git-finalize` | Branch ready (tests green) | Reviews first; merges into local `main` only on Approve, deletes local branch, packages lifecycle artefacts | Commits, merges, modifies `.cursor/` artefacts — **no push** |
 | Closeout | `/session-end` | End of session | Verifies finalize and packaging, persists HANDOFF, publishes | Modifies HANDOFF/STATE, **pushes** (or records waiver) |
 
 **Order rule:** `/git-finalize` (local merge) comes **before** `/session-end` (verify + push). Finalize never pushes; session-end owns publication.
@@ -64,20 +65,23 @@
 
 **In plain terms:** "Is this actual change set good to merge?"
 
-- **Use when:** before merge of code, security, data, schema, or governance-affecting changes.
-- **Optional:** trivial, reversible edits.
-- **Unnecessary when:** an equivalent review is already documented for the same diff (recorded Bugbot, security review, human review) — repeat only for a material reason.
+- **Runs automatically:** inside `/git-finalize` before every merge (proportional — a trivial diff gets a short review with N/A where checks don't apply).
+- **Standalone (optional):** an independent review at any time, e.g. before Owner testing.
+- **Reuse:** an earlier review (standalone `/gw-review`, or a recorded Bugbot, security or human review) is reused only if it records the same `<base-sha>` and `<head-sha>` and its test evidence still applies; otherwise the review runs again.
+- **Incomplete:** if the review cannot be completed (diff not computable, required evidence missing, scope unidentifiable), it is reported as incomplete; `/git-finalize` treats that as STOP.
 - **Checks:** correctness, scope vs the approved plan, safety, security, boundaries, project conventions, test evidence, missing decisions, Doctrine_002 (N/A when irrelevant).
 - **Verdicts:** **Approve** (no Critical findings; warnings recorded) · **Request Changes** (fixable issues must be resolved before merge) · **Block** (Critical: security/data-loss risk, Doctrine Fail, unapproved scope, missing required decision; re-review after fix).
-- **Side effects:** none — analyzes only. A verdict is **not** an instruction to merge or push.
+- **Side effects:** none — analyzes only. A standalone verdict is **not** an instruction to merge or push; inside `/git-finalize`, Approve lets finalize continue.
 - **Full spec:** [`commands/gw-review.md`](../../commands/gw-review.md)
 
 ### `/git-finalize`
 
 **In plain terms:** "Close this branch onto local `main`."
 
-- **Use when:** the feature branch is ready (tests and lint pass; `/gw-review` done when applicable).
-- **Does:** final commit on the branch, `git merge --no-ff` into local `main`, deletes the local branch, runs merge-moment lifecycle packaging (HANDOFF, STATE, ACTIVE plan, BACKLOG row status, reports).
+- **Use when:** the feature branch is ready (tests and lint pass).
+- **Does:** final commit on the branch, then the pre-merge review (the `/gw-review` protocol on `<base-sha>`...`<head-sha>`, or a valid reuse of an earlier review of the same SHAs), then `git merge --no-ff` into local `main`, deletes the local branch, runs merge-moment lifecycle packaging (HANDOFF, STATE, ACTIVE plan, BACKLOG row status, reports).
+- **Review outcome:** **Approve** (advisory warnings allowed) continues automatically, with no Owner confirmation. **Request Changes**, **Block** or an incomplete review STOP before merge and branch deletion: local `main` stays unchanged and the feature branch is preserved. After fixes, run `/git-finalize` again.
+- **Report:** includes the review verdict and the reviewed `<base-sha>`...`<head-sha>` range.
 - **Does not:** push. Next required step is `/session-end`.
 - **Full spec:** [`commands/git-finalize.md`](../../commands/git-finalize.md)
 
@@ -106,7 +110,7 @@
 
 | Step | Command | What it decides or does |
 |------|---------|-------------------------|
-| Review | `/gw-review` | Verdict on the change set — analysis only |
+| Review | `/git-finalize` step 3, or standalone `/gw-review` | Verdict on the change set — analysis only |
 | Merge | `/git-finalize` | Local merge into `main` + lifecycle packaging |
 | Closeout | `/session-end` | Verifies finalize and packaging; persists HANDOFF |
 | Publication | `/session-end` | Pushes `main` (or records an Owner waiver) |
@@ -119,10 +123,10 @@ In-session summaries (files changed, tests, next steps, open questions) are norm
 
 | Workflow | Sequence |
 |----------|----------|
-| Feature work | `/boot` → `/doplan` → Plan → Owner Build → `/gw-review` → `/git-finalize` → `/session-end` |
-| Small fix | Branch → fix → tests → `/gw-review` if auth/tenancy/DB touched → `/git-finalize` → `/session-end` |
-| Docs-only change | Branch → edit → `/git-finalize` → `/session-end` (review optional) |
-| Governance change | `/doplan` (Doctrine_002 check) → Plan → Owner Build → `/gw-review` → `/git-finalize` → `/session-end` |
+| Feature work | `/boot` → `/doplan` → Plan → Owner Build → `/git-finalize` → `/session-end` |
+| Small fix | Branch → fix → tests → `/git-finalize` → `/session-end` |
+| Docs-only change | Branch → edit → `/git-finalize` (short review) → `/session-end` |
+| Governance change | `/doplan` (Doctrine_002 check) → Plan → Owner Build → `/git-finalize` → `/session-end` |
 | Mid-session checkpoint | `/git-save` (and `/docpack` if governance artefacts need updating) |
 
 ---
@@ -132,7 +136,7 @@ In-session summaries (files changed, tests, next steps, open questions) are norm
 **Principle:** Discussion is not authorization. A finding is not an approved backlog item. Backlog admission is not execution authorization.
 
 1. **Why separate them** — keeping findings, product decisions, and implementation apart prevents silent scope growth and keeps every decision auditable.
-2. **Record and evaluate** — `/gw-review` gives each finding one disposition: *blocks this merge*, *fix within the authorized scope*, *record or link for later evaluation*, or *Owner product decision*. Pre-existing or unrelated findings are recorded in the project's own register (or linked to an existing entry) for later evaluation.
+2. **Record and evaluate** — during the pre-merge review in `/git-finalize` (or a standalone `/gw-review`), each finding gets one disposition: *blocks this merge*, *fix within the authorized scope*, *record or link for later evaluation*, or *Owner product decision*. Pre-existing or unrelated findings are recorded in the project's own register (or linked to an existing entry) for later evaluation.
 3. **Link duplicates** — before recording, check for an existing finding, technical-debt item, or backlog item covering the same issue; link to it instead of creating a new one.
 4. **Severity vs priority** — severity is the technical impact, assessed by the reviewer. Priority is the Owner's decision on when (or whether) to act.
 5. **When the Owner decides** — a new requirement, a scope change, or a new backlog item needs an Owner admission decision. Fixes inside an already-authorized scope do not.
@@ -144,7 +148,7 @@ In-session summaries (files changed, tests, next steps, open questions) are norm
 
 | Step | Content |
 |------|---------|
-| Observation | During `/gw-review` of a feature branch, an audit-logging test fails |
+| Observation | During the pre-merge review in `/git-finalize` (or a standalone `/gw-review`) of a feature branch, an audit-logging test fails |
 | Evidence | The same test fails on `main` at the merge base — command output attached |
 | Classification | Status: Confirmed · Origin: Baseline (not caused by this change) · Severity: Medium · Priority: Owner decides |
 | Disposition | Record or link — linked to existing `<FINDING-ID>` if present, otherwise recorded in the project's register; does not block this merge |
@@ -183,8 +187,8 @@ These commands were retired; their functions live on as shown. Do not invoke the
 |----------|--------|
 | Start session | `/boot` then "Continue from handoff" |
 | New plan (scope, risk, backlog) | `/doplan` then describe intent; use the brief in Plan mode |
-| Review before merge | `/gw-review` then name the branch/base or paste the diff |
-| Merge locally | `/git-finalize` |
+| Independent review (optional) | `/gw-review` then name the branch/base or paste the diff |
+| Review and merge locally | `/git-finalize` |
 | Close and publish | `/session-end` |
 | Record a decision | `/dec` then paste the discussion |
 | Checkpoint | `/git-save` |

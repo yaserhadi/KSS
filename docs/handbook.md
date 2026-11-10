@@ -95,7 +95,7 @@ Copy to `~/.cursor/commands/`.
 | gw-review | Review the actual change set before merge |
 | git-prepare | Create branch from main |
 | git-save | Commit progress (no push) |
-| git-finalize | Local merge into main, delete local branch, lifecycle packaging |
+| git-finalize | Pre-merge review, local merge into main, delete local branch, lifecycle packaging |
 | dec | Create DEC digest (`adr` = deprecated alias) |
 | en | Respond in English only |
 | ar | Respond in Arabic only |
@@ -171,7 +171,7 @@ The **[Command workflow guide](reference/command-workflow.md)** is the main refe
 Reference lifecycle (not every task needs every step; Owner Build is Cursor's native Build action, not an approval layer):
 
 ```text
-/boot → /doplan → Plan → Owner Build → /gw-review → /git-finalize → /session-end
+/boot → /doplan → Plan → Owner Build → /git-finalize (includes /gw-review) → /session-end
 ```
 
 ### Session and Workflow Commands
@@ -180,7 +180,7 @@ Reference lifecycle (not every task needs every step; Owner Build is Cursor's na
 |---------|-------------|
 | `/boot` | Start of every session; loads project context |
 | `/doplan` | Before Plan mode; scope, destination, risk, decisions, backlog binding |
-| `/gw-review` | Review the actual change set before merge |
+| `/gw-review` | Optional standalone; runs automatically inside `/git-finalize` |
 | `/session-end` | Before closing chat; verifies finalize/packaging, writes HANDOFF, pushes (use Agent mode) |
 | `/docpack` | Mid-session packaging of `.cursor/` governance; embedded by finalize / session-end |
 
@@ -190,7 +190,7 @@ Reference lifecycle (not every task needs every step; Owner Build is Cursor's na
 |---------|-------------|
 | `/git-prepare` | Start new work; create branch from main |
 | `/git-save` | Checkpoint progress; commit without push |
-| `/git-finalize` | Local merge into main after tests (and `/gw-review` when applicable); then `/session-end` verifies and pushes |
+| `/git-finalize` | Pre-merge review, then local merge into main after tests; then `/session-end` verifies and pushes |
 
 ### Language Commands
 
@@ -261,7 +261,7 @@ Legacy project `docs/` is not execution authority. KSS `docs/` is framework refe
 | End session and publish | `/session-end` (after `/git-finalize` when work was merged) |
 | Create ADR from discussion | `/adr` then paste ChatGPT/Cursor/meeting text |
 | Plan new work (scope, risk, backlog) | `/doplan` then describe the intent |
-| Review changes before merge | `/gw-review` then name the branch/base or paste the diff |
+| Independent review (optional) | `/gw-review` then name the branch/base or paste the diff |
 | Package `.cursor/` governance after work | `/docpack` |
 | Start work on branch | `/git-prepare` |
 | Save progress | `/git-save` |

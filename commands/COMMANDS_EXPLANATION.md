@@ -10,10 +10,10 @@
 | doplan.md | Governed planning gateway — scope/destination triage, pre-implementation risk assessment, CAP/BK binding, Active decision-registry candidates, gates; English brief for Plan mode | Before creating a new plan (does not write plan files; does not complete GAB) |
 | session-end.md | Persist HANDOFF + closeout audit (finalize + docpack + **push**) | Before closing chat |
 | docpack.md | Package `.cursor/` governance (tool used by finalize / session-end) | Mid-session or embedded |
-| gw-review.md | Review the actual change set; finding dispositions; catch unrecorded decisions | Before merge |
+| gw-review.md | Review the actual change set; finding dispositions; catch unrecorded decisions | Before merge — standalone, or embedded in `/git-finalize` |
 | git-prepare.md | Create branch from main | Start new work |
 | git-save.md | Commit progress | Safe checkpoint |
-| git-finalize.md | Local merge→main + merge packaging; then **require `/session-end`** | Close feature onto local main |
+| git-finalize.md | Pre-merge review (gw-review protocol) → local merge→main → merge packaging; then **require `/session-end`** | Close feature onto local main |
 | en.md | English-only reply | Override response language for this session |
 | ar.md | Arabic-only reply | Override response language for this session |
 | aren.md | Dual language (Arabic + English) | Override response language for this session |

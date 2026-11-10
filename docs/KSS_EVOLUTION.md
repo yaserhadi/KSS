@@ -298,8 +298,10 @@ lesson: >
   the single review of the actual change set; in-session summaries are normal agent output and
   /session-end persists HANDOFF. Findings, product decisions and implementation stay separate:
   a finding is not an approved backlog item, and backlog admission is not execution authorization.
+  /git-finalize runs the /gw-review protocol before merge; Approve continues, other outcomes stop.
 changes:
   - commands/gw-triage.md, gw-riskcheck.md, gw-handoff.md, global-workflow.md (removed)
+  - commands/git-finalize.md (pre-merge review step before merge; SHA-based reuse; Approve continues, Request Changes / Block / incomplete stop)
   - commands/doplan.md (Phase 3.5 scope, destination and risk; finding vs admitted item)
   - commands/gw-review.md (actual-diff scope, verdict definitions, finding dispositions, portable conventions)
   - docs/reference/command-workflow.md (renamed from gw-workflow-commands.md; lifecycle, Findings to Backlog)

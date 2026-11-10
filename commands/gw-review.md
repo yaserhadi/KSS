@@ -10,11 +10,15 @@
 
 | Situation | Review |
 |-----------|--------|
+| Inside `/git-finalize` | **Automatic** before every merge (proportional) |
+| Standalone | Optional independent review at any time (e.g. before Owner testing) |
 | Code, security, data, schema, or governance-affecting change before merge | **Required** |
-| Trivial, reversible edit (typo, comment, formatting) | Optional |
-| An equivalent review is already documented for the same diff (e.g. recorded Bugbot, security review, or human review) | Not needed again unless there is a material reason (diff changed, new risk found) |
+| Trivial, reversible edit (typo, comment, formatting) | Short review, N/A where checks don't apply (within `/git-finalize` it still runs) |
+| An earlier review (standalone `/gw-review`, or a recorded Bugbot, security or human review) records the same `<base-sha>` and `<head-sha>` and its test evidence still applies | Reused, not repeated; otherwise run the review again |
 
-A verdict is not an instruction to merge or push. Merge is `/git-finalize`; publication is `/session-end`.
+If the review cannot be completed (diff not computable, required evidence missing, scope unidentifiable), report it as incomplete; `/git-finalize` treats incomplete as STOP.
+
+A verdict is not an instruction to merge or push. Merge is `/git-finalize`; publication is `/session-end`. Inside `/git-finalize`, Approve lets finalize continue; publication remains `/session-end`.
 
 ---
 
@@ -88,7 +92,7 @@ Do not create backlog items or widen the implementation scope from a review; rec
 ```
 ## Change Review
 
-**Scope**: [Change set reviewed — base...head, files, plan/scope it implements]
+**Scope**: [Change set reviewed — base <sha>...head <sha>, files, plan/scope it implements]
 
 **Findings**:
 

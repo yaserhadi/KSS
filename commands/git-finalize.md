@@ -1,17 +1,17 @@
 # Git Finalize
 
-**Purpose:** Close a feature branch using **only local Git operations**: commit on the feature branch, merge into local `main`, delete the local feature branch, then run **merge-moment lifecycle packaging** so SSOT artefacts match the merge tip.
+**Purpose:** Close a feature branch using **only local Git operations**: commit on the feature branch, run the pre-merge review, merge into local `main`, delete the local feature branch, then run **merge-moment lifecycle packaging** so SSOT artefacts match the merge tip.
 
 ## Assumption: local repository only
 
 This command describes **no network push as its core job**: no `fetch`/`pull`/`push` required to finish the local merge. Publishing to `origin` is **`/session-end`’s responsibility** (closeout).
 
-**Related commands:** `/git-prepare`, `/git-save`, `/session-end`, `/docpack`
+**Related commands:** `/git-prepare`, `/git-save`, `/gw-review`, `/session-end`, `/docpack`
 
 ## Relationship to `/session-end` and `/docpack`
 
 ```text
-/git-finalize  →  local merge + merge packaging
+/git-finalize  →  pre-merge review (gw-review protocol) + local merge + merge packaging
 /session-end   →  authoritative session close (verify finalize + verify/repair docpack + PUSH)
 ```
 
@@ -31,7 +31,7 @@ Do **not** tell the owner the delivery is “fully done” after finalize alone.
 
 - Tests pass (e.g. `php artisan test`).
 - Lint passes (e.g. `./vendor/bin/pint --test`).
-- While still on `<branch>`, if this session materially changed the code being merged: update `.cursor/memory/HANDOFF.md` so it describes the **pre-merge** work (feature tip + gates). Post-merge packaging is step 5; **session closeout** is `/session-end`.
+- While still on `<branch>`, if this session materially changed the code being merged: update `.cursor/memory/HANDOFF.md` so it describes the **pre-merge** work (feature tip + gates). Post-merge packaging is step 6; **session closeout** is `/session-end`.
 
 ### 2. Commit on `<branch>`
 
@@ -44,7 +44,23 @@ git commit -m "<message>"
 - Skip this step if there is nothing to commit.
 - Prefer **not** staging gitignored `.cursor/` governance files into the product commit unless the project explicitly tracks them.
 
-### 3. Merge into local `main`
+### 3. Pre-merge review (**required**)
+
+Runs after the commit, so the reviewed change set is exactly what will merge, and before merge and branch deletion.
+
+1. **Change set:** base = local `main`. Record `<base-sha>` (`git merge-base main <branch>`) and `<head-sha>` (`git rev-parse <branch>`). The change set is `git diff main...<branch>`.
+2. **Approved scope:** the plan executed for this branch (the Current active plan, or the plan named in the session). Without a plan, use the Owner's request in this session. If no scope can be identified, the review is incomplete.
+3. **Run the protocol in [`gw-review.md`](gw-review.md):** correctness, scope, safety and security, architecture and conventions, test evidence (from step 1), decision check, Doctrine_002 when applicable, finding dispositions. Proportional: a trivial diff gets a short review with N/A where checks don't apply.
+4. **Reuse:** a prior review (standalone `/gw-review`, or a recorded Bugbot, security or human review) replaces step 3.3 only if it records the same `<base-sha>` and `<head-sha>` and its test evidence still applies. Otherwise run the protocol again.
+5. **Verdict handling:**
+   - **Approve** (advisory warnings allowed): continue to step 4 automatically; no Owner confirmation.
+   - **Request Changes:** STOP before merge and branch deletion; report findings with dispositions.
+   - **Block:** STOP before merge and branch deletion; report findings with dispositions.
+   - **Incomplete** (diff not computable, required evidence missing, scope unidentifiable): STOP before merge and branch deletion; report what is missing.
+   - In all three STOP cases, local `main` remains unchanged and the feature branch is preserved, including any commit created in step 2 before the review.
+6. **After fixes:** run `/git-finalize` again. The review then covers the new `<head-sha>`, and earlier findings serve only as context.
+
+### 4. Merge into local `main`
 
 ```
 git checkout main
@@ -53,7 +69,7 @@ git merge <branch> --no-ff -m "Merge <branch> into main"
 
 Resolve conflicts before continuing.
 
-### 4. Delete the local feature branch
+### 5. Delete the local feature branch
 
 ```
 git branch -d <branch>
@@ -61,7 +77,7 @@ git branch -d <branch>
 
 Use `-D` only if Git reports the branch is not fully merged after an intentional merge.
 
-### 5. Post-merge lifecycle packaging (**required** at merge moment)
+### 6. Post-merge lifecycle packaging (**required** at merge moment)
 
 After a successful merge onto local `main`, run **`/docpack` in embedded / lifecycle mode** so artefacts match the merge tip **now** (do not leave pending-merge wording until “later”).
 
@@ -78,15 +94,17 @@ After a successful merge onto local `main`, run **`/docpack` in embedded / lifec
 
 **Do not skip** packaging because “only product code changed” or “HANDOFF already mentions the merge.”
 
+Advisory warnings and record-or-link findings from step 3 are noted in HANDOFF when relevant. Do not create backlog items from them.
+
 **If nothing governance-related exists** for this delivery (no BK, no closure report, no ACTIVE notes): report explicitly why packaging was a no-op, still refresh HANDOFF + STATE tip.
 
 This step does **not** replace `/session-end`. Session-end will **re-verify** packaging and perform **push**.
 
-### 6. Report (local + handoff to session-end)
+### 7. Report (local + handoff to session-end)
 
 Report:
 
-1. Commits made on `<branch>` (if any)
+1. Commits made on `<branch>` (if any), and the pre-merge review: verdict, reviewed `<base-sha>`...`<head-sha>`, fresh or reused (with its source), advisory warnings
 2. Merge commit hash on `main`
 3. Confirmation that local `<branch>` was deleted
 4. Docpack / lifecycle artefacts touched (or explicit no-op reason)
@@ -100,7 +118,9 @@ Report:
 
 - Refuse if on `main`.
 - Refuse if tests or lint fail.
-- Prefer refusing if post-merge lifecycle packaging (step 5) was skipped while a tracked BK/delivery/Decision closed in this finalize (unless owner explicitly overrides for trivial hotfixes with no SSOT).
+- Refuse to merge or delete the branch unless the pre-merge review verdict is Approve (fresh or validly reused).
+- Do not ask the Owner to confirm an Approve verdict.
+- Prefer refusing if post-merge lifecycle packaging (step 6) was skipped while a tracked BK/delivery/Decision closed in this finalize (unless owner explicitly overrides for trivial hotfixes with no SSOT).
 
 ## Merge style
 
