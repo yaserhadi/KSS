@@ -99,16 +99,15 @@ If triggers and no DEC in session → **DEC Missing Warning** (advisory, non-blo
 
 ### 2.6 Plan-location check (current session plans)
 
-Runs in **every mode**. In verify-only mode it only reports: it never creates, copies, modifies, or deletes files. Identity and location criteria: `plan-execution-authority.mdc` section E1; relocation fallback: global rule `plans-location`.
+Runs in **every mode**. In verify-only mode it only reports: it never creates, copies, modifies, or deletes files. Location criteria and relocation fallback: global rule `plans-location` (Location check; Relocating a plan from the global directory).
 
 1. **Scope** — only the current session's plans: the Current active plan in `{plans}/ACTIVE.plan.md`, any plan created, opened, or executed in this session, and plan paths named in HANDOFF this session. Never process the whole `~/.cursor/plans/` folder.
-2. **Plan in the host workspace** `{plans}/` → apply the E1 checks → `verified`.
+2. **Plan in the workspace** `{plans}/` → apply the Location check → `verified`.
 3. **Plan only in `~/.cursor/plans/`:**
    - the current session's plan → `owner action required (Save to Workspace)`; copy nothing;
    - not the current session's plan → report `recovery candidate (separate Owner authorization required)`. Recovery (copy unchanged, verify SHA-256, keep the original, record the workspace copy as authoritative) is performed only as a separately authorized operation per the global rule `plans-location`, never automatically by `/docpack`;
    - otherwise → `BLOCKED (<reason>)`, nothing written.
-4. **Foreign-target plans** (`plan-execution-authority` section D) → location verified in the host; tip and Git checks against the declared execution target; nothing packaged into host ACTIVE / STATE / BACKLOG / HANDOFF as host delivery.
-5. **No plan in the session** → `N/A`.
+4. **No plan in the session** → `N/A`.
 
 Result line: `Plan location: verified | owner action required | recovery candidate | recovered (<path>) | BLOCKED (<reason>) | N/A`
 

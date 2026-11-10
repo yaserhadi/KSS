@@ -13,16 +13,6 @@ alwaysApply: true
 - Applies to: `.cursor/plans/*.plan.md`
 - Excludes: `.cursor/plans/archive/*` (archived plans are read-only history)
 
-## Execution authority and plan checks (all plans)
-
-Applies to **every plan entering implementation**, regardless of the Gate Trigger below. Canonical source: `plan-execution-authority.mdc` (global rule).
-
-1. **Owner Build required** — execution starts only from the Owner's Build action on this plan (rule section A). Passing the checks in this file never authorizes execution on its own.
-2. **Check 0a — identity and location** (rule section E1), including Plan Host / Execution Target verification when declared (rule section D).
-3. **Check 0b — semantic plan content** (rule section E2).
-
-If Check 0a or 0b fails: STOP before any todo (rule section E3).
-
 ## Module destination (preflight — feature work)
 
 For plans that add or change **product behavior** (not docs-only), confirm **before executing todos**:
@@ -48,7 +38,7 @@ This gate applies when plan involves:
 
 ### 0. Branch Check (Before Any Code Changes)
 
-Run `git branch --show-current` in the execution target repository (`plan-execution-authority` section D); without a declared target, in the host repository.
+Run `git branch --show-current`.
 
 | Current branch | Action |
 |----------------|--------|
@@ -84,12 +74,10 @@ rg "status:" .cursor/memory/STATE.yaml
 
 #### Draft vs Active Lock Definition
 
-| Lock State | Definition | Lock permits execution? |
+| Lock State | Definition | Agent Can Execute? |
 |------------|------------|-------------------|
 | **Draft** | Added to MANIFEST but marked `Status: Draft` or missing `Status: Active` | NO |
 | **Active** | Has `Status: Active` + `Applies: Phase X+` in MANIFEST | YES |
-
-An Active Lock never replaces Owner Build.
 
 A Lock becomes Active only when:
 1. Owner explicitly sets `Status: Active`
@@ -125,13 +113,12 @@ A Lock becomes Active only when:
 
 ## Execution Decision
 
-| Owner Build received for this plan? | Applicable checks pass? | Action |
-|-------------------------------------|-------------------------|--------|
-| No | Either | Do not execute. Report "Plan prepared for Owner review" status (`plan-execution-authority` section A6) |
-| Yes | No | STOP. Report the failed checks |
-| Yes | Yes | Execute the authorized todos within governance |
+| All Checks Pass? | Action |
+|------------------|--------|
+| Yes | Execute plan todos |
+| No | STOP. Fix missing items first. |
 
-**This is a GATE. No todo execution without Owner Build and passing checks.**
+**This is a GATE. No Todo execution until ALL checks pass.**
 
 ---
 

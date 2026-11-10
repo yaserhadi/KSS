@@ -8,7 +8,6 @@
 | reports-location-global.md | Portable global | Reports in `.cursor/reports/` |
 | git-main-merge-only.mdc | Portable global | Branch before edits on main |
 | conflict-governance.mdc | Portable global | Silent conflict prohibition — stop + impact report |
-| plan-execution-authority.mdc | Portable global | Owner Build gate, advisor boundary, acceptance lifecycle, plan host/target |
 
 ## Rule taxonomy
 

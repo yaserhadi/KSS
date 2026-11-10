@@ -24,7 +24,7 @@ Storage location and Git tracking are separate concerns: each project declares w
 - Cursor Plan mode may first store a plan in the global directory. That is its initial storage, not the authoritative destination.
 
 ## Relocating a plan from the global directory
-1. **Preferred:** Cursor **Save to Workspace**. Then verify the resulting workspace copy (exists, matches the reviewed version, valid metadata) without assuming whether Cursor moved or copied the file. If a global copy remains, the workspace copy is authoritative; report any divergence.
+1. **Preferred:** Cursor **Save to Workspace**. Then verify the resulting workspace copy (exists and content unchanged) without assuming whether Cursor moved or copied the file. If a global copy remains, the workspace copy is authoritative; report any divergence.
 2. **Fallback — copy and verify** (only for a plan that is **not** the current session's plan **and** that the Owner has confirmed is no longer open in Plan mode):
    - copy the file unchanged into `<workspace>/.cursor/plans/`;
    - verify SHA-256 equality with the original; keep the original;
@@ -32,7 +32,13 @@ Storage location and Git tracking are separate concerns: each project declares w
 3. **STOP** when project ownership or plan version is uncertain, or a different version already exists in the workspace.
 4. **Never** overwrite, rename, merge, or delete plan files during relocation.
 
-Plan identity and location checks before implementation: `plan-execution-authority.mdc` section E1.
+## Location check
+- The plan file is physically in the workspace `.cursor/plans/`. A copy under `<user-home>/.cursor/plans/` is never authoritative; relocate it as above.
+- Valid filename formats:
+  - Cursor-native: `<name>_<hash8>.plan.md` (plans created by Plan mode);
+  - timestamped: `<name>_<YYYY-MM-DD-HHmm>_<hash8>.plan.md` (preferred for plans created by other means).
+- Live and historical plans are never renamed automatically.
+- The plan has exactly one valid frontmatter block with the Cursor-managed fields (`name`, `overview`, `todos`, `isProject`).
 
 ## Enforcement
 This is a non-negotiable organizational standard. All agents must follow this rule.

@@ -140,7 +140,7 @@ This is a **reading order**, not a silent override stack. On conflict → Eviden
 
 | Class | Installed to | Examples |
 |-------|--------------|----------|
-| Portable global | `~/.cursor/rules/` | plans-location, reports-location-global, git-main-merge-only, plan-execution-authority |
+| Portable global | `~/.cursor/rules/` | plans-location, reports-location-global, git-main-merge-only |
 | Project optional | `<project>/.cursor/rules/` | plan-preflight, plan-completion, module-creation-gate |
 | Project-only | Never in KSS install | Project-specific checklists, local git preferences |
 
