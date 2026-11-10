@@ -20,7 +20,7 @@ For plans that add or change **product behavior** (not docs-only), confirm **bef
 | Question | Action |
 |----------|--------|
 | Where does this work land? | **Existing module** (which?) / **`app/` kernel** / **New module** |
-| Did scope grow since first triage? | If a “small change” became routes + controllers + services + UI + RBAC, **re-run `/gw-triage`** and `MODULE-CREATION-GATE` |
+| Did scope grow since first triage? | If a “small change” became routes + controllers + services + UI + RBAC, **re-run the `/doplan` scope/destination check** and `MODULE-CREATION-GATE` |
 
 See `.cursor/rules/module-creation-gate.mdc` and [DEC-0003](../memory/decisions/DEC-0003-module-boundaries.md). **Triaged first, confirmed at plan start.**
 

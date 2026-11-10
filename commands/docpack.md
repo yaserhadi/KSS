@@ -18,7 +18,6 @@ Project execution SSOT = `.cursor/` per adopting project's `DOC_POLICY.yaml`.
 | `/session-end` | **Authoritative session close** — verify finalize + verify/repair docpack + **push** |
 | `/git-finalize` | Local merge + merge-moment packaging; still requires `/session-end` afterward |
 | `/docpack` | Packaging tool (standalone mid-session, or embedded by finalize / session-end) |
-| `/gw-handoff` | In-chat summary only — does not persist |
 | `/dec` | DEC digest → `.cursor/memory/decisions/` |
 | `/adr` | Deprecated alias → `/dec` |
 

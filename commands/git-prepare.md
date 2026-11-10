@@ -2,7 +2,7 @@
 
 **Purpose:** Begin execution on a new branch from main. Never work directly on main.
 
-**Related commands:** `/git-save`, `/git-finalize`, `/gw-handoff`, `/session-end`, `/docpack`
+**Related commands:** `/git-save`, `/git-finalize`, `/session-end`, `/docpack`
 
 **Workflow:**
 

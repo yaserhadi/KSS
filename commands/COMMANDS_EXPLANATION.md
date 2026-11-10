@@ -1,18 +1,16 @@
 # Commands — Copy Instructions
 
 **Destination:** `~/.cursor/commands/`  
-**Source of truth:** `KSS/commands/` (this repository)
+**Source of truth:** `KSS/commands/` (this repository)  
+**When to use which command:** [Command workflow guide](../docs/reference/command-workflow.md)
 
 | File | Purpose | When to Use |
 |------|---------|-------------|
 | boot.md | Load project context | Start of every session |
-| doplan.md | Governed planning gateway — CAP/BK binding, Active decision-registry candidates, gates; English brief for Plan mode | Before creating a new plan (does not write plan files; does not complete GAB) |
+| doplan.md | Governed planning gateway — scope/destination triage, pre-implementation risk assessment, CAP/BK binding, Active decision-registry candidates, gates; English brief for Plan mode | Before creating a new plan (does not write plan files; does not complete GAB) |
 | session-end.md | Persist HANDOFF + closeout audit (finalize + docpack + **push**) | Before closing chat |
 | docpack.md | Package `.cursor/` governance (tool used by finalize / session-end) | Mid-session or embedded |
-| gw-triage.md | Triage unclear request; apply project `.cursor/rules/` boundary rules if present; detect architectural decisions | Request is ambiguous, may need DEC, or needs placement triage |
-| gw-riskcheck.md | Assess risks, CAB flag; includes DEC check | Before production/security changes |
-| gw-review.md | Review changes; catch unrecorded decisions | Before merge |
-| gw-handoff.md | Summarize for reviewer | In-session handoff |
+| gw-review.md | Review the actual change set; finding dispositions; catch unrecorded decisions | Before merge |
 | git-prepare.md | Create branch from main | Start new work |
 | git-save.md | Commit progress | Safe checkpoint |
 | git-finalize.md | Local merge→main + merge packaging; then **require `/session-end`** | Close feature onto local main |
@@ -27,8 +25,8 @@
 | Category | Commands |
 |----------|----------|
 | Runtime | boot, session-end, en, ar, aren |
-| Planning | doplan (first line `/en` — English brief → Plan mode) |
-| Governance | gw-triage, gw-riskcheck, gw-review, gw-handoff |
+| Planning | doplan (first line `/en` — English brief → Plan mode; includes scope/destination triage and risk assessment) |
+| Governance | gw-review |
 | Operational | git-prepare, git-save, git-finalize |
 | Governance packaging | docpack, dec (`/adr` deprecated alias) |
 
@@ -51,4 +49,3 @@ User may ask in any language; the command sets the **response** language only.
 | File | Purpose |
 |------|---------|
 | COMMANDS_EXPLANATION.md | This index |
-| global-workflow.md | **Legacy** — superseded by `gw-triage`, `gw-riskcheck`, `gw-handoff`, `gw-review`; kept for reference only |

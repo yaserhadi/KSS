@@ -39,20 +39,18 @@ Copy command files to your global Cursor commands folder:
 ├── doplan.md
 ├── session-end.md
 ├── docpack.md
+├── dec.md
 ├── adr.md
 ├── en.md
 ├── ar.md
 ├── aren.md
-├── gw-triage.md
-├── gw-riskcheck.md
 ├── gw-review.md
-├── gw-handoff.md
 ├── git-prepare.md
 ├── git-save.md
 └── git-finalize.md
 ```
 
-See [Governance workflow commands](docs/reference/gw-workflow-commands.md) for when to use each `/gw` command. Use `/doplan` before Plan mode when creating a new execution plan.
+See the [Command workflow guide](docs/reference/command-workflow.md) for what each command does and when to use it. Use `/doplan` before Plan mode when creating a new execution plan. `adr.md` is a deprecated alias of `dec.md`.
 
 **Language overrides:** `/en` (English only), `/ar` (Arabic only), `/aren` (dual language). See [COMMANDS_EXPLANATION.md](commands/COMMANDS_EXPLANATION.md).
 

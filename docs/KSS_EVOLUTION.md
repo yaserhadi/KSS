@@ -283,3 +283,32 @@ publication:
   tag_type: annotated
 evidence: Jabal/.cursor/reports/BK_052_TENANT_STORAGE_COMPATIBILITY.md
 ```
+
+---
+
+## EVOL-013 — GW command family reduced to /gw-review
+
+```yaml
+id: EVOL-013
+version: unreleased
+source: Owner decision 2026-11-10 — remove overlapping command responsibilities
+lesson: >
+  Four GW commands overlapped with /doplan and /session-end. Pre-implementation triage and
+  risk assessment belong in /doplan (proportional, not an approval step); /gw-review stays as
+  the single review of the actual change set; in-session summaries are normal agent output and
+  /session-end persists HANDOFF. Findings, product decisions and implementation stay separate:
+  a finding is not an approved backlog item, and backlog admission is not execution authorization.
+changes:
+  - commands/gw-triage.md, gw-riskcheck.md, gw-handoff.md, global-workflow.md (removed)
+  - commands/doplan.md (Phase 3.5 scope, destination and risk; finding vs admitted item)
+  - commands/gw-review.md (actual-diff scope, verdict definitions, finding dispositions, portable conventions)
+  - docs/reference/command-workflow.md (renamed from gw-workflow-commands.md; lifecycle, Findings to Backlog)
+  - README, INSTALL, handbook, COMMANDS_EXPLANATION, GOVERNANCE_LAYERS, LAYER_VIOLATION_CHECKLIST, Doctrine_002/003, related-command lines, two project-rule templates (reference alignment)
+breaking_change: true
+semver: none (unreleased)
+prior_lesson: EVOL-012
+publication:
+  tag: none
+  runtime_install: separate Owner decision
+evidence: KSS branch chore/simplify-gw-commands
+```

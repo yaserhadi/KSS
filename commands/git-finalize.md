@@ -6,7 +6,7 @@
 
 This command describes **no network push as its core job**: no `fetch`/`pull`/`push` required to finish the local merge. Publishing to `origin` is **`/session-end`’s responsibility** (closeout).
 
-**Related commands:** `/git-prepare`, `/git-save`, `/session-end`, `/docpack`, `/gw-handoff`
+**Related commands:** `/git-prepare`, `/git-save`, `/session-end`, `/docpack`
 
 ## Relationship to `/session-end` and `/docpack`
 

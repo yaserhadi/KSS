@@ -2,7 +2,7 @@
 
 **Purpose**: **Authoritative session closeout.** Persist HANDOFF, verify the delivery pipeline completed correctly (`/git-finalize` when applicable, `/docpack` lifecycle, and **remote publish** when product commits must leave the machine), then report a single done/not-done checklist.
 
-**Related Commands**: `/boot`, `/gw-handoff`, `/docpack`, `/git-finalize`, `/git-save`
+**Related Commands**: `/boot`, `/docpack`, `/git-finalize`, `/git-save`
 
 ## Command roles (do not confuse)
 

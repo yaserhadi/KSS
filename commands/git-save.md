@@ -2,7 +2,7 @@
 
 **Purpose:** Commit current work inside the branch without merging or pushing. A safe checkpoint.
 
-**Related commands:** `/git-prepare`, `/git-finalize`, `/gw-handoff`, `/session-end`
+**Related commands:** `/git-prepare`, `/git-finalize`, `/session-end`
 
 **Workflow:**
 

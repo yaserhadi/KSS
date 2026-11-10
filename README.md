@@ -64,7 +64,7 @@ See [philosophy.md](philosophy.md) for three-layer SSOT architecture and [docs/K
 ## Links
 
 - [KSS Handbook](docs/handbook.md) — Conceptual guide
-- [Governance workflow (`/gw-*`)](docs/reference/gw-workflow-commands.md) — When to use triage, riskcheck, review, handoff
+- [Command workflow guide](docs/reference/command-workflow.md) — What each command does, when to use it, and the end-to-end lifecycle
 - [Installation Guide](INSTALL.md) — Step-by-step setup
 - [Philosophy](philosophy.md) — Framework vs Project doctrine
 - [Templates](templates/) — Memory file templates
