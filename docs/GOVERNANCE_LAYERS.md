@@ -22,7 +22,7 @@ KSS_Governance_Core:
     governs: authority_and_layer_responsibilities
     doc: KSS_Doctrine_002.md
     rule: Layer 1 governs · Layer 3 teaches · Layer 2 distributes
-    enforcement: LAYER_VIOLATION_CHECKLIST.md (gw-* commands)
+    enforcement: LAYER_VIOLATION_CHECKLIST.md (/doplan and /gw-review)
 
   Doctrine_003:
     name: Portable Structure vs Project Content
@@ -57,7 +57,7 @@ See [KSS_Doctrine_002.md](KSS_Doctrine_002.md). Summary:
 - **L2** distributes portable patterns (KSS → `~/.cursor/`)
 - **L3** teaches reference implementation (project `.cursor/`)
 
-Enforcement aid: [LAYER_VIOLATION_CHECKLIST.md](LAYER_VIOLATION_CHECKLIST.md) — used by `/gw-*` commands.
+Enforcement aid: [LAYER_VIOLATION_CHECKLIST.md](LAYER_VIOLATION_CHECKLIST.md) — used by `/doplan` and `/gw-review`.
 
 ---
 
@@ -153,7 +153,8 @@ Templates for project optional rules: `templates/project-rules/`
 | Category | Examples | Location |
 |----------|----------|----------|
 | Runtime | `/boot`, `/session-end`, `/en`, `/ar`, `/aren` | `~/.cursor/commands/` |
-| Governance | `/gw-triage`, `/gw-riskcheck`, `/gw-review`, `/gw-handoff` | `~/.cursor/commands/` |
+| Planning | `/doplan` | `~/.cursor/commands/` |
+| Governance | `/gw-review` | `~/.cursor/commands/` |
 | Operational | `/git-prepare`, `/git-save`, `/git-finalize` | `~/.cursor/commands/` |
 | Documentation | `/docpack`, `/dec` (`/adr` deprecated alias) | `~/.cursor/commands/` |
 

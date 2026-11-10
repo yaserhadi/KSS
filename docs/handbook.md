@@ -89,18 +89,19 @@ Copy to `~/.cursor/commands/`.
 | Command | Purpose |
 |---------|---------|
 | boot | Load project context at session start |
-| session-end | Persist handoff to HANDOFF.md |
+| doplan | Planning brief: scope, destination, risk, decisions, backlog binding |
+| session-end | Closeout: verify finalize/packaging, persist HANDOFF, push |
 | docpack | Package `.cursor/` governance (Detect → Propose → Apply) |
-| gw-triage | Triage request, propose safest plan; detect architectural decisions |
-| gw-riskcheck | Risk assessment, CAB review flag; includes ADR check |
-| gw-review | Review diff for safety/compliance; catch unrecorded decisions |
-| gw-handoff | Summarize changes for reviewer |
+| gw-review | Review the actual change set before merge |
 | git-prepare | Create branch from main |
 | git-save | Commit progress (no push) |
-| git-finalize | Merge branch, delete after |
+| git-finalize | Pre-merge review, local merge into main, delete local branch, lifecycle packaging |
+| dec | Create DEC digest (`adr` = deprecated alias) |
 | en | Respond in English only |
 | ar | Respond in Arabic only |
 | aren | Respond in both Arabic and English |
+
+When to use each command and in which order: [Command workflow guide](reference/command-workflow.md).
 
 ### Global Rules (File-Based)
 
@@ -165,24 +166,23 @@ Copy to `~/.cursor/rules/`:
 
 ## Commands
 
-### Session Commands
+The **[Command workflow guide](reference/command-workflow.md)** is the main reference: what each command does, when to use it, side effects, common workflows, and Findings to Backlog.
+
+Reference lifecycle (not every task needs every step; Owner Build is Cursor's native Build action, not an approval layer):
+
+```text
+/boot → /doplan → Plan → Owner Build → /git-finalize (includes /gw-review) → /session-end
+```
+
+### Session and Workflow Commands
 
 | Command | When to Use |
 |---------|-------------|
 | `/boot` | Start of every session; loads project context |
-| `/session-end` | Before closing chat; writes HANDOFF (use Agent mode) |
-| `/docpack` | End of session; packages `.cursor/` governance via Detect → Propose → Apply |
-
-### Workflow Commands
-
-Governance workflow (`/gw-*`): see **[Governance workflow commands](reference/gw-workflow-commands.md)** for typical order, when to use each command, and quick prompts.
-
-| Command | When to Use |
-|---------|-------------|
-| `/gw-triage` | Request is unclear; triage and propose safest plan; detect architectural decisions |
-| `/gw-riskcheck` | Before production/security/data changes; includes ADR check |
-| `/gw-review` | Review changes before merge; catch unrecorded decisions |
-| `/gw-handoff` | In-session summary for reviewer |
+| `/doplan` | Before Plan mode; scope, destination, risk, decisions, backlog binding |
+| `/gw-review` | Optional standalone; runs automatically inside `/git-finalize` |
+| `/session-end` | Before closing chat; verifies finalize/packaging, writes HANDOFF, pushes (use Agent mode) |
+| `/docpack` | Mid-session packaging of `.cursor/` governance; embedded by finalize / session-end |
 
 ### Git Commands
 
@@ -190,7 +190,7 @@ Governance workflow (`/gw-*`): see **[Governance workflow commands](reference/gw
 |---------|-------------|
 | `/git-prepare` | Start new work; create branch from main |
 | `/git-save` | Checkpoint progress; commit without push |
-| `/git-finalize` | Merge branch after tests and /session-end |
+| `/git-finalize` | Pre-merge review, then local merge into main after tests; then `/session-end` verifies and pushes |
 
 ### Language Commands
 
@@ -258,15 +258,14 @@ Legacy project `docs/` is not execution authority. KSS `docs/` is framework refe
 | Scenario | Prompt |
 |----------|--------|
 | Start session | `/boot` then "Continue from handoff" |
-| End session | `/session-end` |
+| End session and publish | `/session-end` (after `/git-finalize` when work was merged) |
 | Create ADR from discussion | `/adr` then paste ChatGPT/Cursor/meeting text |
-| Assess risk before change | `/gw-riskcheck` then describe the change |
-| Review changes before merge | `/gw-review` then paste diff or describe changes |
-| Triage unclear request | `/gw-triage` then describe the request |
+| Plan new work (scope, risk, backlog) | `/doplan` then describe the intent |
+| Independent review (optional) | `/gw-review` then name the branch/base or paste the diff |
 | Package `.cursor/` governance after work | `/docpack` |
 | Start work on branch | `/git-prepare` |
 | Save progress | `/git-save` |
-| Close branch and merge | `/git-finalize` |
+| Close branch and merge locally | `/git-finalize` |
 | English reply | `/en` then your question |
 | Arabic reply | `/ar` then your question |
 | Dual language | `/aren` then your question |
