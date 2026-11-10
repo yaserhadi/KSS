@@ -64,6 +64,8 @@ Every check allows **N/A** when irrelevant to the change scope.
 | **Record or link for later evaluation** | Pre-existing or unrelated to this change | Does not block this merge by itself |
 | **Owner product decision** | Potential new requirement or scope change | None — surfaced for the Owner |
 
+Warnings are advisory unless assigned **Fix within authorized scope**; that disposition requires **Request Changes** until resolved.
+
 Evidence fields per finding:
 
 - **Status:** Confirmed / Observed / Awaiting verification
