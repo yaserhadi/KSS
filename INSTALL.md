@@ -22,8 +22,7 @@ Copy rule files to your global Cursor rules folder:
 ├── plans-location.mdc
 ├── reports-location-global.md
 ├── git-main-merge-only.mdc
-├── conflict-governance.mdc
-└── plan-execution-authority.mdc
+└── conflict-governance.mdc
 ```
 
 **Project-specific rules** (e.g. module boundaries, plan gates) belong in the **adopting project's** `.cursor/rules/`, not in the KSS package. Copy optional templates from `templates/project-rules/`. See [docs/GOVERNANCE_LAYERS.md](docs/GOVERNANCE_LAYERS.md).
