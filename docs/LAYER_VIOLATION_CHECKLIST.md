@@ -3,7 +3,7 @@
 **Status:** Implementation aid — **not** standalone authority.  
 **Governing rule:** [`KSS_Doctrine_002.md`](KSS_Doctrine_002.md) (`classification: governance_rule`)
 
-Use this checklist in `/doplan` (pre-implementation) and `/gw-review` (change review) to satisfy Doctrine_002. Violations map to `violations_block` in Doctrine_002.
+Use this checklist in `/preplan` (pre-implementation) and `/gw-review` (change review) to satisfy Doctrine_002. Violations map to `violations_block` in Doctrine_002.
 
 | Check | Fail signal | Doctrine violation |
 |-------|-------------|-------------------|
@@ -15,4 +15,4 @@ Use this checklist in `/doplan` (pre-implementation) and `/gw-review` (change re
 
 ## Output
 
-For each check: **Pass / Fail / N/A** with evidence path. Any **Fail** on governance-impacting work → risk level at least **High** in `/doplan`; **Critical** in `/gw-review` (block merge).
+For each check: **Pass / Fail / N/A** with evidence path. Any **Fail** on governance-impacting work → risk level at least **High** in `/preplan`; **Critical** in `/gw-review` (block merge).

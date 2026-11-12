@@ -7,7 +7,7 @@
 | File | Purpose | When to Use |
 |------|---------|-------------|
 | boot.md | Load project context | Start of every session |
-| doplan.md | Governed planning gateway — scope/destination triage, pre-implementation risk assessment, CAP/BK binding, Active decision-registry candidates, gates; English brief for Plan mode | Before creating a new plan (does not write plan files; does not complete GAB) |
+| preplan.md | Pre-planning gateway — produces a copy-ready **Pre-Plan Charter** for Plan Mode: scope/destination triage, pre-implementation risk assessment, CAP/BK binding, Active decision-registry candidates, gates, verification expectations | Before creating a new plan (does not write plan files, execute work, complete GAB, or authorize Build) |
 | session-end.md | Persist HANDOFF + closeout audit (finalize + docpack + **push**) | Before closing chat |
 | docpack.md | Package `.cursor/` governance (tool used by finalize / session-end) | Mid-session or embedded |
 | gw-review.md | Review the actual change set; finding dispositions; catch unrecorded decisions | Before merge — standalone, or embedded in `/git-finalize` |
@@ -25,7 +25,7 @@
 | Category | Commands |
 |----------|----------|
 | Runtime | boot, session-end, en, ar, aren |
-| Planning | doplan (first line `/en` — English brief → Plan mode; includes scope/destination triage and risk assessment) |
+| Planning | preplan (first line `/en` — English Pre-Plan Charter → pasted into Plan Mode; includes scope/destination triage and risk assessment) |
 | Governance | gw-review |
 | Operational | git-prepare, git-save, git-finalize |
 | Governance packaging | docpack, dec (`/adr` deprecated alias) |

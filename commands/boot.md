@@ -5,7 +5,7 @@ description: Start AI session with correct context loading (paths-only policy). 
 
 # /boot — AI Session Startup (KSS)
 
-**Related Commands**: `/session-end`, `/docpack`, `/gw-review`, `/doplan`
+**Related Commands**: `/session-end`, `/docpack`, `/gw-review`, `/preplan`
 
 ## Purpose
 
@@ -75,6 +75,6 @@ If architectural decisions arise:
 
 ### Module boundary pointer
 
-Use `/doplan` (scope and destination) for new tenant-facing capability; apply `.cursor/rules/` boundary gates when present.
+Use `/preplan` (scope and destination) for new tenant-facing capability; apply `.cursor/rules/` boundary gates when present.
 
-Use `/doplan` before Plan mode when creating a new execution plan (planning gateway — does not write plan files).
+Use `/preplan` before Plan Mode when creating a new execution plan (Pre-Plan Charter — does not write plan files).

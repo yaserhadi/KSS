@@ -89,7 +89,7 @@ Copy to `~/.cursor/commands/`.
 | Command | Purpose |
 |---------|---------|
 | boot | Load project context at session start |
-| doplan | Planning brief: scope, destination, risk, decisions, backlog binding |
+| preplan | Pre-Plan Charter for Plan Mode: scope, destination, risk, decisions, backlog binding, verification expectations |
 | session-end | Closeout: verify finalize/packaging, persist HANDOFF, push |
 | docpack | Package `.cursor/` governance (Detect → Propose → Apply) |
 | gw-review | Review the actual change set before merge |
@@ -171,7 +171,7 @@ The **[Command workflow guide](reference/command-workflow.md)** is the main refe
 Reference lifecycle (not every task needs every step; Owner Build is Cursor's native Build action, not an approval layer):
 
 ```text
-/boot → /doplan → Plan → Owner Build → /git-finalize (includes /gw-review) → /session-end
+/boot → /preplan → Plan Mode (paste Charter) → iterative review → Owner Build → /git-finalize (includes /gw-review) → /session-end
 ```
 
 ### Session and Workflow Commands
@@ -179,7 +179,7 @@ Reference lifecycle (not every task needs every step; Owner Build is Cursor's na
 | Command | When to Use |
 |---------|-------------|
 | `/boot` | Start of every session; loads project context |
-| `/doplan` | Before Plan mode; scope, destination, risk, decisions, backlog binding |
+| `/preplan` | Before Plan Mode; produces a copy-ready Pre-Plan Charter (scope, destination, risk, decisions, backlog binding). Paste it into Plan Mode; refine the plan in the same Plan conversation; only the Owner presses Build |
 | `/gw-review` | Optional standalone; runs automatically inside `/git-finalize` |
 | `/session-end` | Before closing chat; verifies finalize/packaging, writes HANDOFF, pushes (use Agent mode) |
 | `/docpack` | Mid-session packaging of `.cursor/` governance; embedded by finalize / session-end |
@@ -260,7 +260,7 @@ Legacy project `docs/` is not execution authority. KSS `docs/` is framework refe
 | Start session | `/boot` then "Continue from handoff" |
 | End session and publish | `/session-end` (after `/git-finalize` when work was merged) |
 | Create ADR from discussion | `/adr` then paste ChatGPT/Cursor/meeting text |
-| Plan new work (scope, risk, backlog) | `/doplan` then describe the intent |
+| Prepare a new plan (scope, risk, backlog) | `/preplan` then describe the intent; paste the Charter into Plan Mode |
 | Independent review (optional) | `/gw-review` then name the branch/base or paste the diff |
 | Package `.cursor/` governance after work | `/docpack` |
 | Start work on branch | `/git-prepare` |

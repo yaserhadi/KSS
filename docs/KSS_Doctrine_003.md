@@ -37,7 +37,7 @@ After copying from `templates/project-rules/`:
 
 1. Replace `<LOCK_ID>`, DEC paths, and module/kernel naming with project equivalents
 2. Do **not** assume Laravel modules, Jabal paths, or reference-project workflows
-3. Use `/doplan` (scope and destination) if destination is unclear
+3. Use `/preplan` (scope and destination) if destination is unclear
 
 ## Jabal lesson
 

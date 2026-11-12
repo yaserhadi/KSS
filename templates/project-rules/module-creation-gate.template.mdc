@@ -47,7 +47,7 @@ Favor **extending an existing module** unless **one or more** of the following a
 
 ## Before `module:make` or scattered files
 
-Do **not** run Laravel/nWidart module generators or spread feature code across `app/` and `Modules/` without passing this gate and (if needed) the `/doplan` scope/destination check.
+Do **not** run Laravel/nWidart module generators or spread feature code across `app/` and `Modules/` without passing this gate and (if needed) the `/preplan` scope/destination check.
 
 ## Plan preflight (confirm at plan start)
 
@@ -56,6 +56,6 @@ For plans that add or change **product behavior** (not docs-only), confirm **bef
 | Question | Action |
 |----------|--------|
 | Where does this work land? | **Existing module** (which?) / **`app/` kernel** / **New module** |
-| Did scope grow since first triage? | If a “small change” became routes + controllers + services + UI + RBAC, **re-run the `/doplan` scope/destination check** and **MODULE-CREATION-GATE** |
+| Did scope grow since first triage? | If a “small change” became routes + controllers + services + UI + RBAC, **re-evaluate the applicable `/preplan` scope/destination checks** (no new plan unless scope materially changes) and **MODULE-CREATION-GATE** |
 
 **Triaged first, confirmed at plan start.** See also [DEC-0003](../memory/decisions/DEC-0003-module-boundaries.md).

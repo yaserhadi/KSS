@@ -23,7 +23,7 @@ KSS_Doctrine_002:
     - docs treated as execution SSOT
 ```
 
-**Authority model:** This document is the **governing rule**. [`LAYER_VIOLATION_CHECKLIST.md`](LAYER_VIOLATION_CHECKLIST.md) is the implementation aid for `/doplan` and `/gw-review` — not a substitute for this doctrine.
+**Authority model:** This document is the **governing rule**. [`LAYER_VIOLATION_CHECKLIST.md`](LAYER_VIOLATION_CHECKLIST.md) is the implementation aid for `/preplan` and `/gw-review` — not a substitute for this doctrine.
 
 ## Layers
 
