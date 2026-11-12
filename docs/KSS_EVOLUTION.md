@@ -314,3 +314,30 @@ publication:
   runtime_install: separate Owner decision
 evidence: KSS branch chore/simplify-gw-commands
 ```
+
+---
+
+## EVOL-014 — /doplan renamed to /preplan; Pre-Plan Charter and Owner-controlled planning workflow
+
+```yaml
+id: EVOL-014
+version: unreleased
+source: Owner request 2026-11-12 — separate requirements preparation, Plan Mode, plan review and execution
+lesson: >
+  The planning command prepares Plan Mode; it is not the plan. /preplan produces a self-contained,
+  copy-ready Pre-Plan Charter that the Owner pastes into Plan Mode. Plan review happens in the same
+  Plan conversation without repeated commands; external reviewers are optional and advisory, and only
+  the Owner presses Build. Project rules and decisions stay binding in Plan Mode and Build
+  independently of slash commands; scope changes re-evaluate only the affected checks.
+changes:
+  - commands/doplan.md renamed to commands/preplan.md (Pre-Plan Charter output; Phase 3.6 continuing applicability; Plan Mode hand-off; optional automatic transition, not yet verified)
+  - docs/reference/command-workflow.md (Planning workflow stages A-D; Governance checks stay active; optional external reviewer; worked example; renamed-command row)
+  - README, INSTALL (tree + upgrade note), handbook, COMMANDS_EXPLANATION, boot, gw-review, GOVERNANCE_LAYERS, LAYER_VIOLATION_CHECKLIST, Doctrine_002/003 pointers, AI_ENTRY template, two project-rule templates (reference alignment)
+breaking_change: true
+semver: none (unreleased)
+prior_lesson: EVOL-013
+publication:
+  tag: none
+  runtime_install: separate Owner decision
+evidence: KSS commit on branch chore/preplan-charter
+```

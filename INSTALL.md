@@ -36,7 +36,7 @@ Copy command files to your global Cursor commands folder:
 ```
 ~/.cursor/commands/
 ├── boot.md
-├── doplan.md
+├── preplan.md
 ├── session-end.md
 ├── docpack.md
 ├── dec.md
@@ -50,7 +50,9 @@ Copy command files to your global Cursor commands folder:
 └── git-finalize.md
 ```
 
-See the [Command workflow guide](docs/reference/command-workflow.md) for what each command does and when to use it. Use `/doplan` before Plan mode when creating a new execution plan. `adr.md` is a deprecated alias of `dec.md`.
+See the [Command workflow guide](docs/reference/command-workflow.md) for what each command does and when to use it. Use `/preplan` before Plan Mode when creating a new execution plan: it produces a Pre-Plan Charter that you paste into Plan Mode. `adr.md` is a deprecated alias of `dec.md`.
+
+**Upgrading an existing install:** `doplan.md` was renamed to `preplan.md`. Back up `~/.cursor/commands/` first, copy the new `preplan.md`, then remove the retired `~/.cursor/commands/doplan.md` so `/doplan` no longer appears in Cursor.
 
 **Language overrides:** `/en` (English only), `/ar` (Arabic only), `/aren` (dual language). See [COMMANDS_EXPLANATION.md](commands/COMMANDS_EXPLANATION.md).
 

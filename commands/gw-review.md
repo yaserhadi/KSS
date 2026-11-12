@@ -2,7 +2,7 @@
 
 **Purpose**: Review the **actual change set** — `git diff <base>...HEAD` or the stated files — for correctness, scope, security, architecture, and rule compliance before merge. Reviews changes, not plans.
 
-**Related Commands**: `/doplan`, `/dec`, `/git-finalize`
+**Related Commands**: `/preplan`, `/dec`, `/git-finalize`
 
 ---
 
@@ -178,7 +178,7 @@ Do not create backlog items or widen the implementation scope from a review; rec
 ## Notes
 
 - This command complements the `safe-coding-practices` skill
-- Pre-implementation scope and risk assessment belongs to `/doplan`; this command reviews what was actually changed
+- Pre-implementation scope and risk assessment belongs to `/preplan`; this command reviews what was actually changed
 - When in doubt, prefer safety over speed
 - Always cite evidence for findings
 - Stop and ask if context is missing
