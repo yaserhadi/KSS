@@ -7,4 +7,4 @@ All plan files for this project live in `.cursor/plans/`.
 
 Do not save project plans to `~/.cursor/plans/`.
 
-See KSS portable rule: `plans-location.mdc` in `~/.cursor/rules/`.
+See KSS portable rule: `plans-location.mdc` in `~/.cursor/rules/` (confirm it is listed in Cursor Customize → Rules).

@@ -12,18 +12,22 @@ When starting a session, read these files in order:
 3. `.cursor/memory/PROJECT_MANIFEST.md` — Architectural locks
 4. `.cursor/memory/STATE.yaml` — Current execution status
 5. `.cursor/memory/HANDOFF.md` — Session continuity
-6. `.cursor/memory/GOALS.md` — Strategic objectives (mandatory when present)
+6. `.cursor/memory/GOALS.md` — Strategic objectives (mandatory; `/boot` stops if unreadable)
+
+`.cursor/plans/ACTIVE.plan.md` is read only if present. INTEGRITY_RULES, VERSIONS and DEC digests are read on demand and before execution.
 
 ## Authority Model
 
 ```
-DOC_POLICY > PROJECT_MANIFEST > INTEGRITY_RULES > DEC > STATE > HANDOFF > GOALS
+DOC_POLICY → PROJECT_MANIFEST → DEC → INTEGRITY_RULES → STATE → HANDOFF → GOALS
 ```
+
+This is a reading order only; it does not establish precedence when sources conflict. If MANIFEST, DEC and INTEGRITY_RULES disagree, stop and report the conflict for an Owner decision.
 
 - DOC_POLICY contains paths only (no governance logic)
 - PROJECT_MANIFEST contains architectural locks
-- INTEGRITY_RULES contains verification gates
-- DEC digests in `.cursor/memory/decisions/` are agent-facing decision records (when the project keeps a decision registry)
+- DEC digests in `.cursor/memory/decisions/` are canonical agent-facing decision records (when the project keeps a decision registry)
+- INTEGRITY_RULES contains verifiable guardrails and verification commands
 - Decision-registry discovery for planning is via `/preplan` (Active-only candidates). `AI_ENTRY` may name the registry path/convention; it must not re-implement discovery
 - Whether Governance Applicability is mandatory is **project law**, not implied by KSS alone
 - Legacy project `docs/` is not execution authority
