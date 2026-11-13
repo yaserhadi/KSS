@@ -58,8 +58,10 @@ Try KSS on a throwaway project before adopting it.
 
 5. **Fill the placeholders.** Give the project a name, write one goal in `GOALS.md`, set `status: active` in `STATE.yaml`, and write one next action in `HANDOFF.md`.
 6. **Run `/boot`** in an Agent chat. The agent should report the project, the execution status and your next action. If it stops, a startup file is missing or unreadable.
-7. **Run `/preplan`** with a small request (for example "add a README section"). You get a Pre-Plan Charter — analysis only; no files change.
-8. **Run `/session-end`** in Agent mode. It writes `HANDOFF.md` for the next session.
+7. **Run `/preplan`** with a small request (for example "add a README section"). You get a Pre-Plan Charter — analysis only. It writes no files, is not an execution plan and does not authorize Build.
+8. **Stop here.** Read the Charter and end the trial. You have not created a plan, pressed Build or run `/git-finalize`, so there is nothing to merge or close out.
+
+Do not run `/session-end` as part of this trial. It is the governed closeout step for real work, used after Build and `/git-finalize` (see [How daily work changes](#how-daily-work-changes)). It can update `HANDOFF.md` and other governance files (through `/docpack`) and can push `main` to your remote when `main` is ahead.
 
 Then follow [INSTALL.md](INSTALL.md) for the full setup.
 
