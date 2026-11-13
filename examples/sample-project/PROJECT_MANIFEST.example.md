@@ -23,7 +23,9 @@ No architectural baseline exists outside PROJECT_MANIFEST.
 
 ## Authority Model
 
-DOC_POLICY > PROJECT_MANIFEST > INTEGRITY_RULES > ADR > STATE > HANDOFF > GOALS
+DOC_POLICY → PROJECT_MANIFEST → DEC → INTEGRITY_RULES → STATE → HANDOFF → GOALS
+
+Reading order only; it does not establish precedence when sources conflict. Conflicts between MANIFEST, DEC and INTEGRITY_RULES are reported to the Owner.
 
 ## Architectural Locks
 

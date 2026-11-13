@@ -126,7 +126,7 @@ This is a **reading order**, not a silent override stack. On conflict → Eviden
 | **Operational** | STATE, HANDOFF, ACTIVE.plan | Yes (session) |
 | **Temporary** | active `plans/*.plan.md` | Yes — scoped to todos |
 | **Evidentiary** | `reports/*` | No — context only |
-| **Informational** | GOALS, ROADMAP, LESSONS, README | No |
+| **Informational** | GOALS, ROADMAP, LESSONS, README | No (GOALS is still a required `/boot` read) |
 
 ### Agent rules
 
@@ -140,11 +140,13 @@ This is a **reading order**, not a silent override stack. On conflict → Eviden
 
 | Class | Installed to | Examples |
 |-------|--------------|----------|
-| Portable global | `~/.cursor/rules/` | plans-location, reports-location-global, git-main-merge-only |
+| Portable global | `~/.cursor/rules/` | plans-location, git-main-merge-only, conflict-governance, reports-location-global |
 | Project optional | `<project>/.cursor/rules/` | plan-preflight, plan-completion, module-creation-gate |
 | Project-only | Never in KSS install | Project-specific checklists, local git preferences |
 
-Templates for project optional rules: `templates/project-rules/`
+Templates for project optional rules: `templates/project-rules/` (rename `*.template.mdc` → `*.mdc` after copy).
+
+Installing a rule file is not proof that Cursor loads it. Cursor documents activation for `.mdc` files; `reports-location-global.md` (plain Markdown) and machine-local loading for workspaces outside the user home directory are not verified. See [Global and user rules](reference/how-to-make-global-rules.md).
 
 ---
 

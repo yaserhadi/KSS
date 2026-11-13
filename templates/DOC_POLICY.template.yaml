@@ -7,13 +7,13 @@ paths:
   rules: .cursor/rules
   reports: .cursor/reports
   plans: .cursor/plans
-  goals: .cursor/goals
+  goals: .cursor/memory/GOALS.md  # file; /boot reads this path and stops if unreadable
   conventions: .cursor/memory/conventions
   decisions: .cursor/memory/decisions
   cursor_runtime: .cursor/CURSOR_RUNTIME.md
   # architecture decisions live in memory/decisions/ (DEC digests)
   architecture: .cursor/memory/decisions
-  adr: .cursor/memory/decisions
+  adr: .cursor/memory/decisions  # legacy key name; points to DEC digests
   kss_framework: <path_to_kss_repo>
   kss_global_install: ~/.cursor
   global_commands: ~/.cursor/commands

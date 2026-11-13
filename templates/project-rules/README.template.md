@@ -1,6 +1,6 @@
 # Project Rules (optional templates)
 
-Copy selected files from this folder to **`<project>/.cursor/rules/`**.
+Copy selected files from this folder to **`<project>/.cursor/rules/`** and rename `*.template.mdc` to `*.mdc` — Cursor only recognizes project rules with the `.mdc` extension.
 
 These are **project-layer** rules — not installed to `~/.cursor/rules/`.
 

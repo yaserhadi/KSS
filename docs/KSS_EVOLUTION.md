@@ -341,3 +341,42 @@ publication:
   runtime_install: separate Owner decision
 evidence: KSS commit on branch chore/preplan-charter
 ```
+
+---
+
+## EVOL-015 — Newcomer onboarding and installation contract alignment
+
+```yaml
+id: EVOL-015
+version: unreleased
+source: Owner documentation review 2026-11-13 — published KSS@c78bb26 read as a new adopter
+lesson: >
+  Documentation must match command behavior and verified Cursor behavior. /boot requires
+  .cursor/memory/GOALS.md and reads ACTIVE.plan.md only if present, so artifacts are described in
+  three tiers: minimum startup, standard installation scaffolds, workflow-specific. Distributing a
+  rule file is not proof that Cursor loads it: activation is documented for .mdc rules; plain .md
+  rule files and machine-local loading for workspaces outside the user home directory are not
+  verified. Organizational User Rules are adopter-owned, not KSS installation files. DEC is the
+  canonical decision record; the reading order MANIFEST → DEC → INTEGRITY_RULES is aligned across
+  docs and templates without changing the authority model. The order is written with arrows and
+  stated as a reading order only: it does not establish precedence when sources conflict, and
+  conflicts between MANIFEST, DEC and INTEGRITY_RULES are reported for an Owner decision.
+changes:
+  - README.md (problem, value, daily workflow, first 10 minutes, artifact tiers, rule activation, compatibility contract adds GOALS.md, license status)
+  - INSTALL.md (install order, dec-steward, rule activation check, artifact tiers, decisions template prerequisite, GOALS upgrade note)
+  - docs/handbook.md (Quick Start, file tiers, rule sources, optional organizational User Rules, DEC-first wording, reading order with no precedence on conflict)
+  - docs/reference/how-to-make-global-rules.md (documented vs unverified rule behavior; full-path rule identity; Cursor rule-source precedence)
+  - docs/reference/adr-command.md (rewritten as /dec guidance; /adr deprecated alias)
+  - docs/GOVERNANCE_LAYERS.md, docs/reference/command-workflow.md, rules/RULES_EXPLANATION.md (alignment)
+  - philosophy.md (goals path; reading order written with arrows; no precedence on conflict)
+  - templates/DOC_POLICY.template.yaml (goals path), AI_ENTRY.template.md (GOALS mandatory; reading order with arrows, no precedence on conflict), PROJECT_MANIFEST.template.md (DEC replaces ADR; arrows; no precedence on conflict), plans/reports/project-rules README templates
+  - examples/sample-project/PROJECT_MANIFEST.example.md (additional change beyond the original plan file list, recorded as such; kept by Owner decision 2026-11-13 so the example matches the template's reading order and no-precedence statement)
+breaking_change: false
+migration_required: "Projects using .cursor/goals/GOALS.md move it to .cursor/memory/GOALS.md (INSTALL upgrade note)"
+semver: none (unreleased)
+prior_lesson: EVOL-014
+publication:
+  tag: none
+  runtime_install: none (no command or rule file changed)
+evidence: KSS commit on branch docs/kss-newcomer-onboarding
+```

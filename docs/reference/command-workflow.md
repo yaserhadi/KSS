@@ -172,6 +172,7 @@ After Build, Cursor executes the plan's todos under the project's rules. When th
 | Conditional rule (`.mdc` with `alwaysApply: false`, a `description`, or `globs`) | Applied when relevant files or requests match, or when the agent fetches it |
 | Plain Markdown (for example a `README.md` or checklist under `.cursor/rules/`) | **Not** loaded automatically; it is documentation an agent reads on purpose |
 
+- **User-level rule files** in `~/.cursor/rules/` are a different source; their loading is only partly documented. See [Global and user rules](how-to-make-global-rules.md).
 - **Naming a command does not run it.** A rule that says "re-run the `/preplan` scope check" tells the agent what to evaluate; it does not execute `/preplan`.
 
 ---
@@ -283,7 +284,7 @@ These commands were retired or renamed; their functions live on as shown. Do not
 |----------|---------|
 | [`safe-coding-practices`](../../skills/safe-coding-practices/SKILL.md) skill | Evidence-based changes, rollback |
 | Project `.cursor/rules/` (if present) | Project-specific boundary/placement rules — assessed first by `/preplan`; binding independently in Plan Mode and Build |
-| [ADR command guide](adr-command.md) | `/dec` / `/adr` for architectural decisions |
+| [Decision digests guide](adr-command.md) | `/dec` for architectural decisions (`/adr` = deprecated alias) |
 | [Boot commands paths](boot-commands-paths.md) | Canonical `.cursor/memory/` paths |
 | [KSS Handbook](../handbook.md) | KSS overview |
 

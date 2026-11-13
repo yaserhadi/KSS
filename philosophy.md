@@ -1,8 +1,5 @@
 # KSS Philosophy
 
-Owner: <KSS_Steward_Name>
-Example: KSS Steward - John
-
 ---
 
 ## Core Principle
@@ -46,7 +43,7 @@ There is **no `KSS/.cursor/`**. Templates copy into the adopter project.
 | Plans | `.cursor/plans/` | Temporary authority |
 | Reports | `.cursor/reports/` | Evidence ledger |
 | Rules | `.cursor/rules/` | Policy engine (project gates) |
-| Goals | `.cursor/goals/` | Strategic intent |
+| Goals | `.cursor/memory/GOALS.md` | Strategic intent (required `/boot` read) |
 | Commands | `~/.cursor/commands/` | User interface (Layer 2) |
 | Skills | `~/.cursor/skills/` | Capability library (Layer 2) |
 | Agents | `~/.cursor/agents/` | Specialized executors (Layer 2) |
@@ -58,7 +55,7 @@ See [docs/GOVERNANCE_LAYERS.md](docs/GOVERNANCE_LAYERS.md) for reading order and
 ## Authority Model
 
 ```
-DOC_POLICY > PROJECT_MANIFEST > DEC-* > INTEGRITY_RULES > STATE > HANDOFF > GOALS
+DOC_POLICY → PROJECT_MANIFEST → DEC-* → INTEGRITY_RULES → STATE → HANDOFF → GOALS
 ```
 
 | Layer | Authority | Content |
@@ -70,6 +67,8 @@ DOC_POLICY > PROJECT_MANIFEST > DEC-* > INTEGRITY_RULES > STATE > HANDOFF > GOAL
 | STATE | Operational | Current execution position |
 | HANDOFF | Session | Next actions |
 | GOALS | Strategic | Long-term intent |
+
+This is a reading order only; it does not establish precedence when sources conflict. When MANIFEST, DEC and INTEGRITY_RULES disagree, the agent stops and reports the conflict for an Owner decision.
 
 **DEC replaces live ADR folders** for agent execution. Human ADR trees under `docs/` are legacy; post-migration projects use DEC digests only.
 
